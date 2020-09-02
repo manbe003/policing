@@ -4,7 +4,7 @@ library(tidyr)
 library(gtools)
 
 #set working directory
-setwd("C:/Users/katie/Desktop/policing/Austin Dirty Datasets")
+setwd("C:/Users/katie/Desktop/policing/dirty data/Austin")
 
 #Call datasets Austin (citations, use of force)
 UOF15<-read.csv(file='R2R_2015.csv', stringsAsFactors = FALSE)
@@ -12,14 +12,14 @@ UOF14<-read.csv(file='R2R_2014.csv', stringsAsFactors = FALSE)
 UOF16<-read.csv(file='R2R_2016.csv', stringsAsFactors = FALSE)
 UOF17<-read.csv(file='R2R_2017.csv', stringsAsFactors = FALSE)
 UOF18<-read.csv(file='R2R_2018.csv', stringsAsFactors = FALSE)
-citations15<-read.csv(file='Racial_Profiling_Dataset_2015-_Citations.csv', stringsAsFactors = FALSE)
+citations15<-read.csv(file='2015_RP__Citations.csv', stringsAsFactors = FALSE)
 citations14<-read.csv(file='2014_RP__Citations.csv', stringsAsFactors = FALSE)
 citations16<-read.csv(file='2016_RP__Citations.csv', stringsAsFactors = FALSE)
 citations17<-read.csv(file='2017_RP__Citations.csv', stringsAsFactors = FALSE)
 Citations18<-read.csv(file='2018_RP__Citations.csv', stringsAsFactors = FALSE)
 Shooting_Incidents<-read.csv(file='Officer_Involved_Shootings_2008-17_Incidents.csv', stringsAsFactors = FALSE)
 Shooting_officers<-read.csv(file='Officer_Involved_Shootings_2008-17_Officers.csv', stringsAsFactor = FALSE)
-Shooting_Subjects<-read.csv(file='2008-17_OIS_Subjects.csv', stringsAsFactors = FALSE)
+Shooting_Subjects<-read.csv(file='Officer_Involved_Shootings_2008-17_Subjects.csv', stringsAsFactors = FALSE)
 
 
 #making columns the same so they merge easily
@@ -76,21 +76,21 @@ ALLMetadata_UOF<-cbind.data.frame(UOF_ALL$RIN,SplitDateTime_UOF_ALL$date,UOF_ALL
 colnames(ALLMetadata_UOF)<-(c("RIN", "date","time","subject race","Subject Ethnicity","subject sex","officer Yrs of service","officer commision date","officer organization Desc","Area Command"))
 
 #make all null values = NA for UOF
-ALLMetadata_UOF_NA<-ALLMetadata_UOF_ALL
-ALLMetadata_UOF_NA[ALLMetadata_UOF_ALL=="u"]<-NA
-ALLMetadata_UOF_NA[ALLMetadata_UOF_ALL==""]<-NA
-ALLMetadata_UOF_NA[ALLMetadata_UOF_ALL=="-1"]<-NA
-ALLMetadata_UOF_NA[ALLMetadata_UOF_ALL=="88"]<-NA
+ALLMetadata_UOF_NA<-ALLMetadata_UOF
+ALLMetadata_UOF_NA[ALLMetadata_UOF=="u"]<-NA
+ALLMetadata_UOF_NA[ALLMetadata_UOF==""]<-NA
+ALLMetadata_UOF_NA[ALLMetadata_UOF=="-1"]<-NA
+ALLMetadata_UOF_NA[ALLMetadata_UOF=="88"]<-NA
 
 #changing race to be words instead of single letters & to match Citations
 AllMetadata_UOF_FixRace<-ALLMetadata_UOF_NA
-AllMetadata_UOF_FixRace[ALLMetadata_UOF_ALL=="W"]<-("White")
-AllMetadata_UOF_FixRace[ALLMetadata_UOF_ALL=="B"]<-("Black")
-AllMetadata_UOF_FixRace[ALLMetadata_UOF_ALL=="A"]<-("Asian")
-AllMetadata_UOF_FixRace[ALLMetadata_UOF_ALL=="H"]<-("Hispanic")
-AllMetadata_UOF_FixRace[ALLMetadata_UOF_ALL=="I"]<-("Native American")
-AllMetadata_UOF_FixRace[ALLMetadata_UOF_ALL=="M"]<-("Middle Eastern")
-AllMetadata_UOF_FixRace[ALLMetadata_UOF_ALL=="P"]<-("Hawaiian or Pacific Islander")
+AllMetadata_UOF_FixRace[ALLMetadata_UOF=="W"]<-("White")
+AllMetadata_UOF_FixRace[ALLMetadata_UOF=="B"]<-("Black")
+AllMetadata_UOF_FixRace[ALLMetadata_UOF=="A"]<-("Asian")
+AllMetadata_UOF_FixRace[ALLMetadata_UOF=="H"]<-("Hispanic")
+AllMetadata_UOF_FixRace[ALLMetadata_UOF=="I"]<-("Native American")
+AllMetadata_UOF_FixRace[ALLMetadata_UOF=="M"]<-("Middle Eastern")
+AllMetadata_UOF_FixRace[ALLMetadata_UOF=="P"]<-("Hawaiian or Pacific Islander")
 
 
 #fixing column names to match for easy combining

@@ -91,16 +91,12 @@ PercentNAUnique<-function(metadata, NumTotalNAsAllowableInRow){
 join_analysis<-function(column_name_fromdataset1, column_name_fromdataset2){
   Dataset1<-as.numeric(column_name_fromdataset1)
   Dataset2<-as.numeric(column_name_fromdataset2)
-  unique_values1<-unique(Dataset1)  
-  count<-data.frame(matrix(NA,nrow=length(Dataset2),ncol=3))
-  for (i in 1:length(unique_values1)){
-    ID<-unique_values1[i]
-    count[,3][i]<-sum(Dataset2==ID, na.rm = TRUE)
-    count[,2][i]<-sum(Dataset1==ID, na.rm=TRUE)
-    count[,1][i]<-unique_values1[i]
-  }
-  colnames(count)<-cbind("value","instances in dataset 1", "instances in dataset 2")
-return(as.data.frame(count))
+  count<-merge(aggregate(. ~ ind, stack(table(Dataset1)), sum),
+                       aggregate (. ~ ind, stack (table(Dataset2)), sum),
+                       by = "ind", all.x = TRUE
+                               )
+  count[count==NA]<-0       
+return(count)
   }
   
   

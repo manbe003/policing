@@ -1,4 +1,3 @@
-#test
 #first I want to call libraries
 library(dplyr)
 library(tidyr)
@@ -83,10 +82,10 @@ AllMetadata_Citations_NA[citations=="-"]<-NA
 
 
 #formatting of 99 and sector is weird. Fix by only taking the first value.
-AllMetadata_Citations_NA$sector<-substr(AllMetadata_Citations_NA$sector,0,1)
+AllMetadata_Citations_NA$Sector<-substr(AllMetadata_Citations_NA$Sector,0,1)
 
 #Back to NA replace
-AllMetadata_Citations_NA[AllMetadata_Citations=="9"]<-NA
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="9"]<-NA
 
 
 #sometimes spelled Southwest, sometimes SouthWest
@@ -97,6 +96,9 @@ AllMetadata_Citations_CleanPrecinct[AllMetadata_Citations_CleanPrecinct=="SouthW
 AllMetadata_Citations_NA$Reported.Date<-FixDate_Citations$date
 AllMetadata_Citations_NA$Reported.Time<-FixTime_Citations[,1]
 AllMetadata_Citations_NA$Precinct<-AllMetadata_Citations_CleanPrecinct$Precinct
+
+#officer ID has two spaces after it. Need to be cleaned
+AllMetadata_Citations_NA$Officer.ID <-trimws(citations$Officer.ID)
 
 #write the file to a new location in clean data folder!
 write.csv(AllMetadata_Citations_NA,"C://Users/Katherine Manbeck/Desktop/Everything clinical psych/research related/Police Accountability Folder/policing/clean data\\citations_Seattle.csv",row.names = FALSE)

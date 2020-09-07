@@ -14,10 +14,12 @@ shootings<-read.csv(file='Shootings_Seattle.csv', stringsAsFactors = FALSE)
 
 
 #I want to use a function I made that will spit out for each column: 1) how many NAs and 2) how many of those NAs are unique to the column (i.e. do not overlap with another column's NA)
-UOF<-createNAChart(AllMetadata_UOF_Standardized)
-Citations<-createNAChart(Metadata_Citations_Standardized)
-shootings<-createNAChart(AllMetadata_shootings_clean)
+UOF_NAchart<-createNAChart(UOF)
+Citations_NAchart<-createNAChart(citations)
+shootings_NAchart<-createNAChart(shootings)
 
 #now I want to see histograms of join analysis
-
+UOFandcitations_officerID<-join_analysis(UOF$Officer_ID, citations$Officer.ID)
+UOFandcitations_officerID[is.na(UOFandcitations_officerID)]<-0
+hist(UOFandcitations_officerID$values.x, breaks = 200)
               

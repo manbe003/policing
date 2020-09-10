@@ -39,6 +39,7 @@ UOF16_Fix_Col<-UOF16_Fix_Col %>% rename(Date.Occurred = Date..Occurred,
                                         Number.Shots = Number..Shots,
                                         Officer.Organization.Desc = Officer..Organization.Desc,
                                         Officer.Commission.Date = Officer..Commission.Date)
+
 UOF17_Fix_Col<-UOF17_Fix_Col %>% rename(Date.Occurred = Date..Occurred,
                          Time.Occurred = Time..Occurred,
                          Area.Command = Area..Command,
@@ -72,7 +73,7 @@ SplitDateTime_UOF_ALL<-do.call(rbind, SplitDateTime_UOF_ALL)
 colnames(SplitDateTime_UOF_ALL)<-(c("date", "time"))
 SplitDateTime_UOF_ALL<-as.data.frame(SplitDateTime_UOF_ALL, stringsAsFactors=FALSE)
 #making a tables with relevant metadata
-ALLMetadata_UOF<-cbind.data.frame(SplitDateTime_UOF_ALL$date,UOF_ALL$Time.Occurred,UOF_ALL$Subject.Race,UOF_ALL$Subject.Ethnicity,UOF_ALL$Subject.Sex,UOF_ALL$Officer.Yrs.of.Service,UOF_ALL$Area.Command, stringAsFactors=FALSE)
+ALLMetadata_UOF<-cbind.data.frame(SplitDateTime_UOF_ALL$date,UOF_ALL$Time.Occurred,UOF_ALL$Subject.Race,UOF_ALL$Subject.Ethnicity,UOF_ALL$Subject.Sex,UOF_ALL$Officer.Yrs.of.Service,UOF_ALL$Area.Command, stringsAsFactors=FALSE)
 colnames(ALLMetadata_UOF)<-(c("date","time","subject race","Subject Ethnicity","subject sex","officer Yrs of service","Area Command"))
 
 #make all null values = NA for UOF
@@ -84,13 +85,13 @@ ALLMetadata_UOF_NA[ALLMetadata_UOF=="88"]<-NA
 
 #changing race to be words instead of single letters & to match Citations
 AllMetadata_UOF_FixRace<-ALLMetadata_UOF_NA
-AllMetadata_UOF_FixRace[ALLMetadata_UOF=="W"]<-("White")
-AllMetadata_UOF_FixRace[ALLMetadata_UOF=="B"]<-("Black")
-AllMetadata_UOF_FixRace[ALLMetadata_UOF=="A"]<-("Asian")
-AllMetadata_UOF_FixRace[ALLMetadata_UOF=="H"]<-("Hispanic")
-AllMetadata_UOF_FixRace[ALLMetadata_UOF=="I"]<-("Native American")
-AllMetadata_UOF_FixRace[ALLMetadata_UOF=="M"]<-("Middle Eastern")
-AllMetadata_UOF_FixRace[ALLMetadata_UOF=="P"]<-("Hawaiian or Pacific Islander")
+AllMetadata_UOF_FixRace$`subject race`[AllMetadata_UOF_FixRace$`subject race`=="W"]<-("White")
+AllMetadata_UOF_FixRace$`subject race`[AllMetadata_UOF_FixRace$`subject race`=="B"]<-("Black")
+AllMetadata_UOF_FixRace$`subject race`[AllMetadata_UOF_FixRace$`subject race`=="A"]<-("Asian")
+AllMetadata_UOF_FixRace$`subject race`[AllMetadata_UOF_FixRace$`subject race`=="H"]<-("Hispanic")
+AllMetadata_UOF_FixRace$`subject race`[AllMetadata_UOF_FixRace$`subject race`=="I"]<-("Native American")
+AllMetadata_UOF_FixRace$`subject race`[AllMetadata_UOF_FixRace$`subject race`=="M"]<-("Middle Eastern")
+AllMetadata_UOF_FixRace$`subject race`[AllMetadata_UOF_FixRace$`subject race`=="P"]<-("Hawaiian or Pacific Islander")
 
 #Saving new dataset into clean data
 write.csv(AllMetadata_UOF_FixRace,"C:/Users/katie/Desktop/policing/clean data/Austin\\UseOfForce_Austin.csv",row.names = FALSE)
@@ -125,12 +126,12 @@ ALLMetadata_Citations_NA[AllMetadata_Citations=="O"]<-NA
 
 #changing race to be words
 AllMetadata_citations_FixRace<-ALLMetadata_Citations_NA
-AllMetadata_citations_FixRace[AllMetadata_Citations=="W"]<-("White")
-AllMetadata_citations_FixRace[AllMetadata_Citations=="B"]<-("Black")
-AllMetadata_citations_FixRace[AllMetadata_Citations=="A"]<-("Asian")
-AllMetadata_citations_FixRace[AllMetadata_Citations=="H"]<-("Hispanic")
-AllMetadata_citations_FixRace[AllMetadata_Citations=="ME"]<-("Middle Eastern")
-AllMetadata_citations_FixRace[AllMetadata_Citations=="N"]<-("Native American")
+AllMetadata_citations_FixRace$`Subject Race`[AllMetadata_citations_FixRace$`Subject Race`=="W"]<-("White")
+AllMetadata_citations_FixRace$`Subject Race`[AllMetadata_citations_FixRace$`Subject Race`=="B"]<-("Black")
+AllMetadata_citations_FixRace$`Subject Race`[AllMetadata_citations_FixRace$`Subject Race`=="A"]<-("Asian")
+AllMetadata_citations_FixRace$`Subject Race`[AllMetadata_citations_FixRace$`Subject Race`=="H"]<-("Hispanic")
+AllMetadata_citations_FixRace$`Subject Race`[AllMetadata_citations_FixRace$`Subject Race`=="ME"]<-("Middle Eastern")
+AllMetadata_citations_FixRace$`Subject Race`[AllMetadata_citations_FixRace$`Subject Race`=="N"]<-("Native American")
 
 #saving new dataset to clean data file
 write.csv(AllMetadata_citations_FixRace,"C:/Users/katie/Desktop/policing/clean data/Austin\\Citations_Austin.csv",row.names = FALSE)
@@ -140,8 +141,8 @@ OIS_ALL<-merge(Shooting_officers,Shooting_Subjects)
 OIS_ALL<-merge(OIS_ALL,Shooting_Incidents)
 
 #make a table with available data
-AllMetadata_Shootings<-cbind.data.frame(OIS_ALL$Case..,OIS_ALL$Date,OIS_ALL$Time,OIS_ALL$Officer.Name,OIS_ALL$Rank,OIS_ALL$Officer.Race.Ethnicity,OIS_ALL$Officer.Gender,OIS_ALL$Prev.OIS,OIS_ALL$Less.Lethal.Force.used.by.APD.prior.to.shooting.,OIS_ALL$Subject.Race.Ethnicity,OIS_ALL$Subject.Gender, stringsAsFactors = FALSE)
-colnames(AllMetadata_Shootings)<-(c("Case","Date","Time","Officer Name","Officer Rank","Officer Race","Officer Gender","Officer Prev. OIS","Less Lethal Force Used Before Shooting","Subject Race","Subject Gender"))
+AllMetadata_Shootings<-cbind.data.frame(OIS_ALL$Case..,OIS_ALL$Date,OIS_ALL$Time,OIS_ALL$Officer.Name,OIS_ALL$Rank,OIS_ALL$Officer.Race.Ethnicity,OIS_ALL$Officer.Gender,OIS_ALL$Officer.Age,OIS_ALL$Prev.OIS,OIS_ALL$Subject.Race.Ethnicity,OIS_ALL$Subject.Gender,OIS_ALL$Subject.Injuries, stringsAsFactors = FALSE)
+colnames(AllMetadata_Shootings)<-(c("Case","Date","Time","Officer Name","Officer Rank","Officer Race","Officer Gender","Officer Age","Officer Prev. OIS","Subject Race","Subject Gender","Subject Injuries" ))
 
 #saving new dataset to clean data file
 write.csv(AllMetadata_Shootings,"C:/Users/katie/Desktop/policing/clean data/Austin\\Shootings_Austin.csv",row.names = FALSE)

@@ -82,6 +82,7 @@ ALLMetadata_UOF_NA[ALLMetadata_UOF=="u"]<-NA
 ALLMetadata_UOF_NA[ALLMetadata_UOF==""]<-NA
 ALLMetadata_UOF_NA[ALLMetadata_UOF=="-1"]<-NA
 ALLMetadata_UOF_NA[ALLMetadata_UOF=="88"]<-NA
+ALLMetadata_UOF_NA[ALLMetadata_UOF=="-2"]<-NA
 
 #changing race to be words instead of single letters & to match Citations
 AllMetadata_UOF_FixRace<-ALLMetadata_UOF_NA

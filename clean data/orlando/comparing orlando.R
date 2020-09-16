@@ -1,3 +1,5 @@
+#####################
+
 #first I want to call libraries
 library(dplyr)
 library(tidyr)
@@ -83,14 +85,13 @@ AllMetadata_shootings_Fix$Officer.Race <- gsub('W', 'White', AllMetadata_shootin
 AllMetadata_shootings_Fix$Officer.Race <- gsub('A', 'Asian', AllMetadata_shootings_Fix$Officer.Race)
 AllMetadata_shootings_Fix$Officer.Race <- gsub('B', 'Black', AllMetadata_shootings_Fix$Officer.Race)
 AllMetadata_shootings_Fix$Officer.Race <- gsub('U', 'Unknown', AllMetadata_shootings_Fix$Officer.Race)
-AllMetadata_shootings_Fix$Officer.Race <- gsub('O', 'Omitted', AllMetadata_shootings_Fix$Officer.Race)
+AllMetadata_shootings_Fix$Officer.Race <- gsub('O', 'Unknown', AllMetadata_shootings_Fix$Officer.Race)
 
 AllMetadata_shootings_Fix$Officer.Ethnicity <- gsub('N', 'Non-hispanic', AllMetadata_shootings_Fix$Officer.Ethnicity)
 AllMetadata_shootings_Fix$Officer.Ethnicity <- gsub('H', 'Hispanic', AllMetadata_shootings_Fix$Officer.Ethnicity)
 AllMetadata_shootings_Fix$Officer.Ethnicity <- gsub('U', 'Unknown', AllMetadata_shootings_Fix$Officer.Ethnicity)
-AllMetadata_shootings_Fix$Officer.Ethnicity <- gsub('W', 'White', AllMetadata_shootings_Fix$Officer.Race)
-AllMetadata_shootings_Fix$Officer.Ethnicity <- gsub('A', 'Asian', AllMetadata_shootings_Fix$Officer.Race)
-
+AllMetadata_shootings_Fix$Officer.Ethnicity <- gsub('W', 'White', AllMetadata_shootings_Fix$Officer.Ethnicity)
+AllMetadata_shootings_Fix$Officer.Ethnicity <- gsub('A', 'Asian', AllMetadata_shootings_Fix$Officer.Ethnicity)
 
 AllMetadata_shootings_Fix$Officer.Gender <- gsub('M', 'Male', AllMetadata_shootings_Fix$Officer.Gender)
 AllMetadata_shootings_Fix$Officer.Gender <- gsub('F', 'Female', AllMetadata_shootings_Fix$Officer.Gender)

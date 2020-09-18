@@ -26,36 +26,24 @@ DallasShootings[133, 6] = "Pinedo, Gerardo L/M"
 DallasShootings[228, 6] = "Paredez, Domingo L/M"
 DallasShootings[18, 6] = "Luster, Desmond-Dwayne B/M"
 DallasShootings[84, 7] = "Carballo, Rolando L/M; Alexander, Alphonse B/M"
+DallasShootings[147, 7] = "Loeb, Jeffrey W/M"
 
-#I need to seperate subject_info 
-DallasShootings <- data.frame(DallasShootings,do.call(rbind,str_split(DallasShootings$subject_info,",")))
-colnames(DallasShootings)[which(names(DallasShootings) == "X1")] <- "subject_last_name"
-colnames(DallasShootings)[which(names(DallasShootings) == "X2")] <- "first_name_race_gender"
-DallasShootings <- data.frame(DallasShootings,do.call(rbind,str_split(DallasShootings$first_name_race_gender," ")))
-colnames(DallasShootings)[which(names(DallasShootings) == "X2")] <- "subject_first_name"
-colnames(DallasShootings)[which(names(DallasShootings) == "X3.1")] <- "race_gender"
-DallasShootings <- data.frame(DallasShootings,do.call(rbind,str_split(DallasShootings$race_gender,"/")))
-colnames(DallasShootings)[which(names(DallasShootings) == "X1.1")] <- "subject_race"
-colnames(DallasShootings)[which(names(DallasShootings) == "X2")] <- "subject_gender"
-DallasShootings$subject_name <- paste(DallasShootings$subject_first_name, DallasShootings$subject_last_name)
-DallasShootings[ ,c(8,9,13,14,15,16,18,19,20,12,17)] <- list(NULL)
+DallasShootings$officer_info <- gsub("[.]", "", DallasShootings$officer_info)
+DallasShootings$officer_info <- gsub("[!#$%&'()*+-./:;<=>?@[]^_`|~.]", "", DallasShootings$officer_info)
+ 
+#better way to do the same thing
+DallasShootings <-separate(DallasShootings, subject_info, c('last_name', 'first_race_gender'), sep=", ")
+DallasShootings <-separate(DallasShootings, first_race_gender, c('first_name', 'race_gender'), sep=" ")
+DallasShootings <-separate(DallasShootings, race_gender, c('subject_race', 'subject_gender'), sep="/")
+DallasShootings$subject_name <- paste(DallasShootings$first_name, DallasShootings$last_name)
+DallasShootings[ ,c("last_name", "first_name")] <- list(NULL)
 
-
-
-DallasShootings <- data.frame(DallasShootings,do.call(rbind,str_split(DallasShootings$officer_info,",")))
-colnames(DallasShootings)[which(names(DallasShootings) == "X1")] <- "officer_last_name"
-colnames(DallasShootings)[which(names(DallasShootings) == "X2")] <- "first_name_race_gender"
-DallasShootings <- data.frame(DallasShootings,do.call(rbind,str_split(DallasShootings$first_name_race_gender," ")))
-colnames(DallasShootings)[which(names(DallasShootings) == "X2")] <- "officer_first_name"
-colnames(DallasShootings)[which(names(DallasShootings) == "X3.1")] <- "race_gender"
-DallasShootings <- data.frame(DallasShootings,do.call(rbind,str_split(DallasShootings$race_gender,"/")))
-colnames(DallasShootings)[which(names(DallasShootings) == "X1.1")] <- "officer_race"
-colnames(DallasShootings)[which(names(DallasShootings) == "X2")] <- "officer_gender"
-DallasShootings$officer_name <- paste(DallasShootings$officer_first_name, DallasShootings$officer_last_name)
-DallasShootings[ ,c(13:37)] <- list(NULL)
-
-
-
+#does not work yet
+DallasShootings <-separate(DallasShootings, officer_info, c('o_last_name', 'o_first_race_gender'), sep=", ")
+DallasShootings <-separate(DallasShootings, o_first_race_gender, c('o_first_name', 'o_race_gender'), sep=" ")
+DallasShootings <-separate(DallasShootings, o_race_gender, c('officer_race', 'officer_gender'), sep="/")
+DallasShootings$officer_name <- paste(DallasShootings$o_first_name, DallasShootings$o_last_name)
+DallasShootings[ ,c("o_last_name", "o_first_name")] <- list(NULL)
 
 #Replace B with Black, ect
 DallasShootings$subject_race[DallasShootings$subject_race == "B"] <- "Black"
@@ -69,7 +57,8 @@ DallasShootings$subject_gender[DallasShootings$subject_gender == "F"] <- "Female
 DallasShootings$subject_gender[DallasShootings$subject_gender == "F;"] <- "Female;"
 DallasShootings$subject_gender[DallasShootings$subject_gender == "Unknown"] <- NA
 DallasShootings$subject_name[DallasShootings$subject_name == "Unknown Unknown"] <- NA
-
+DallasShootings$grand_jury_disposition[DallasShootings$grand_jury_disposition == "N/A"] <- NA
+DallasShootings$attorney_general_forms[DallasShootings$attorney_general_forms == "N/A"] <- NA
 DallasShootings$officer_race[DallasShootings$officer_race == "B"] <- "Black"
 DallasShootings$officer_race[DallasShootings$officer_race == "W"] <- "White"
 DallasShootings$officer_race[DallasShootings$officer_race == "L"] <- "Latinx"
@@ -85,7 +74,7 @@ DallasShootings$officer_name[DallasShootings$officer_name == "Unknown Unknown"] 
 
 #export into clean data folder!
 dir.create("~/Desktop/policing/clean data/Dallas")
-write.csv(AllMetadata_UOF_Standardized,"~/Desktop/policing/clean data/Dallas\\Shootings_Dallas.csv",row.names = FALSE)
+write.csv(DallasShootings,"~/Desktop/policing/clean data/Dallas\\Shootings_Dallas.csv",row.names = FALSE)
 
 
 #lets clean the other datasets. First we read in all of the R2R ones
@@ -99,7 +88,8 @@ Dallas_R2R_2019 <- read.csv("Police_Response_to_Resistance___2019.csv", stringsA
 
 
 #making all of the datasets have the same column names, in the same order
-Y_Dallas_R2R_2013<-cbind.data.frame(Dallas_R2R_2013[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", 'OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT")], stringsAsFactors=FALSE)
+
+Y_Dallas_R2R_2013<-cbind.data.frame(Dallas_R2R_2013[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT")], stringsAsFactors=FALSE)
 Y_Dallas_R2R_2014<-cbind.data.frame(Dallas_R2R_2014[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT")], stringsAsFactors=FALSE)
 Y_Dallas_R2R_2015<-cbind.data.frame(Dallas_R2R_2015[, c("OCCURRED_DT", "CURRENT_BADGE_NO", "OffSex", "OffRace", "HIRE_DT", "OffCondType", "OFF_INJURED", "OFF_HOSPITAL", "SERVICE_TYPE", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURED", "CitCondType", "CIT_ARRESTED", "CIT_INFL_ASSMT", "CitChargeType")], stringsAsFactors=FALSE)
 colnames(Y_Dallas_R2R_2015) <- c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT")
@@ -116,19 +106,33 @@ Dallas_R2R[ ,"CURRENT_BAxx"] <- list(NULL)
 #changing the column names
 colnames(Dallas_R2R) <- c("date", "officer_badge_number", "officer_gender", "officer_race", "hire_date", "officer_injury_type", "officer_injured", "officer_hospital", "service_type", "force_type", "force_reason", "subject_race", "subject-gender", "subject_injury", "subject_injury_type", "subject_arrested", "subject_influence_assesment", "subject_charge")
 
-
+#fixing small issues
 Dallas_R2R[Dallas_R2R == "NULL"] <- NA
 Dallas_R2R$subject_injury_type[Dallas_R2R$subject_injury_type == "No injuries noted or visible"] <- NA
 Dallas_R2R$officer_injury_type[Dallas_R2R$officer_injury_type == "No injuries noted or visible"] <- NA
-Dallas_R2R$subject_injury[Dallas_R2R$subject_injury == "false"] <- no
-Dallas_R2R$subject_injury[Dallas_R2R$subject_injury == "true"] <- yes
-Dallas_R2R$subject_arrested[Dallas_R2R$subject_arrested == "false"] <- no
-Dallas_R2R$subject_arrested[Dallas_R2R$subject_arrested == "true"] <- yes
-Dallas_R2R$officer_injury[Dallas_R2R$officer_injury == "false"] <- no
-Dallas_R2R$officer_injury[Dallas_R2R$officert_injury == "true"] <- yes
-Dallas_R2R$officer_hospital[Dallas_R2R$officer_hospital == "false"] <- no
-Dallas_R2R$officer_hospital[Dallas_R2R$officert_hospital == "true"] <- yes
+Dallas_R2R$subject_injury[Dallas_R2R$subject_injury == "false"] <- "no"
+Dallas_R2R$subject_injury[Dallas_R2R$subject_injury == "true"] <- "yes"
+Dallas_R2R$subject_arrested[Dallas_R2R$subject_arrested == "false"] <- "no"
+Dallas_R2R$subject_arrested[Dallas_R2R$subject_arrested == "true"] <- "yes"
+Dallas_R2R$officer_injury[Dallas_R2R$officer_injury == "false"] <- "no"
+Dallas_R2R$officer_injury[Dallas_R2R$officert_injury == "true"] <- "yes"
+Dallas_R2R$officer_hospital[Dallas_R2R$officer_hospital == "false"] <- "no"
+Dallas_R2R$officer_hospital[Dallas_R2R$officert_hospital == "true"] <- "yes"
+Dallas_R2R$subject_influence_assesment[Dallas_R2R$subject_influence_assesment == "Unknown"] <- NA
+
+#fix this
+
+
+#fix date and hire date
+stopwords = c(" 12:00:00 AM") 
+Dallas_R2R$hire_date <- gsub(paste0(stopwords, collapse = "|"),"", Dallas_R2R$hire_date)
+Dallas_R2R$hire_date <- gsub(paste0(stopwords, collapse = "|"),"", Dallas_R2R$hire_date)
+
+dir.create("~/Desktop/policing/clean data/Dallas")
+write.csv(Dallas_R2R,"~/Desktop/policing/clean data/Dallas\\Dallas_R2R.csv",row.names = FALSE)
+
 
 View(Dallas_R2R)
-#fix date and hire date
-#No injuries noted or visible to NA. Null to NA
+
+
+

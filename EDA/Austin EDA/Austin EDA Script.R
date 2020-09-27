@@ -24,6 +24,9 @@ UOF_EDA$officer.Yrs.of.serviceNA = as.numeric(UOF_EDA$officer.Yrs.of.service)
 YrsOfServicewoNA = na.exclude(UOF_EDA$officer.Yrs.of.serviceNA)
 sd(YrsOfServicewoNA)
 
+#variation
+var(Shootings_EDA$Officer.Age)
+var(YrsOfServicewoNA)
 
 ##graphs
 hist(as.numeric(UOF_EDA$officer.Yrs.of.service), breaks = 50)

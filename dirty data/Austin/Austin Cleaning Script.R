@@ -78,11 +78,12 @@ colnames(ALLMetadata_UOF)<-(c("date","time","subject race","Subject Ethnicity","
 
 #make all null values = NA for UOF
 ALLMetadata_UOF_NA<-ALLMetadata_UOF
-ALLMetadata_UOF_NA[ALLMetadata_UOF=="u"]<-NA
+ALLMetadata_UOF_NA[ALLMetadata_UOF=="U"]<-NA
 ALLMetadata_UOF_NA[ALLMetadata_UOF==""]<-NA
 ALLMetadata_UOF_NA[ALLMetadata_UOF=="-1"]<-NA
 ALLMetadata_UOF_NA[ALLMetadata_UOF=="88"]<-NA
 ALLMetadata_UOF_NA[ALLMetadata_UOF=="-2"]<-NA
+ALLMetadata_UOF_NA[ALLMetadata_UOF=="-"]<-NA
 
 #changing race to be words instead of single letters & to match Citations
 AllMetadata_UOF_FixRace<-ALLMetadata_UOF_NA
@@ -124,6 +125,7 @@ colnames(AllMetadata_Citations)<-(c("Citation Number","Date","Time","Subject Rac
 ALLMetadata_Citations_NA<-AllMetadata_Citations
 ALLMetadata_Citations_NA[AllMetadata_Citations==""]<-NA
 ALLMetadata_Citations_NA[AllMetadata_Citations=="O"]<-NA
+ALLMetadata_Citations_NA[AllMetadata_Citations=="U"]<-NA
 
 #changing race to be words
 AllMetadata_citations_FixRace<-ALLMetadata_Citations_NA

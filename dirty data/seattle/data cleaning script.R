@@ -4,7 +4,7 @@ library(tidyr)
 library(stringr)
 
 #set working directory
-setwd("C://Users/Katherine Manbeck/Desktop/Everything clinical psych/research related/Police Accountability Folder/policing/dirty data/seattle")
+setwd("/Users/katherine/Policing/dirty data/seattle")
 
 #I want to call in my datasets (citations, use of force).
 UOF<-read.csv(file='use_of_force_Seattle.csv', stringsAsFactors = FALSE)
@@ -141,8 +141,33 @@ AllMetadata_shootings[AllMetadata_shootings=="\nUnknown"]<-NA
 AllMetadata_shootings[AllMetadata_shootings=="Missing"]<-NA
 
 
+#clean weapon type
+AllMetadata_shootings[AllMetadata_shootings=="\n9mm semi-automatic"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings==".22 caliber pistol"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings==".357 revolver"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="6 shot .357 revolver"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Colt Revolver"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Gun"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Mac-10, 9 mm machine pistol"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Rifle"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Rifle   "]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Rifle w/ bayonet"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Semil automatic .38 caliber handgun"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Handgun"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Shotgun"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="N/A"]<-NA
+AllMetadata_shootings[AllMetadata_shootings=="No "]<-"No"
+
+#make years of SPD service numeric
+AllMetadata_shootings[AllMetadata_shootings=="<1"]<-0
+AllMetadata_shootings$Years.of.SPD.Service<-as.numeric(AllMetadata_shootings$Years.of.SPD.Service)
+
+#clean number of rounds
+AllMetadata_shootings$Number.of.Rounds[AllMetadata_shootings$Number.of.Rounds=="9"]<-"Multiple"
+AllMetadata_shootings$Number.of.Rounds[AllMetadata_shootings$Number.of.Rounds=="14"]<-"Multiple"
+
 #combine data into one dataset
 AllMetadata_shootings_clean<-cbind.data.frame(AllMetadata_shootings[,1:3],shooting_time,AllMetadata_shootings[,5:28])
 
 #save!
-write.csv(AllMetadata_shootings_clean,"C://Users/Katherine Manbeck/Desktop/Everything clinical psych/research related/Police Accountability Folder/policing/clean data\\shootings_Seattle.csv",row.names = FALSE)
+write.csv(AllMetadata_shootings_clean,"/Users/katherine/Policing/clean data/seattle/shootings_Seattle.csv",row.names = FALSE)

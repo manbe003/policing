@@ -124,8 +124,8 @@ Dallas_R2R <- Dallas_R2R %>% mutate_all(na_if,"Unknown")
 
 DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Toy Handun"] <- "Toy Handgun"
 Dallas_R2R$subject_race[Dallas_R2R$subject_race == "Other"] <- NA
-Dallas_R2R$subject_race[Dallas_R2R$subject_race == c("American Ind")] <- "Indigenous"
-Dallas_R2R$officer_race[Dallas_R2R$officer_race == c("American Ind")] <- "Indigenous"
+Dallas_R2R$subject_race[Dallas_R2R$subject_race == "American Ind"] <- "Indigenous"
+Dallas_R2R$officer_race[Dallas_R2R$officer_race == "American Ind"] <- "Indigenous"
 
 
 #fix date and hire date

@@ -41,6 +41,15 @@ AllMetadata_UOF_FixRace[AllMetadata_UOF=="American Indian/Alaska Native"]<-("Ame
 AllMetadata_UOF_FixRace[AllMetadata_UOF=="Nat Hawaiian/Oth Pac Islander"]<-("Native Hawaiian or Other Pacific Islander")
 AllMetadata_UOF_FixRace[AllMetadata_UOF=="Hispanic or Latino"]<-"Hispanic"
 
+#make yes/no = true/false
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="yes"]<-TRUE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="Yes"]<-TRUE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="YES"]<-TRUE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="no"]<-FALSE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="No"]<-FALSE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="NO"]<-FALSE
+
+
 #There are two of each letter in sector. Here I'm trying to make all the letters the same. 
 AllMetadata_UOF_FixSector<-AllMetadata_UOF_FixRace
 AllMetadata_UOF_FixSector<-as.data.frame(substr(AllMetadata_UOF_NA$Sector, 0,1),stringsAsFactors = FALSE)
@@ -49,7 +58,7 @@ AllMetadata_UOF_Standardized<-cbind.data.frame(AllMetadata_UOF_FixRace[,1:6],All
 colnames(AllMetadata_UOF_Standardized)[7]<-c("sector")
 
 #okay, now we'll export into a new dataset in a clean data folder
-write.csv(AllMetadata_UOF_Standardized,"C://Users/Katherine Manbeck/Desktop/Everything clinical psych/research related/Police Accountability Folder/policing/clean data\\UseOfForce_Seattle.csv",row.names = FALSE)
+write.csv(AllMetadata_UOF_Standardized,"/Users/katherine/Policing/clean data/seattle\\UseOfForce_Seattle.csv",row.names = FALSE)
 
 
 #need to reorder date for citations to follow m/d/y format
@@ -81,6 +90,15 @@ AllMetadata_Citations_NA[citations=="Unable to Determine"]<-NA
 AllMetadata_Citations_NA[citations=="-"]<-NA
 
 
+#make yes/no = true/false
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="yes"]<-TRUE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Yes"]<-TRUE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="YES"]<-TRUE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="no"]<-FALSE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="No"]<-FALSE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="NO"]<-FALSE
+
+
 #formatting of 99 and sector is weird. Fix by only taking the first value.
 AllMetadata_Citations_NA$Sector<-substr(AllMetadata_Citations_NA$Sector,0,1)
 
@@ -101,7 +119,7 @@ AllMetadata_Citations_NA$Precinct<-AllMetadata_Citations_CleanPrecinct$Precinct
 AllMetadata_Citations_NA$Officer.ID <-trimws(citations$Officer.ID)
 
 #write the file to a new location in clean data folder!
-write.csv(AllMetadata_Citations_NA,"C://Users/Katherine Manbeck/Desktop/Everything clinical psych/research related/Police Accountability Folder/policing/clean data\\citations_Seattle.csv",row.names = FALSE)
+write.csv(AllMetadata_Citations_NA,"/Users/katherine/Policing/clean data/seattle\\citations_Seattle.csv",row.names = FALSE)
 
 
 #finally fix the officer involved shooting dataset. I need to standardize times and races
@@ -140,6 +158,13 @@ AllMetadata_shootings[AllMetadata_shootings==""]<-NA
 AllMetadata_shootings[AllMetadata_shootings=="\nUnknown"]<-NA
 AllMetadata_shootings[AllMetadata_shootings=="Missing"]<-NA
 
+#make yes/no = true/false
+AllMetadata_shootings[AllMetadata_shootings=="yes"]<-TRUE
+AllMetadata_shootings[AllMetadata_shootings=="Yes"]<-TRUE
+AllMetadata_shootings[AllMetadata_shootings=="YES"]<-TRUE
+AllMetadata_shootings[AllMetadata_shootings=="no"]<-FALSE
+AllMetadata_shootings[AllMetadata_shootings=="No"]<-FALSE
+AllMetadata_shootings[AllMetadata_shootings=="NO"]<-FALSE
 
 #clean weapon type
 AllMetadata_shootings[AllMetadata_shootings=="\n9mm semi-automatic"]<-"gun"

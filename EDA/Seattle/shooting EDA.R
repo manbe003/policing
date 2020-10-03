@@ -1,17 +1,13 @@
 #first I want to call libraries
 library(dplyr)
-library(tidyr)
 library(stringr)
-library(Policingfunctions)
 library(tidyverse)
 
 #set working directory
 setwd("/Users/katherine/Policing/clean data/seattle")
 
 #I want to call in my datasets (citations, use of force).
-UOF<-read.csv(file='UseOfForce_Seattle.csv', stringsAsFactors = FALSE)
-citations<-read.csv(file='citations_Seattle.csv', stringsAsFactors = FALSE)
-shootings<-read.csv(file='shootings_Seattle.csv', stringsAsFactors = FALSE)
+shootings<-read.csv(file='shootings_Seattle.csv', stringsAsFactors = TRUE)
 
 #summary data
 summary(shootings)
@@ -23,14 +19,23 @@ sd(shootings$Subject.Age, na.rm=TRUE)
 var(shootings$Years.of.SPD.Service, na.rm=TRUE)
 sd(shootings$Years.of.SPD.Service, na.rm=TRUE)
 
+#histogram of age
+hist(shootings$Subject.Age, breaks = 25)
+
+#boxplot
+boxplot(shootings$Subject.Age)
+
 #is age normally distributed
 ggplot(shootings, aes(sample=Subject.Age)) + 
   geom_qq () +
   geom_qq_line()
 #looks fairly normal except for a couple of outliers. Most are old people
 
-#histogram of age
-hist(shootings$Subject.Age, breaks = 25)
+#histogram of years of SPD
+hist(shootings$Years.of.SPD.Service, breaks = 25)
+
+#boxplot
+boxplot(shootings$Years.of.SPD.Service)
 
 #what about normality of years of SPD service
 ggplot(shootings, aes(sample=Years.of.SPD.Service)) + 
@@ -38,24 +43,21 @@ ggplot(shootings, aes(sample=Years.of.SPD.Service)) +
   geom_qq_line()
 #looks more exponential to me. 
 
-#histogram of years of SPD
-hist(shootings$Years.of.SPD.Service, breaks = 25)
-
-
 #categorical data analysis
-levels(as.factor(shootings$Officer.Gender))
-levels(as.factor(shootings$Officer.Race))
-levels(as.factor(shootings$Officer.Injured))
-levels(as.factor(shootings$Number.of.Rounds))
-levels(as.factor(shootings$Subject.Gender))
-levels(as.factor(shootings$Subject.Race))
-levels(as.factor(shootings$Subject.Weapon))
-levels(as.factor(shootings$Type.of.Weapon))
-levels(as.factor(shootings$Fatal))
-levels(as.factor(shootings$On.duty))
-levels(as.factor(shootings$Justified))
-levels(as.factor(shootings$Within.Policy))
-levels(as.factor(shootings$Officer.Disciplined.))
+levels(shootings$Officer.Gender)
+levels(shootings$Officer.Race)
+levels(shootings$Officer.Injured)
+levels(shootings$Number.of.Rounds)
+levels(shootings$Subject.Gender)
+levels(shootings$Subject.Race)
+levels(shootings$Subject.Weapon)
+levels(shootings$Type.of.Weapon)
+levels(shootings$Fatal)
+levels(shootings$On.duty)
+levels(shootings$Justified)
+levels(shootings$Within.Policy)
+levels(shootings$Officer.Disciplined.)
+#the ones that return NULL are T/F
 
 ggplot(shootings, aes(Officer.Gender))+
   geom_bar()

@@ -58,7 +58,7 @@ AllMetadata_UOF_Standardized<-cbind.data.frame(AllMetadata_UOF_FixRace[,1:6],All
 colnames(AllMetadata_UOF_Standardized)[7]<-c("sector")
 
 #okay, now we'll export into a new dataset in a clean data folder
-write.csv(AllMetadata_UOF_Standardized,"/Users/katherine/Policing/clean data/seattle\\UseOfForce_Seattle.csv",row.names = FALSE)
+write.csv(AllMetadata_UOF_Standardized,"/Users/katherine/Policing/clean data/seattle/UseOfForce_Seattle.csv",row.names = FALSE)
 
 
 #need to reorder date for citations to follow m/d/y format
@@ -119,7 +119,7 @@ AllMetadata_Citations_NA$Precinct<-AllMetadata_Citations_CleanPrecinct$Precinct
 AllMetadata_Citations_NA$Officer.ID <-trimws(citations$Officer.ID)
 
 #write the file to a new location in clean data folder!
-write.csv(AllMetadata_Citations_NA,"/Users/katherine/Policing/clean data/seattle\\citations_Seattle.csv",row.names = FALSE)
+write.csv(AllMetadata_Citations_NA,"/Users/katherine/Policing/clean data/seattle/citations_Seattle.csv",row.names = FALSE)
 
 
 #finally fix the officer involved shooting dataset. I need to standardize times and races

@@ -6,7 +6,7 @@ library(tidyverse)
 #set working directory
 setwd("/Users/katherine/Policing/clean data/seattle")
 
-#I want to call in my datasets (citations, use of force).
+#I want to call in my datasets (shootings).
 shootings<-read.csv(file='shootings_Seattle.csv', stringsAsFactors = TRUE)
 
 #summary data

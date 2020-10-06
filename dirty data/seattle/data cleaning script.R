@@ -37,8 +37,8 @@ AllMetadata_UOF_NA[AllMetadata_UOF=="5200 BLOCK UTAH AV S"]<-NA
 
 #Change race to be consisted with citations
 AllMetadata_UOF_FixRace<-AllMetadata_UOF_NA
-AllMetadata_UOF_FixRace[AllMetadata_UOF=="American Indian/Alaska Native"]<-("American Indian or Alaska Native")
-AllMetadata_UOF_FixRace[AllMetadata_UOF=="Nat Hawaiian/Oth Pac Islander"]<-("Native Hawaiian or Other Pacific Islander")
+AllMetadata_UOF_FixRace[AllMetadata_UOF=="American Indian/Alaska Native"]<-"American Indian or Alaska Native"
+AllMetadata_UOF_FixRace[AllMetadata_UOF=="Nat Hawaiian/Oth Pac Islander"]<-"Native Hawaiian or Other Pacific Islander"
 AllMetadata_UOF_FixRace[AllMetadata_UOF=="Hispanic or Latino"]<-"Hispanic"
 
 #make yes/no = true/false
@@ -48,7 +48,10 @@ AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="YES"]<-TRUE
 AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="no"]<-FALSE
 AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="No"]<-FALSE
 AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="NO"]<-FALSE
-
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="N"]<-FALSE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="Y"]<-TRUE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="n"]<-FALSE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="y"]<-TRUE
 
 #There are two of each letter in sector. Here I'm trying to make all the letters the same. 
 AllMetadata_UOF_FixSector<-AllMetadata_UOF_FixRace
@@ -78,8 +81,6 @@ FixTime_Citations<-as.data.frame(FixTime_Citations)
 FixTime_Citations<-unite(FixTime_Citations,FixTime_Citations,(V1:V2),sep=":")
 colnames(FixTime_Citations)<-c("time")
 
-
-
 #make all null/error values = NA for citations
 AllMetadata_Citations_NA<-citations
 AllMetadata_Citations_NA[citations=="FK ERROR"]<-NA
@@ -87,8 +88,14 @@ AllMetadata_Citations_NA[citations=="OOJ"]<-NA
 AllMetadata_Citations_NA[citations=="Unknown"]<-NA
 AllMetadata_Citations_NA[citations=="Other"]<-NA
 AllMetadata_Citations_NA[citations=="Unable to Determine"]<-NA
+AllMetadata_Citations_NA[citations=="Not Specified"]<-NA
 AllMetadata_Citations_NA[citations=="-"]<-NA
 
+#edit officer race for consistency
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="American Indian/Alaska Native"]<-"American Indian or Alaska Native"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Nat Hawaiian/Oth Pac Islander"]<-"Native Hawaiian or Other Pacific Islander"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Hispanic or Latino"]<-"Hispanic"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Two or More Races"]<-"Multi-Racial"
 
 #make yes/no = true/false
 AllMetadata_Citations_NA[AllMetadata_Citations_NA=="yes"]<-TRUE
@@ -97,6 +104,27 @@ AllMetadata_Citations_NA[AllMetadata_Citations_NA=="YES"]<-TRUE
 AllMetadata_Citations_NA[AllMetadata_Citations_NA=="no"]<-FALSE
 AllMetadata_Citations_NA[AllMetadata_Citations_NA=="No"]<-FALSE
 AllMetadata_Citations_NA[AllMetadata_Citations_NA=="NO"]<-FALSE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Y"]<-TRUE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="y"]<-TRUE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="n"]<-FALSE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="N"]<-FALSE
+
+#fix weapon type for consistency with shootings
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Firearm (unk type)"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Knife/Cutting/Stabbing Instrument"]<-"Knife"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Rifle"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Automatic Handgun"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Firearm"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Handgun"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Firearm Other"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Shotgun"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Other Firearm"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Lethal Cutting Instrument"]<-"Knife"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="None/Not Applicable"]<-"None"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Club"]<-"Blunt Object/Striking Implement" 
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Blackjack"]<-"Blunt Object/Striking Implement" 
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Brass Knuckles"]<-"Blunt Object/Striking Implement" 
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Club, Blackjack, Brass Knuckles"]<-"Blunt Object/Striking Implement" 
 
 
 #formatting of 99 and sector is weird. Fix by only taking the first value.
@@ -165,6 +193,10 @@ AllMetadata_shootings[AllMetadata_shootings=="YES"]<-TRUE
 AllMetadata_shootings[AllMetadata_shootings=="no"]<-FALSE
 AllMetadata_shootings[AllMetadata_shootings=="No"]<-FALSE
 AllMetadata_shootings[AllMetadata_shootings=="NO"]<-FALSE
+AllMetadata_shootings[AllMetadata_shootings=="Y"]<-TRUE
+AllMetadata_shootings[AllMetadata_shootings=="y"]<-TRUE
+AllMetadata_shootings[AllMetadata_shootings=="n"]<-FALSE
+AllMetadata_shootings[AllMetadata_shootings=="N"]<-FALSE
 
 #clean weapon type
 AllMetadata_shootings[AllMetadata_shootings=="\n9mm semi-automatic"]<-"gun"

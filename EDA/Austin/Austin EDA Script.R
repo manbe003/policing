@@ -48,12 +48,6 @@ ggplot(UOF_EDA, aes(sample = officer.Yrs.of.service)) +
 
 ##categorical data
 
-#summary data
-summary(UOF_EDA)
-summary(Citations_EDA)
-summary(Shootings_EDA)
-
-
 ##UOF
 #levels
 levels(UOF_EDA$subject.race)
@@ -74,7 +68,8 @@ ggplot(UOF_EDA, aes(Subject.Ethnicity)) +
 
 ggplot(UOF_EDA, aes(Area.Command)) +
   geom_bar()
-      
+
+#comparison graph
 ggplot(UOF_EDA,
        aes(x = subject.race,
            fill = Area.Command))+
@@ -82,6 +77,7 @@ ggplot(UOF_EDA,
 
 
 ##citations
+#levels
 levels(Citations_EDA$Subject.Race)
 levels(Citations_EDA$Subject.gender)
 
@@ -135,12 +131,11 @@ ggplot(Shootings_EDA, aes(Subject.Injuries)) +
 ggplot(Shootings_EDA, aes(Subject.Weapons)) +
   geom_bar()
 
-
+#comparison graphs
 ggplot(Shootings_EDA,
-       aes(x = Subject.Race,
+       aes(x = Officer.Race,
            fill = Officer.Prev..OIS))+
   geom_bar(position = "dodge")
-
 
 
 ggplot(Shootings_EDA,
@@ -154,6 +149,7 @@ ggplot(Shootings_EDA,
            fill = Less.than.Lethal.Forced.Used.by.APD.Prior.to.Shooting))+
   geom_bar(position = "dodge")
 
+
 ggplot(Shootings_EDA,
        aes(x = Officer.Race,
            fill = Less.than.Lethal.Forced.Used.by.APD.Prior.to.Shooting))+
@@ -164,6 +160,7 @@ ggplot(Shootings_EDA,
        aes(x = Subject.Race,
            fill = Subject.Weapons))+
   geom_bar(position = "dodge")
+
 
 ggplot(Shootings_EDA,
        aes(x = Subject.Race,

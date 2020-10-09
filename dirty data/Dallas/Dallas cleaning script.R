@@ -127,19 +127,20 @@ Dallas_R2R$subject_race[Dallas_R2R$subject_race == "Other"] <- NA
 Dallas_R2R$subject_race[Dallas_R2R$subject_race == "American Ind"] <- "Indigenous"
 Dallas_R2R$officer_race[Dallas_R2R$officer_race == "American Ind"] <- "Indigenous"
 
-
 #fix date and hire date
 stopwords = c(" 12:00:00 AM") 
 Dallas_R2R$hire_date <- gsub(paste0(stopwords, collapse = "|"),"", Dallas_R2R$hire_date)
 Dallas_R2R$date <- gsub(paste0(stopwords, collapse = "|"),"", Dallas_R2R$date)
 
-View(Dallas_R2R)
-View(DallasShootings)
+DallasLinkCleaned <- read.csv("DallasLink.csv", stringsAsFactors = FALSE)
+
+Dallas_R2R_linked <- merge(DallasLinkCleaned, Dallas_R2R, by = "officer_badge_number", all.y = TRUE)
+Dallas_shootings_linked <- merge(DallasLinkCleaned, DallasShootings, by = "officer_name", all.y = TRUE)
 
 #create new folder in clean data and export clean datasets in
 dir.create("~/Desktop/policing/clean data/Dallas")
 setwd("~/Desktop/policing/clean data/Dallas")
-write.csv(DallasShootings,"~/Desktop/policing/clean data/Dallas/Dallas_shootings.csv",row.names = FALSE)
-write.csv(Dallas_R2R,"~/Desktop/policing/clean data/Dallas/Dallas_R2R.csv",row.names = FALSE)
+write.csv(Dallas_shootings_linked,"~/Desktop/policing/clean data/Dallas/Dallas_shootings.csv",row.names = FALSE)
+write.csv(Dallas_R2R_linked,"~/Desktop/policing/clean data/Dallas/Dallas_R2R.csv",row.names = FALSE)
 
 

@@ -311,6 +311,5 @@ UOF$residentCondition[UOF$residentCondition=="Possible minor bleeding"]<-("N/A")
 UOF$residentCondition[UOF$residentCondition=="none; possible minor bleedin"]<-("N/A")
 
 
-table(UOF$officerCondition)
-
+table(UOF$residentCondition)
 

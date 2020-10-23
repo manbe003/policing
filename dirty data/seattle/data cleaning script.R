@@ -4,7 +4,7 @@ library(tidyr)
 library(stringr)
 
 #set working directory
-setwd("C://Users/Katherine Manbeck/Desktop/Everything clinical psych/research related/Police Accountability Folder/policing/dirty data/seattle")
+setwd("/Users/katherine/Policing/dirty data/seattle")
 
 #I want to call in my datasets (citations, use of force).
 UOF<-read.csv(file='use_of_force_Seattle.csv', stringsAsFactors = FALSE)
@@ -37,9 +37,21 @@ AllMetadata_UOF_NA[AllMetadata_UOF=="5200 BLOCK UTAH AV S"]<-NA
 
 #Change race to be consisted with citations
 AllMetadata_UOF_FixRace<-AllMetadata_UOF_NA
-AllMetadata_UOF_FixRace[AllMetadata_UOF=="American Indian/Alaska Native"]<-("American Indian or Alaska Native")
-AllMetadata_UOF_FixRace[AllMetadata_UOF=="Nat Hawaiian/Oth Pac Islander"]<-("Native Hawaiian or Other Pacific Islander")
+AllMetadata_UOF_FixRace[AllMetadata_UOF=="American Indian/Alaska Native"]<-"American Indian or Alaska Native"
+AllMetadata_UOF_FixRace[AllMetadata_UOF=="Nat Hawaiian/Oth Pac Islander"]<-"Native Hawaiian or Other Pacific Islander"
 AllMetadata_UOF_FixRace[AllMetadata_UOF=="Hispanic or Latino"]<-"Hispanic"
+
+#make yes/no = true/false
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="yes"]<-TRUE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="Yes"]<-TRUE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="YES"]<-TRUE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="no"]<-FALSE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="No"]<-FALSE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="NO"]<-FALSE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="N"]<-FALSE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="Y"]<-TRUE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="n"]<-FALSE
+AllMetadata_UOF_FixRace[AllMetadata_UOF_FixRace=="y"]<-TRUE
 
 #There are two of each letter in sector. Here I'm trying to make all the letters the same. 
 AllMetadata_UOF_FixSector<-AllMetadata_UOF_FixRace
@@ -49,7 +61,7 @@ AllMetadata_UOF_Standardized<-cbind.data.frame(AllMetadata_UOF_FixRace[,1:6],All
 colnames(AllMetadata_UOF_Standardized)[7]<-c("sector")
 
 #okay, now we'll export into a new dataset in a clean data folder
-write.csv(AllMetadata_UOF_Standardized,"C://Users/Katherine Manbeck/Desktop/Everything clinical psych/research related/Police Accountability Folder/policing/clean data\\UseOfForce_Seattle.csv",row.names = FALSE)
+write.csv(AllMetadata_UOF_Standardized,"/Users/katherine/Policing/clean data/seattle/UseOfForce_Seattle.csv",row.names = FALSE)
 
 
 #need to reorder date for citations to follow m/d/y format
@@ -69,8 +81,6 @@ FixTime_Citations<-as.data.frame(FixTime_Citations)
 FixTime_Citations<-unite(FixTime_Citations,FixTime_Citations,(V1:V2),sep=":")
 colnames(FixTime_Citations)<-c("time")
 
-
-
 #make all null/error values = NA for citations
 AllMetadata_Citations_NA<-citations
 AllMetadata_Citations_NA[citations=="FK ERROR"]<-NA
@@ -78,7 +88,43 @@ AllMetadata_Citations_NA[citations=="OOJ"]<-NA
 AllMetadata_Citations_NA[citations=="Unknown"]<-NA
 AllMetadata_Citations_NA[citations=="Other"]<-NA
 AllMetadata_Citations_NA[citations=="Unable to Determine"]<-NA
+AllMetadata_Citations_NA[citations=="Not Specified"]<-NA
 AllMetadata_Citations_NA[citations=="-"]<-NA
+
+#edit officer race for consistency
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="American Indian/Alaska Native"]<-"American Indian or Alaska Native"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Nat Hawaiian/Oth Pac Islander"]<-"Native Hawaiian or Other Pacific Islander"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Hispanic or Latino"]<-"Hispanic"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Two or More Races"]<-"Multi-Racial"
+
+#make yes/no = true/false
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="yes"]<-TRUE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Yes"]<-TRUE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="YES"]<-TRUE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="no"]<-FALSE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="No"]<-FALSE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="NO"]<-FALSE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Y"]<-TRUE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="y"]<-TRUE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="n"]<-FALSE
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="N"]<-FALSE
+
+#fix weapon type for consistency with shootings
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Firearm (unk type)"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Knife/Cutting/Stabbing Instrument"]<-"Knife"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Rifle"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Automatic Handgun"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Firearm"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Handgun"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Firearm Other"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Shotgun"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Other Firearm"]<-"gun"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Lethal Cutting Instrument"]<-"Knife"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="None/Not Applicable"]<-"None"
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Club"]<-"Blunt Object/Striking Implement" 
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Blackjack"]<-"Blunt Object/Striking Implement" 
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Brass Knuckles"]<-"Blunt Object/Striking Implement" 
+AllMetadata_Citations_NA[AllMetadata_Citations_NA=="Club, Blackjack, Brass Knuckles"]<-"Blunt Object/Striking Implement" 
 
 
 #formatting of 99 and sector is weird. Fix by only taking the first value.
@@ -101,7 +147,7 @@ AllMetadata_Citations_NA$Precinct<-AllMetadata_Citations_CleanPrecinct$Precinct
 AllMetadata_Citations_NA$Officer.ID <-trimws(citations$Officer.ID)
 
 #write the file to a new location in clean data folder!
-write.csv(AllMetadata_Citations_NA,"C://Users/Katherine Manbeck/Desktop/Everything clinical psych/research related/Police Accountability Folder/policing/clean data\\citations_Seattle.csv",row.names = FALSE)
+write.csv(AllMetadata_Citations_NA,"/Users/katherine/Policing/clean data/seattle/citations_Seattle.csv",row.names = FALSE)
 
 
 #finally fix the officer involved shooting dataset. I need to standardize times and races
@@ -140,9 +186,45 @@ AllMetadata_shootings[AllMetadata_shootings==""]<-NA
 AllMetadata_shootings[AllMetadata_shootings=="\nUnknown"]<-NA
 AllMetadata_shootings[AllMetadata_shootings=="Missing"]<-NA
 
+#make yes/no = true/false
+AllMetadata_shootings[AllMetadata_shootings=="yes"]<-TRUE
+AllMetadata_shootings[AllMetadata_shootings=="Yes"]<-TRUE
+AllMetadata_shootings[AllMetadata_shootings=="YES"]<-TRUE
+AllMetadata_shootings[AllMetadata_shootings=="no"]<-FALSE
+AllMetadata_shootings[AllMetadata_shootings=="No"]<-FALSE
+AllMetadata_shootings[AllMetadata_shootings=="NO"]<-FALSE
+AllMetadata_shootings[AllMetadata_shootings=="Y"]<-TRUE
+AllMetadata_shootings[AllMetadata_shootings=="y"]<-TRUE
+AllMetadata_shootings[AllMetadata_shootings=="n"]<-FALSE
+AllMetadata_shootings[AllMetadata_shootings=="N"]<-FALSE
+
+#clean weapon type
+AllMetadata_shootings[AllMetadata_shootings=="\n9mm semi-automatic"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings==".22 caliber pistol"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings==".357 revolver"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="6 shot .357 revolver"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Colt Revolver"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Gun"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Mac-10, 9 mm machine pistol"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Rifle"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Rifle   "]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Rifle w/ bayonet"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Semil automatic .38 caliber handgun"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Handgun"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="Shotgun"]<-"gun"
+AllMetadata_shootings[AllMetadata_shootings=="N/A"]<-NA
+AllMetadata_shootings[AllMetadata_shootings=="No "]<-"No"
+
+#make years of SPD service numeric
+AllMetadata_shootings[AllMetadata_shootings=="<1"]<-0
+AllMetadata_shootings$Years.of.SPD.Service<-as.numeric(AllMetadata_shootings$Years.of.SPD.Service)
+
+#clean number of rounds
+AllMetadata_shootings$Number.of.Rounds[AllMetadata_shootings$Number.of.Rounds=="9"]<-"Multiple"
+AllMetadata_shootings$Number.of.Rounds[AllMetadata_shootings$Number.of.Rounds=="14"]<-"Multiple"
 
 #combine data into one dataset
 AllMetadata_shootings_clean<-cbind.data.frame(AllMetadata_shootings[,1:3],shooting_time,AllMetadata_shootings[,5:28])
 
 #save!
-write.csv(AllMetadata_shootings_clean,"C://Users/Katherine Manbeck/Desktop/Everything clinical psych/research related/Police Accountability Folder/policing/clean data\\shootings_Seattle.csv",row.names = FALSE)
+write.csv(AllMetadata_shootings_clean,"/Users/katherine/Policing/clean data/seattle/shootings_Seattle.csv",row.names = FALSE)

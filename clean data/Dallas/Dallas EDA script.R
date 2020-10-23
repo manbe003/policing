@@ -5,7 +5,7 @@ setwd("~/Desktop/policing/clean data/Dallas")
 Dallas.Shootings <- read.csv("Dallas_shootings.csv", stringsAsFactors = TRUE)
 Dallas.R2R <- read.csv("Dallas_R2R.csv", stringsAsFactors = TRUE)
 
-
+levels(Dallas.Shootings$subject_weapon)
 
 summary(Dallas.R2R)
 summary(Dallas.Shootings)
@@ -70,8 +70,7 @@ ggplot(Dallas.R2R,
            fill = force_reason)) + 
   geom_bar(position = "dodge")
 
-
-#stacked graph of subject weapon by race, using percentages
+#stacked graph of subject arrested by race, using percentages
 ggplot(Dallas.R2R, 
        aes(x = subject_race, 
            fill = subject_arrested)) + 
@@ -83,7 +82,7 @@ ggplot(Dallas.R2R,
            fill = subject_influence_assesment)) + 
   geom_bar(position = "stack")
 
-#the percentages of subjects of each race shot at by officers of each race
+#the percentages of subjects of each race with force used against them by officers of each race
 ggplot(Dallas.R2R, 
        aes(x = subject_race, 
            fill = officer_race)) + 

@@ -92,7 +92,7 @@ UOF$residentCondition[UOF$residentCondition=="Prong entry"]<-("Puncture wound/Ta
 UOF$residentCondition[UOF$residentCondition=="prongs from taser cartridge"]<-("Puncture wound/Taser probe")
 UOF$residentCondition[UOF$residentCondition=="Puncture from Probes"]<-("Puncture wound/Taser probe")
 UOF$residentCondition[UOF$residentCondition=="Puncture from Tazer prong"]<-("Puncture wound/Taser probe")
-UOF$residentCondition[UOF$residentCondition=="Puncture Wound"]<-("Pucture wound/Taser probe")
+UOF$residentCondition[UOF$residentCondition=="Puncture Wound"]<-("Puncture wound/Taser probe")
 UOF$residentCondition[UOF$residentCondition=="Puncture Wound From Probes"]<-("Puncture wound/Taser probe")
 UOF$residentCondition[UOF$residentCondition=="Puncture wound from tazer"]<-("Puncture wound/Taser probe")
 UOF$residentCondition[UOF$residentCondition=="puncture wound/taser probe"]<-("Puncture wound/Taser probe")

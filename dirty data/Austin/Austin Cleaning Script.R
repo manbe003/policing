@@ -130,6 +130,8 @@ ALLMetadata_Citations_NA[AllMetadata_Citations=="U"]<-NA
 #changing race to be words
 AllMetadata_citations_FixRace<-ALLMetadata_Citations_NA
 AllMetadata_citations_FixRace$`Subject Race`[AllMetadata_citations_FixRace$`Subject Race`=="W"]<-("White")
+AllMetadata_citations_FixRace$`Subject Race`[AllMetadata_citations_FixRace$`Subject Race`=="Whi"]<-("White")
+AllMetadata_citations_FixRace$`Subject Race`[AllMetadata_citations_FixRace$`Subject Race`=="WHI"]<-("White")
 AllMetadata_citations_FixRace$`Subject Race`[AllMetadata_citations_FixRace$`Subject Race`=="B"]<-("Black")
 AllMetadata_citations_FixRace$`Subject Race`[AllMetadata_citations_FixRace$`Subject Race`=="A"]<-("Asian")
 AllMetadata_citations_FixRace$`Subject Race`[AllMetadata_citations_FixRace$`Subject Race`=="H"]<-("Hispanic")
@@ -143,9 +145,13 @@ write.csv(AllMetadata_citations_FixRace,"C:/Users/katie/Desktop/policing/clean d
 OIS_ALL<-merge(Shooting_officers,Shooting_Subjects)
 OIS_ALL<-merge(OIS_ALL,Shooting_Incidents)
 
+#making a column all lower case to be consistent
+OIS_ALL$Less.Lethal.Force.used.by.APD.prior.to.shooting.[OIS_ALL$Less.Lethal.Force.used.by.APD.prior.to.shooting.=="No"]<-("no")
+
 #make a table with available data
-AllMetadata_Shootings<-cbind.data.frame(OIS_ALL$Case..,OIS_ALL$Date,OIS_ALL$Time,OIS_ALL$Officer.Name,OIS_ALL$Rank,OIS_ALL$Officer.Race.Ethnicity,OIS_ALL$Officer.Gender,OIS_ALL$Officer.Age,OIS_ALL$Prev.OIS,OIS_ALL$Subject.Race.Ethnicity,OIS_ALL$Subject.Gender,OIS_ALL$Subject.Injuries, stringsAsFactors = FALSE)
-colnames(AllMetadata_Shootings)<-(c("Case","Date","Time","Officer Name","Officer Rank","Officer Race","Officer Gender","Officer Age","Officer Prev. OIS","Subject Race","Subject Gender","Subject Injuries" ))
+AllMetadata_Shootings<-cbind.data.frame(OIS_ALL$Case..,OIS_ALL$Date,OIS_ALL$Time,OIS_ALL$Officer.Name,OIS_ALL$Rank,OIS_ALL$Officer.Race.Ethnicity,OIS_ALL$Officer.Gender,OIS_ALL$Officer.Age,OIS_ALL$Prev.OIS,OIS_ALL$Less.Lethal.Force.used.by.APD.prior.to.shooting.,
+                                        OIS_ALL$Subject.Race.Ethnicity,OIS_ALL$Subject.Gender,OIS_ALL$Subject.Injuries,OIS_ALL$Subject.Weapon, stringsAsFactors = FALSE)
+colnames(AllMetadata_Shootings)<-(c("Case","Date","Time","Officer Name","Officer Rank","Officer Race","Officer Gender","Officer Age","Officer Prev. OIS","Less than Lethal Forced Used by APD Prior to Shooting","Subject Race","Subject Gender","Subject Injuries","Subject Weapons" ))
 
 #saving new dataset to clean data file
 write.csv(AllMetadata_Shootings,"C:/Users/katie/Desktop/policing/clean data/Austin\\Shootings_Austin.csv",row.names = FALSE)

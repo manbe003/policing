@@ -276,6 +276,10 @@ UOF$officerCondition[UOF$officerCondition=="Struck but not injured"]<-("Hit")
 UOF$officerCondition[UOF$officerCondition=="Susp spit in Officer's face"]<-("Spit on/at")
 UOF$officerCondition[UOF$officerCondition=="TASER PROBE STICK"]<-("Puncture wound/Taser probe")
 UOF$officerCondition[UOF$officerCondition=="torn rotator cuff"]<-("Torn rotator cuff")
+UOF$shift[UOF$shift=="Swat Section"]<-("SWAT Section")
+UOF$beat[UOF$beat=="Swat Unit"]<-("SWAT Unit")
+UOF$residentRace[UOF$residentRace=="Blace"]<-("Black")
+UOF$residentRace[UOF$residentRace=="Native Amer"]<-("Native American")
 
 
 #Make all null values = N/A for UOF
@@ -309,7 +313,11 @@ UOF$residentCondition[UOF$residentCondition=="unknown"]<-("N/A")
 UOF$residentCondition[UOF$residentCondition=="unknwon"]<-("N/A")
 UOF$residentCondition[UOF$residentCondition=="Possible minor bleeding"]<-("N/A")
 UOF$residentCondition[UOF$residentCondition=="none; possible minor bleedin"]<-("N/A")
+UOF$serviceType[UOF$serviceType=="Not Applicable"]<-("N/A")
+UOF$residentRace[UOF$residentRace=="Other"]<-("N/A")
+UOF$residentRace[UOF$residentRace=="Unknown"]<-("N/A")
+UOF$residentSex[UOF$residentSex=="Unknown"]<-("N/A")
 
+table(UOF$officerIdentifier)
 
-table(UOF$residentCondition)
 

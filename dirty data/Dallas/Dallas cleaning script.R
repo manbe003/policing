@@ -50,8 +50,7 @@ DallasShootings$subject_gender[DallasShootings$subject_gender == "F"] <- "Female
 DallasShootings$subject_gender[DallasShootings$subject_gender == "F;"] <- "Female"
 DallasShootings$subject_gender[DallasShootings$subject_gender == "Unknown"] <- NA
 DallasShootings$subject_name[DallasShootings$subject_name == "Unknown Unknown"] <- NA
-DallasShootings$grand_jury_disposition[DallasShootings$grand_jury_disposition == "N/A"] <- NA
-DallasShootings$attorney_general_forms[DallasShootings$attorney_general_forms == "N/A"] <- NA
+DallasShootings[DallasShootings == "N/A"] <- NA
 DallasShootings$officer_race[DallasShootings$officer_race == "B"] <- "Black"
 DallasShootings$officer_race[DallasShootings$officer_race == "W"] <- "White"
 DallasShootings$officer_race[DallasShootings$officer_race == "L"] <- "Latinx"
@@ -66,6 +65,21 @@ DallasShootings$officer_name[DallasShootings$officer_name == "Unknown Unknown"] 
 DallasShootings$subject_race[DallasShootings$subject_race == ""] <- NA
 DallasShootings$officer_race[DallasShootings$officer_race == ""] <- NA
 
+#cleaning weapons
+DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Toy Handun"] <- "Toy Handgun"
+DallasShootings$subject_weapon[DallasShootings$subject_weapon == "BB Gun"] <- "Toy Gun"
+DallasShootings$subject_weapon[DallasShootings$subject_weapon == "BB Rifle"] <- "Toy Gun"
+DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Toy Handgun"] <- "Toy Gun"
+DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Toy Rifle"] <- "Toy Gun"
+DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Paint Ball Rifle"] <- "Toy Gun"
+DallasShootings$subject_weapon[DallasShootings$subject_weapon == "TASER"] <- "Taser"
+DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Rock"] <- "Questionable Weapon"
+DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Assault Rifle"] <- "Gun"
+DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Unknown Firearm"] <- "Gun"
+DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Handgun"] <- "Gun"
+DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Shotgun"] <- "Gun"
+DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Rifle"] <- "Gun"
+
 
 #lets clean the the response to resistance dataset. We have to read in all of the R2R ones by year.
 Dallas_R2R_2013 <- read.csv("Police_Response_to_Resistance_-_2013.csv", stringsAsFactors = FALSE)
@@ -77,65 +91,60 @@ Dallas_R2R_2018 <- read.csv("Police_Response_to_Resistance_-_2018.csv", stringsA
 Dallas_R2R_2019 <- read.csv("Police_Response_to_Resistance___2019.csv", stringsAsFactors = FALSE)
 
 
-#making all of the datasets have the same column names, in the same order
+#making all of the datasets have the same column names, in the same order --- "RA", "BEAT", "SECTOR", "DIVISION", "DIST_NAME"
 
-Y_Dallas_R2R_2013<-cbind.data.frame(Dallas_R2R_2013[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT")], stringsAsFactors=FALSE)
-Y_Dallas_R2R_2014<-cbind.data.frame(Dallas_R2R_2014[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT")], stringsAsFactors=FALSE)
-Y_Dallas_R2R_2015<-cbind.data.frame(Dallas_R2R_2015[, c("OCCURRED_DT", "CURRENT_BADGE_NO", "OffSex", "OffRace", "HIRE_DT", "OffCondType", "OFF_INJURED", "OFF_HOSPITAL", "SERVICE_TYPE", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURED", "CitCondType", "CIT_ARRESTED", "CIT_INFL_ASSMT", "CitChargeType")], stringsAsFactors=FALSE)
-colnames(Y_Dallas_R2R_2015) <- c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT")
-Y_Dallas_R2R_2016<-cbind.data.frame(Dallas_R2R_2016[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT")], stringsAsFactors=FALSE)
-Y_Dallas_R2R_2017<-cbind.data.frame(Dallas_R2R_2017[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT")], stringsAsFactors=FALSE)
-Y_Dallas_R2R_2018<-cbind.data.frame(Dallas_R2R_2018[, c("OCCURRED_D", "CURRENT_BAxx", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT")], stringsAsFactors=FALSE)
-colnames(Y_Dallas_R2R_2018) <- c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT")
-Y_Dallas_R2R_2019<-cbind.data.frame(Dallas_R2R_2019[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT")], stringsAsFactors=FALSE)
+Y_Dallas_R2R_2013<-cbind.data.frame(Dallas_R2R_2013[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT", "RA", "BEAT", "SECTOR", "DIVISION")], stringsAsFactors=FALSE)
+Y_Dallas_R2R_2014<-cbind.data.frame(Dallas_R2R_2014[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT", "RA", "BEAT", "SECTOR", "DIVISION")], stringsAsFactors=FALSE)
+Y_Dallas_R2R_2015<-cbind.data.frame(Dallas_R2R_2015[, c("OCCURRED_DT", "CURRENT_BADGE_NO", "OffSex", "OffRace", "HIRE_DT", "OffCondType", "OFF_INJURED", "OFF_HOSPITAL", "SERVICE_TYPE", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURED", "CitCondType", "CIT_ARRESTED", "CIT_INFL_ASSMT", "CitChargeType", "RA", "BEAT", "SECTOR", "DIVISION")], stringsAsFactors=FALSE)
+colnames(Y_Dallas_R2R_2015) <- c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT", "RA", "BEAT", "SECTOR", "DIVISION")
+Y_Dallas_R2R_2016<-cbind.data.frame(Dallas_R2R_2016[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT", "RA", "BEAT", "SECTOR", "DIVISION")], stringsAsFactors=FALSE)
+Y_Dallas_R2R_2017<-cbind.data.frame(Dallas_R2R_2017[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT", "RA", "BEAT", "SECTOR", "DIVISION")], stringsAsFactors=FALSE)
+Y_Dallas_R2R_2018<-cbind.data.frame(Dallas_R2R_2018[, c("OCCURRED_D", "CURRENT_BAxx", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT", "RA", "BEAT", "SECTOR", "DIVISION")], stringsAsFactors=FALSE)
+colnames(Y_Dallas_R2R_2018) <- c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT", "RA", "BEAT", "SECTOR", "DIVISION")
+Y_Dallas_R2R_2019<-cbind.data.frame(Dallas_R2R_2019[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT", "RA", "BEAT", "SECTOR", "DIVISION")], stringsAsFactors=FALSE)
+
+Y_Dallas_R2R_2018$BEAT <- as.numeric(Y_Dallas_R2R_2018$BEAT)
+Y_Dallas_R2R_2018$RA <- as.numeric(Y_Dallas_R2R_2018$RA)
+Y_Dallas_R2R_2018$SECTOR <- as.numeric(Y_Dallas_R2R_2018$SECTOR)
 
 #binding them together into one dataset.
 Dallas_R2R<- dplyr::bind_rows(Y_Dallas_R2R_2013, Y_Dallas_R2R_2014, Y_Dallas_R2R_2015, Y_Dallas_R2R_2016, Y_Dallas_R2R_2017, Y_Dallas_R2R_2018, Y_Dallas_R2R_2019)
 Dallas_R2R[ ,"CURRENT_BAxx"] <- list(NULL)
 
 #changing the column names
-colnames(Dallas_R2R) <- c("date", "officer_badge_number", "officer_gender", "officer_race", "hire_date", "officer_injury_type", "officer_injury", "officer_hospital", "service_type", "force_type", "force_reason", "subject_race", "subject_gender", "subject_injury", "subject_injury_type", "subject_arrested", "subject_influence_assesment", "subject_charge")
+colnames(Dallas_R2R) <- c("date", "officer_badge_number", "officer_gender", "officer_race", "hire_date", "officer_injury_type", "officer_injury", "officer_hospital", "service_type", "force_type", "force_reason", "subject_race", "subject_gender", "subject_injury", "subject_injury_type", "subject_arrested", "subject_influence_assesment", "subject_charge", "reporting_area", "beat", "sector", "division")
 
 #fixing small issues
 Dallas_R2R[Dallas_R2R == "NULL"] <- NA
-Dallas_R2R$subject_injury_type[Dallas_R2R$subject_injury_type == "No injuries noted or visible"] <- NA
-Dallas_R2R$officer_injury_type[Dallas_R2R$officer_injury_type == "No injuries noted or visible"] <- NA
+Dallas_R2R[Dallas_R2R == "No injuries noted or visible"] <- NA
+Dallas_R2R[Dallas_R2R == "Yes"] <- TRUE
 Dallas_R2R$subject_injury[Dallas_R2R$subject_injury == "No"] <- FALSE
-Dallas_R2R$subject_injury[Dallas_R2R$subject_injury == "Yes"] <- TRUE
 Dallas_R2R$subject_arrested[Dallas_R2R$subject_arrested == "No"] <- FALSE
-Dallas_R2R$subject_arrested[Dallas_R2R$subject_arrested == "Yes"] <- TRUE
 Dallas_R2R$officer_injury[Dallas_R2R$officer_injury == "No"] <- FALSE
-Dallas_R2R$officer_injury[Dallas_R2R$officer_injury == "Yes"] <- TRUE
 Dallas_R2R$officer_hospital[Dallas_R2R$officer_hospital == "No"] <- FALSE
-Dallas_R2R$officer_hospital[Dallas_R2R$officer_hospital == "Yes"] <- TRUE
-Dallas_R2R$subject_injury[Dallas_R2R$subject_injury == "false"] <- FALSE
-Dallas_R2R$subject_injury[Dallas_R2R$subject_injury == "true"] <- TRUE
-Dallas_R2R$subject_arrested[Dallas_R2R$subject_arrested == "false"] <- FALSE
-Dallas_R2R$subject_arrested[Dallas_R2R$subject_arrested == "true"] <- TRUE
-Dallas_R2R$officer_injury[Dallas_R2R$officer_injury == "false"] <- FALSE
-Dallas_R2R$officer_injury[Dallas_R2R$officer_injury == "true"] <- TRUE
-Dallas_R2R$officer_hospital[Dallas_R2R$officer_hospital == "false"] <- FALSE
-Dallas_R2R$officer_hospital[Dallas_R2R$officer_hospital == "true"] <- TRUE
+Dallas_R2R[Dallas_R2R == "false"] <- FALSE
+Dallas_R2R[Dallas_R2R == "true"] <- TRUE
 
 Dallas_R2R <- Dallas_R2R %>% mutate_all(na_if,"")
 DallasShootings <- DallasShootings %>% mutate_all(na_if,"Unknown")
 DallasShootings <- DallasShootings %>% mutate_all(na_if,"")
 Dallas_R2R <- Dallas_R2R %>% mutate_all(na_if,"Unknown")
 
-DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Toy Handun"] <- "Toy Handgun"
+
 Dallas_R2R$subject_race[Dallas_R2R$subject_race == "Other"] <- NA
-Dallas_R2R$subject_race[Dallas_R2R$subject_race == "American Ind"] <- "Indigenous"
-Dallas_R2R$officer_race[Dallas_R2R$officer_race == "American Ind"] <- "Indigenous"
+Dallas_R2R[Dallas_R2R == "American Ind"] <- "Indigenous"
 
 #fix date and hire date
-stopwords = c(" 12:00:00 AM") 
+stopwords = c(" 12:00:00 AM")
 Dallas_R2R$hire_date <- gsub(paste0(stopwords, collapse = "|"),"", Dallas_R2R$hire_date)
 Dallas_R2R$date <- gsub(paste0(stopwords, collapse = "|"),"", Dallas_R2R$date)
 
-DallasLinkCleaned <- read.csv("DallasLink.csv", stringsAsFactors = FALSE)
+DallasLinker <- read.csv("DallasLink.csv", stringsAsFactors = FALSE)
 
-Dallas_R2R_linked <- merge(DallasLinkCleaned, Dallas_R2R, by = "officer_badge_number", all.y = TRUE)
-Dallas_shootings_linked <- merge(DallasLinkCleaned, DallasShootings, by = "officer_name", all.y = TRUE)
+Dallas_R2R_linked <- merge(DallasLinker, Dallas_R2R, by = "officer_badge_number", all.y = TRUE)
+Dallas_shootings_linked <- merge(DallasLinker, DallasShootings, by = "officer_name", all.y = TRUE)
+
+View(Dallas_R2R_linked)
 
 #create new folder in clean data and export clean datasets in
 dir.create("~/Desktop/policing/clean data/Dallas")
@@ -143,4 +152,4 @@ setwd("~/Desktop/policing/clean data/Dallas")
 write.csv(Dallas_shootings_linked,"~/Desktop/policing/clean data/Dallas/Dallas_shootings.csv",row.names = FALSE)
 write.csv(Dallas_R2R_linked,"~/Desktop/policing/clean data/Dallas/Dallas_R2R.csv",row.names = FALSE)
 
-
+View(Dallas_shootings_linked)

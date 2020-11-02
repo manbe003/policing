@@ -156,7 +156,6 @@ OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="rifle and shotgun"]<-("gun")
 OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="knife (machete)"]<-("knife")
 OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="none (radio face plate)"]<-("none")
 OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="air pistol (BB gun)"]<-("air pistol/pellet gun")
-OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="air pistol (BB gun)"]<-("air pistol/pellet gun")
 OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="pellet gun"]<-("air pistol/pellet gun")
 
 

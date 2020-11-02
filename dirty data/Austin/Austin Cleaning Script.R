@@ -148,6 +148,18 @@ OIS_ALL<-merge(OIS_ALL,Shooting_Incidents)
 #making a column all lower case to be consistent
 OIS_ALL$Less.Lethal.Force.used.by.APD.prior.to.shooting.[OIS_ALL$Less.Lethal.Force.used.by.APD.prior.to.shooting.=="No"]<-("no")
 
+#simplifying weapons columns
+OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="rifle"]<-("gun")
+OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="rifle and shotgun"]<-("gun")
+OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="handgun"]<-("gun")
+OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="rifle and shotgun"]<-("gun")
+OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="knife (machete)"]<-("knife")
+OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="none (radio face plate)"]<-("none")
+OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="air pistol (BB gun)"]<-("air pistol/pellet gun")
+OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="air pistol (BB gun)"]<-("air pistol/pellet gun")
+OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="pellet gun"]<-("air pistol/pellet gun")
+
+
 #make a table with available data
 AllMetadata_Shootings<-cbind.data.frame(OIS_ALL$Case..,OIS_ALL$Date,OIS_ALL$Time,OIS_ALL$Officer.Name,OIS_ALL$Rank,OIS_ALL$Officer.Race.Ethnicity,OIS_ALL$Officer.Gender,OIS_ALL$Officer.Age,OIS_ALL$Prev.OIS,OIS_ALL$Less.Lethal.Force.used.by.APD.prior.to.shooting.,
                                         OIS_ALL$Subject.Race.Ethnicity,OIS_ALL$Subject.Gender,OIS_ALL$Subject.Injuries,OIS_ALL$Subject.Weapon, stringsAsFactors = FALSE)

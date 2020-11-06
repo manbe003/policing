@@ -106,4 +106,46 @@ ggplot(Dallas.R2R,
   geom_bar(position = "fill")
 
 
+#read in Dallas demographics data.
+setwd("~/Desktop/policing/dirty data/Dallas")
+DallasDemographics <- read.csv("Dallas racial demographics.csv", stringsAsFactors = FALSE)
 
+View(DallasDemographics)
+
+
+
+
+#Boolean it!?!??!?!?
+setwd("~/Desktop/policing/clean data/Dallas")
+Dallas.Shootings = read.csv("Dallas_shootings.csv", stringsAsFactors = TRUE)
+
+DallasDemographics<- data.frame("Black" = .243, "White"= .290, "Latinx"=.417, "Asian"=.034) 
+DallasDemographics<-as.data.frame.integer(DallasDemographics)
+
+#The function
+BooleanDallas <- function(demodata, racecol){
+
+  listrace = unique(racecol)
+  listrace<-listrace[!is.na(listrace)]
+
+  DS.race.boolean=matrix(ncol=length(listrace), nrow=length(racecol))
+  
+  for(i in 1:length(listrace)){
+    DS.race.boolean[,i] = racecol == listrace[i]
+  }
+  
+  colnames(DS.race.boolean) <- c(print(listrace))
+  
+  DS.race.boolean <- as.data.frame(DS.race.boolean)
+  DS.race.boolean[4] <- NULL
+  
+  l=length(DS.race.boolean[,1])
+  
+  for(i in 1:ncol(DS.race.boolean)){
+   successes = table(DS.race.boolean[,i])["TRUE"]
+   
+   print(binom.test(as.integer(successes), l, demodata[i]))
+  }
+}
+
+BooleanDallas(DallasDemographics, Dallas.Shootings$subject_race)

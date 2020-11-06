@@ -33,12 +33,12 @@ racecol<-as.data.frame
 
 FunctionAustin = function(demodata, racecol){
   x=colnames(racecol)
-  listrace = unique(racecol$x)
+  listrace = unique(racecol)
   
-  db = matrix(ncol=length(listrace), nrow = length(racecol$x))
+  db = matrix(ncol=length(listrace), nrow = length(racecol))
   
   for (i in 1:length(listrace)){
-    db[,i] = racecol$x ==listrace[i]
+    db[,i] = racecol ==listrace[i]
   }
   l=length(db[,1])
   
@@ -46,7 +46,7 @@ FunctionAustin = function(demodata, racecol){
     successes = table(db[,1])["TRUE"]
     print(successes)
     print(listrace[i])
-  print(binom.test(as.integer(successes), l, demodata[i]))
+    print(binom.test(as.integer(successes), l, demodata[,i]))
   }
 }
 

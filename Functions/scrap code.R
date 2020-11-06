@@ -21,14 +21,17 @@ racecol <- data.frame(Date=as.Date(character()),
                  User=character(), 
                  stringsAsFactors=FALSE)
 
+
+
+
 FunctionAustin = function(demodata, racecol){
   x=colnames(racecol)
-  listrace = unique(racecol$x)
+  listrace = unique(racecol)
   
-  db = matrix(ncol=length(listrace), nrow = length(racecol$x))
+  db = matrix(ncol=length(listrace), nrow = length(racecol))
   
   for (i in 1:length(listrace)){
-    db[,i] = racecol$x ==listrace[i]
+    db[,i] = racecol ==listrace[i]
   }
   l=length(db[,1])
   
@@ -44,6 +47,7 @@ FunctionAustin(demodata = Demodata, racecol = Citations$Subject.Race)
 
 
 
+print(Demodata[i])
 
 
 

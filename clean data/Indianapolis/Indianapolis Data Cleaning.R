@@ -318,6 +318,6 @@ UOF$residentRace[UOF$residentRace=="Other"]<-("N/A")
 UOF$residentRace[UOF$residentRace=="Unknown"]<-("N/A")
 UOF$residentSex[UOF$residentSex=="Unknown"]<-("N/A")
 
-table(UOF$officerIdentifier)
-
-
+#Save
+write.csv(OIS,"~/Desktop/GitAndR/Policing/EDA/Indianapolis/OIS.csv",row.names = FALSE)
+write.csv(UOF,"~/Desktop/GitAndR/Policing/EDA/Indianapolis/UOF.csv",row.names = FALSE)

@@ -8,9 +8,9 @@ DallasLinker<-cbind.data.frame(DallasLinker[, c("RO1Name", "RO1Badge")])
 DallasLinker<-unique(DallasLinker)
 colnames(DallasLinker) <- c("officer_name", "officer_badge_number")
 
-DallasLinker <- DallasLinkerOriginal
+DallasLinkerOriginal <- DallasLinker
 
-DallasLinker <-separate(DallasLinker, RO1Name, c('last_name', 'first_name', 'middle_name'), sep=",")
+DallasLinker <-separate(DallasLinker, officer_name, c('last_name', 'first_name', 'middle_name'), sep=",")
 
 DallasLinker[ ,c("middle_name")] <- list(NULL)
 
@@ -26,3 +26,5 @@ View(DallasLinker)
 setwd("~/Desktop/policing/dirty data/Dallas")
 
 write.csv(DallasLinker,"~/Desktop/policing/dirty data/Dallas/DallasLink.csv",row.names = FALSE)
+
+View(DallasLinker)

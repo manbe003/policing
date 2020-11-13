@@ -5,7 +5,9 @@ setwd("C:/Users/katie/Desktop/policing/clean data/Austin")
 Citations<-read.csv("Citations_Austin.csv")
 Shootings<-read.csv("Shootings_Austin.csv")
 UOF<-read.csv("UseOfForce_Austin.csv")
-Demodata<-read.csv("Austin_City_DemoData.csv")
+Demodata_Citations<-read.csv("Austin_City_DemoData.csv")
+DemoData_UOF<-read.csv("Austin_City_DemoData_UOF.csv")
+DemoData_Shootings<-read.csv("Austin_City_DemoData_Shootings.csv")
 
 #get list of races
 listrace = unique(Citations$Subject.Race)
@@ -29,7 +31,7 @@ binom.test(as.integer(successes), l, .34)
 
 
 #creating function
-racecol<-as.data.frame
+
 
 FunctionAustin = function(demodata, racecol){
   x=colnames(racecol)
@@ -40,16 +42,18 @@ FunctionAustin = function(demodata, racecol){
   for (i in 1:length(listrace)){
     db[,i] = racecol ==listrace[i]
   }
-  l=length(db[,1])
+  l=length(db[,i])
   
   for (i in 1:length(listrace)){
-    successes = table(db[,1])["TRUE"]
+    successes = table(db[,i])["TRUE"]
     print(successes)
     print(listrace[i])
     print(binom.test(as.integer(successes), l, demodata[,i]))
   }
 }
 
-FunctionAustin(demodata = Demodata, racecol = Citations$Subject.Race)
+FunctionAustin(demodata = Demodata_Citations, racecol = Citations$Subject.Race)
+FunctionAustin(demodata = DemoData_UOF, racecol = UOF$subject.race)
+FunctionAustin(demodata = DemoData_Shootings, racecol = Shootings$Subject.Race )
 
 

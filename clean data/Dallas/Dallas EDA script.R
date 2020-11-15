@@ -146,6 +146,6 @@ BooleanDallas <- function(demodata, racecol){
   }
 }
 
-BooleanDallas(DallasDemographics, Dallas.Shootings$subject_race)
+BooleanDallas(DallasDemographics, Dallas.R2R$subject_race)
 
 View(DallasDemographics)

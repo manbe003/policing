@@ -319,5 +319,5 @@ UOF$residentRace[UOF$residentRace=="Unknown"]<-("N/A")
 UOF$residentSex[UOF$residentSex=="Unknown"]<-("N/A")
 
 #Save
-write.csv(OIS,"~/Desktop/GitAndR/Policing/EDA/Indianapolis/OIS.csv",row.names = FALSE)
-write.csv(UOF,"~/Desktop/GitAndR/Policing/EDA/Indianapolis/UOF.csv",row.names = FALSE)
+write.csv(OIS,"~/Desktop/GitAndR/Policing/clean data/Indianapolis/OIS.csv",row.names = FALSE)
+write.csv(UOF,"~/Desktop/GitAndR/Policing/clean data/Indianapolis/UOF.csv",row.names = FALSE)

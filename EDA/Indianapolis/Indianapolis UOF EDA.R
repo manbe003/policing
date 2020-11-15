@@ -41,7 +41,10 @@ cor.test(UOF$officerAge, UOF$residentAge)
 #Levels
 levels(UOF$residentSex)
 levels(UOF$residentRace)
+levels(UOF$officerSex)
+levels(UOF$officerRace)
 levels(UOF$useOfForceReason)
+levels(UOF$division)
 
 #Graphs
 ggplot(UOF, aes(residentSex)) + geom_bar()

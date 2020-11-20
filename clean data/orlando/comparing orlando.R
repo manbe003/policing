@@ -3,6 +3,7 @@
 #first I want to call libraries
 library(dplyr)
 library(tidyr)
+library(stringr)
 
 #turn off scientific notation
 options(scipen=999)
@@ -10,8 +11,8 @@ options(scipen=999)
 # change these two lines!
 #I want to call in my datasets (use of force, shootings).
 library(readr)
-UOF <- read_csv("dirty data/orlando/OPD_Response_To_Resistance.csv")
-shootings <- read_csv("dirty data/orlando/OPD_Officer-Involved_Shootings.csv")
+UOF <- read.csv("OPD_Response_To_Resistance.csv")
+shootings <- read.csv("OPD_Officer-Involved_Shootings.csv")
 
 #numericize the data (UOF)
 #first split year/date into two separate variables
@@ -21,6 +22,11 @@ colnames(SplitDateTime_UOF)<-(c("date","time", "hour"))
 SplitDateTime_UOF<-as.data.frame(SplitDateTime_UOF, stringsAsFactors=FALSE)
 
 NoTitle_UOF <- UOF[UOF$`Incident Date Time` != "", ]
+
+##seperating officer race into different officers
+shootings <-separate(shootings, Officer.Race, c('Officer One Race', 'Officer Two Race', 'Officer Three Race', 'Officer Four Race' ), sep=", ")
+
+
 
 #making a table with all relevant metadata for UOF
 AllMetadata_UOF<-cbind.data.frame(SplitDateTime_UOF$`date`,SplitDateTime_UOF$`time`,SplitDateTime_UOF$`hour`,NoTitle_UOF$`Officers Race`,NoTitle_UOF$`Officers Ethnicity`,NoTitle_UOF$`Officers Sex`,NoTitle_UOF$`Offenders Race`,NoTitle_UOF$`Offenders Ethnicity`,NoTitle_UOF$`Offenders Sex`, stringsAsFactors=FALSE)

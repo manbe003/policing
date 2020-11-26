@@ -1,3 +1,7 @@
+#libraries
+library(tidyr)
+library(dplyr)
+
 #set WD
 setwd("C:/Users/katie/Desktop/policing/clean data/Orlando")
 
@@ -8,6 +12,21 @@ library(tidyverse)
 #call files
 Shootings<-read.csv("Shooting (cleaned).csv", stringsAsFactors = TRUE)
 UOF<-read.csv("UOF (cleaned).csv", stringsAsFactors = FALSE)
+
+UOF %>% mutate(name=strsplit(Offenders.Race,split="[;]")) %>% 
+  group_by(Offenders.Race) %>% 
+  unnest(cols = c(Offenders.Race)) %>% 
+  mutate(Offenders.Ethnicity=strsplit(Offenders.Ethnicity,split="[;]"))
+  mutate(Offenders.Sex=strsplit(Offenders.Sex,split="[;]"))%>% 
+  unnest()
+
+UOF<- separate_rows(UOF$Offenders.Race, sep = ";")
+
+
+
+
+
+
 
 summary(UOF)
 summary(Shootings)

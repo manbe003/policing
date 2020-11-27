@@ -1,15 +1,13 @@
 #Austin EDA
 
-setwd("C:/Users/katie/Desktop/policing/clean data/Austin")
-
 #load library
 library(tidyverse)
-
+library(here)
 
 #Descriptive data
-UOF_EDA<-read.csv(file='UseOfForce_Austin.csv', stringsAsFactors = TRUE)
-Shootings_EDA<-read.csv(file='Shootings_Austin.csv', stringsAsFactors = TRUE)
-Citations_EDA<-read.csv(file='Citations_Austin.csv', stringsAsFactors = TRUE)
+UOF_EDA<-read.csv(file=here('clean data/Austin/UseOfForce_Austin.csv'), stringsAsFactors = TRUE)
+Shootings_EDA<-read.csv(file=here('clean data/Austin/Shootings_Austin.csv'), stringsAsFactors = TRUE)
+Citations_EDA<-read.csv(file=here('clean data/Austin/Citations_Austin.csv'), stringsAsFactors = TRUE)
 
 summary(UOF_EDA)
 summary(Shootings_EDA)

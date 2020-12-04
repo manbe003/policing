@@ -3,6 +3,7 @@ library(tidyr)
 library(dplyr)
 library(here)
 library(tidyverse)
+library(stringr)
 
 ##Categorical data because there is no descriptive data
 #call files
@@ -10,12 +11,9 @@ Shootings<-read.csv(file=here('clean data/orlando/Shooting (cleaned).csv'), stri
 UOF<-read.csv(file=here('clean data/orlando/UOF (cleaned).csv'), stringsAsFactors = FALSE)
 
 #deleting rows where there are 6 races listed, but only 5 ethnicities listed.
-UOF<- UOF[-c(3041, 4376, 5295, 1125), ]
+UOF<- UOF[-c(3041, 4376, 5295, 1125, 3039, 5293, 4374), ]
 
 UOF<- UOF %>% separate_rows(Offenders.Race, Offenders.Sex, Offenders.Ethnicity, sep= ";")
-
-UOF_Officers<- UOF[-c(12,6,7,5,13,14,1,2,3,8,9,10,15,16,17,4,11,20,25,26,27,28,29,40,41,42,21,22,23,50,37,1936,45,49,24,37,32,33,34,35,51,52,48,46,31,38,30,18,43,44,53,39), ]
-UOF_tryin<- UOF %>% separate_rows(Officers.Race, Officers.Ethnicity, Officers.Sex, sep = ";")
 
 summary(UOF)
 summary(Shootings)
@@ -36,6 +34,43 @@ ggplot(UOF, aes(Offenders.Ethnicity)) +
   geom_bar()
 
 ggplot(UOF, aes(Offenders.Sex)) +
+  geom_bar()
+
+
+#officer data analyses
+UOF_officerGroups<- UOF
+UOF_officerGroups$Officer.Race.Groups <-UOF_officerGroups$Officers.Race
+UOF_officerGroups <-UOF_officerGroups[c(1,2,3,4,5,12,6,7,8,9,10,11)]
+
+
+#making officers into groups
+UOF_officerGroups$Officer.Race.Groups <-gsub('Asian;Asian', 'Asian', UOF_officerGroups$Officer.Race.Groups)
+UOF_officerGroups$Officer.Race.Groups <-gsub('Black;Black|Black;Black;Black|Black;Black;Black;Black','Black', UOF_officerGroups$Officer.Race.Groups)
+UOF_officerGroups$Officer.Race.Groups <-gsub('White;White|White;White;White|White;White;White;White|White;White;White;White;White|White;White;White;White;White;White|White;White;White;White;White;White;White;White', 'White', UOF_officerGroups$Officer.Race.Groups)
+UOF_officerGroups$Officer.Race.Groups <-gsub('Black;Asian;White;White|White;Black;White;White;Black;White;White;White|White;Black;White;White;White;White;Black;White|Black;Asian;White|
+                                              White;White;Black;White;Black;White|White;Asian;White;Asian;White|White;Asian;White;Black;White|White;Black;Asian;Black|
+                                              White;Asian;White;White;White;White;Black|Asian;Black|White;Black|White;Black;Black|Asian;White|Black;White|White;White;Black|
+                                              White;White;Black;White;White;White|Black;White;White;White;Black| Black;Black;Black;White|White;White;Black;White|White;Black;White;White;White|
+                                              White;Black;White|White;Asian|Black;White;White;White|White;Asian;White;Black;White|White;White;White;White;White;White;White;Asian|
+                                              White;White;White;Black|Black;White;White|Black;White;Black|White;White;Black;White;Black;White|Asian;White;White|                              
+                                              Black;Asian|White;Asian;White|Black;White;Black;White|White;Black;White;White|
+                                              White;White;White;Asian;White;White|White;White;White;Black;Black|White;White;White;White;Black;White;White|Black;White;White;White;White;White|            
+                                              White;White;White;Black;White|White;White;White;White;White;White;Black;Black|White;White;White;White;Black;White|Black;White;White;Black|
+                                              Black;Black;White|White;White;White;Asian|White;White;Asian;White|Black;Black;White;Black|White;White;Black;White;White;Black;White|
+                                              Asian;Black|White;Black;White;Asian|Asian;White;White;White|White;White;Asian|Asian;White;Black|White;Black;Black;Black|Black;White;Asian|                              
+                                              Black;Asian;White|White;Black;White;White;White;Black|White;Asian;White;White;White;White;Black|White;Asian;White;White|White;Black;Asian|                               
+                                              White;White;White;White;White;Black|Black;White;White;White;White;White;Black;White|White;Black;White;White;White;White;White|Asian;Black;Black|                        
+                                              Asian;Black;White;White|White;White;Black;White;White|White;Black;White;Black|Black;Black;White;White;Black;Black;White|Asian;White;White;White;White;White|          
+                                              White;White;Asian;White;White;White|Black;Black;White;White|Black;White;White;White;White|White;Asian;White;White;White;White;White|Black;Asian;Black|                              
+                                              Asian;Asian;White|White;Black;White;White;White;White;Black;White|White;White;White;White;Black|White;White;Asian;White;White|White;White;Black;Black|
+                                              White;Asian;White;Asian;White|White;White;Asian;Black|White;White;Black;White;Black|White;White;Black;Black;White;White|Black;White;White;Black;White|                   
+                                              White;Black;White;White;Black;White;White;White|White;Asian;White;White;White;White|Asian;Black;White|White;Black;Asian;White|White;White;White;Black;White;White|           
+                                              White;Black;Asian;Black|White;Asian;Asian|Asian;Black;White;Black|White;White;White;White;Asian|White;White;White;Asian;White|White;Black;Black;White|
+                                              White;Black;White;White;White;White|Asian;White;White;Black|White;White;Black;Asian|Black;White;Black;White;White|White;Asian;Black|White;Asian;White;White;White;White;White;White|
+                                              White;White;White;White;Black;Black|White;White;Black;White;White;White;White;White|Black;Asian;White;White', 'mixed', UOF_officerGroups$Officer.Race.Groups)
+
+
+ggplot(UOF_officerGroups, aes(Officer.Race.Groups)) +
   geom_bar()
 
 

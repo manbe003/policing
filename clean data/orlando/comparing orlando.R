@@ -15,9 +15,13 @@ library(readr)
 UOF <- read.csv(file=here('dirty data/orlando/OPD_Response_To_Resistance.csv'), stringsAsFactors = FALSE)
 shootings <- read.csv(file=here('dirty data/orlando/OPD_Officer-Involved_Shootings.csv'), stringsAsFactors = FALSE)
 
+#removing row 5 because its the column names repeated
+UOF<-UOF[-c(5, 2705), ]
+
 #making blank values in Incident date
 UOF_NA<-UOF
 UOF_NA$Incident.Date.Time[UOF_NA$Incident.Date.Time==""]<-NA
+
 
 #numericize the data (UOF)
 #first split year/date into two separate variables
@@ -26,23 +30,18 @@ SplitDateTime_UOF<-do.call(rbind, SplitDateTime_UOF)
 colnames(SplitDateTime_UOF)<-(c("date","time", "hour"))
 SplitDateTime_UOF<-as.data.frame(SplitDateTime_UOF, stringsAsFactors=FALSE)
 
-##K: not sure exactly what this is doing
-NoTitle_UOF <- UOF_NA[UOF_NA$Incident.Date.Time != "", ]
-
-##separating officer race into different officers
-##K:shootings <-separate(shootings, Officer.Race, c("Officer One Race", "Officer Two Race", "Officer Three Race", "Officer Four Race" ), sep=", ")
-
 
 #making a table with all relevant metadata for UOF
-AllMetadata_UOF<-cbind.data.frame(NoTitle_UOF$ï..Incident.Number,SplitDateTime_UOF$date,SplitDateTime_UOF$time,SplitDateTime_UOF$hour,NoTitle_UOF$Officers.Race,NoTitle_UOF$Officers.Ethnicity,NoTitle_UOF$Officers.Sex,NoTitle_UOF$Offenders.Race,NoTitle_UOF$Offenders.Ethnicity,NoTitle_UOF$Offenders.Sex, stringsAsFactors=FALSE)
+AllMetadata_UOF<-cbind.data.frame(UOF$ï..Incident.Number,SplitDateTime_UOF$date,SplitDateTime_UOF$time,SplitDateTime_UOF$hour,UOF$Officers.Involved,UOF$Officers.Race,UOF$Officers.Ethnicity,UOF$Officers.Sex,UOF$Offenders.Race,UOF$Offenders.Ethnicity,UOF$Offenders.Sex, stringsAsFactors=FALSE)
 
-colnames(AllMetadata_UOF)<-(c("Incident Number","date","time", "hour", "Officers.Race","Officers.Ethnicity","Officers.Sex", "Offenders.Race","Offenders.Ethnicity","Offenders.Sex"))
+colnames(AllMetadata_UOF)<-(c("Incident Number","date","time", "hour","Officers Involved","Officers.Race","Officers.Ethnicity","Officers.Sex", "Offenders.Race","Offenders.Ethnicity","Offenders.Sex"))
 
-#make all null values = U for UOF
+#make all null values = NA for UOF
 AllMetadata_UOF_NA<-AllMetadata_UOF
 AllMetadata_UOF_NA[AllMetadata_UOF=="Not Specified"]<-NA
 AllMetadata_UOF_NA[AllMetadata_UOF=="-"]<-NA
 AllMetadata_UOF_NA[AllMetadata_UOF=="X"]<-NA
+AllMetadata_UOF_NA[AllMetadata_UOF=="I"]<-NA
 
 #Change race, ethnicity, sex to be consistent with UOF
 AllMetadata_UOF_Fix<-AllMetadata_UOF_NA
@@ -76,10 +75,10 @@ AllMetadata_UOF_Fix$Offenders.Sex <- gsub('U', NA, AllMetadata_UOF_Fix$Offenders
 #####################
 
 #numericize the data (SHOOTINGS)
-NoTitle_shootings <- shootings[shootings$Date != "", ]
+#NoTitle_shootings <- shootings[shootings$Date != "", ]
 
 #making a table with all relevant metadata for shootings
-AllMetadata_shootings<-cbind.data.frame(NoTitle_shootings$ï..Case..,NoTitle_shootings$Date,NoTitle_shootings$Officer.Name,NoTitle_shootings$Officer.Race,NoTitle_shootings$Ethnicity,NoTitle_shootings$Officer.Gender,NoTitle_shootings$Suspect.Race,NoTitle_shootings$Suspect.Gender,NoTitle_shootings$Suspect.Hit,NoTitle_shootings$Fatal, stringsAsFactors=FALSE)
+AllMetadata_shootings<-cbind.data.frame(shootings$ï..Case..,shootings$Date,shootings$Officer.Name,shootings$Officer.Race,shootings$Ethnicity,shootings$Officer.Gender,shootings$Suspect.Race,shootings$Suspect.Gender,shootings$Suspect.Hit,shootings$Fatal, stringsAsFactors=FALSE)
 colnames(AllMetadata_shootings)<-(c("Incident Number","date","Officer Name","Officer Race","Officer Ethnicity","Officer Gender", "Suspect.Race","Suspect.Gender","Suspect.Hit","Fatal"))
 
 #make all null values NA for shootings

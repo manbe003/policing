@@ -280,7 +280,7 @@ UOF$shift[UOF$shift=="Swat Section"]<-("SWAT Section")
 UOF$beat[UOF$beat=="Swat Unit"]<-("SWAT Unit")
 UOF$residentRace[UOF$residentRace=="Blace"]<-("Black")
 UOF$residentRace[UOF$residentRace=="Native Amer"]<-("Native American")
-
+UOF$residentRace[UOF$residentRace=="Polynesian"]<-("Pacific Islander")
 
 #Make all null values = N/A for UOF
 UOF$id[UOF$id==""]<-("N/A")

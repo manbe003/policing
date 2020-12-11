@@ -107,8 +107,21 @@ AllMetadata_shootings_Fix$`Officer Gender` <- gsub('M', 'Male', AllMetadata_shoo
 AllMetadata_shootings_Fix$`Officer Gender` <- gsub('F', 'Female', AllMetadata_shootings_Fix$`Officer Gender`)
 AllMetadata_shootings_Fix$`Officer Gender` <- gsub('U', NA, AllMetadata_shootings_Fix$`Officer Gender`)
 
+AllMetadata_shootings_Fix$Suspect.Race <- gsub(' Black', 'Black', AllMetadata_shootings_Fix$Suspect.Race)
+AllMetadata_shootings_Fix$Suspect.Race <- gsub(' White', 'White', AllMetadata_shootings_Fix$Suspect.Race)
+AllMetadata_shootings_Fix$Suspect.Race <- gsub('Unk', NA, AllMetadata_shootings_Fix$Suspect.Race)
+
 AllMetadata_shootings_Fix$Suspect.Gender <- gsub('F', 'Female', AllMetadata_shootings_Fix$Suspect.Gender)
-AllMetadata_shootings_Fix$Suspect.Gender <- gsub('M', 'Male', AllMetadata_shootings_Fix$Suspect.Gender)
+AllMetadata_shootings_Fix$Suspect.Gender <- gsub('M| M', 'Male', AllMetadata_shootings_Fix$Suspect.Gender)
+AllMetadata_shootings_Fix$Suspect.Gender <- gsub('Unk', NA, AllMetadata_shootings_Fix$Suspect.Gender)
+
+AllMetadata_shootings_Fix$Suspect.Hit <- gsub(' Yes', 'Yes', AllMetadata_shootings_Fix$Suspect.Hit)
+AllMetadata_shootings_Fix$Suspect.Hit <- gsub(' No', 'No', AllMetadata_shootings_Fix$Suspect.Hit)
+AllMetadata_shootings_Fix$Suspect.Hit <- gsub('Unknown', NA, AllMetadata_shootings_Fix$Suspect.Hit)
+
+AllMetadata_shootings_Fix$Fatal <- gsub(' Yes', 'Yes', AllMetadata_shootings_Fix$Fatal)
+AllMetadata_shootings_Fix$Fatal <- gsub('N| No', 'No', AllMetadata_shootings_Fix$Fatal)
+
 
 #save as data file/set
 write.csv(AllMetadata_shootings_Fix,(file=here('clean data/orlando/shooting (cleaned).csv')), row.names = FALSE)

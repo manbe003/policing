@@ -90,6 +90,7 @@ AllMetadata_Citations_NA[citations=="Other"]<-NA
 AllMetadata_Citations_NA[citations=="Unable to Determine"]<-NA
 AllMetadata_Citations_NA[citations=="Not Specified"]<-NA
 AllMetadata_Citations_NA[citations=="-"]<-NA
+AllMetadata_Citations_NA[citations=="-9"]<-NA
 
 #edit officer race for consistency
 AllMetadata_Citations_NA[AllMetadata_Citations_NA=="American Indian/Alaska Native"]<-"American Indian or Alaska Native"

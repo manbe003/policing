@@ -44,41 +44,35 @@ UOF_officerGroups <-UOF_officerGroups[c(1,2,3,4,5,12,6,7,8,9,10,11)]
 #making a second dataframe for another way of doing this
 UOF_officerGroupsTest <-UOF_officerGroups
 
+#separating officer to make white officers with hispanic ethnicity read "hispanic" in the race column
+UOF_officerGroupsTest <-separate(UOF_officerGroupsTest, Officers.Race, c('Officer one Race', 'Officer two Race', 'Officer three Race','Officer four Race', 'Officer five Race'), sep=";")
+UOF_officerGroupsTest <-separate(UOF_officerGroupsTest, Officers.Ethnicity, c('Officer one ethnicity', 'Officer two ethnicity', 'Officer three ethnicity','Officer four ethnicity', 'Officer five ethnicity'), sep=";")
 
+UOF_officerGroupsTest<- within(UOF_officerGroupsTest, `Officer one Race`[`Officer one Race` == 'White' & `Officer one ethnicity` == 'Hispanic'] <- "Hispanic" )
+UOF_officerGroupsTest<- within(UOF_officerGroupsTest, `Officer two Race`[`Officer two Race` == 'White' & `Officer two ethnicity` == 'Hispanic'] <- "Hispanic" )
+UOF_officerGroupsTest<- within(UOF_officerGroupsTest, `Officer three Race`[`Officer three Race` == 'White' & `Officer three ethnicity` == 'Hispanic'] <- "Hispanic" )
+UOF_officerGroupsTest<- within(UOF_officerGroupsTest, `Officer four Race`[`Officer four Race` == 'White' & `Officer four ethnicity` == 'Hispanic'] <- "Hispanic" )
+UOF_officerGroupsTest<- within(UOF_officerGroupsTest, `Officer five Race`[`Officer five Race` == 'White' & `Officer five ethnicity` == 'Hispanic'] <- "Hispanic" )
 
-##first possible way to deal with this
-#making officers into groups
-UOF_officerGroups$Officer.Race.Groups <-gsub('Asian;Asian', 'Asian', UOF_officerGroups$Officer.Race.Groups)
-UOF_officerGroups$Officer.Race.Groups <-gsub('Black;Black|Black;Black;Black|Black;Black;Black;Black','Black', UOF_officerGroups$Officer.Race.Groups)
-UOF_officerGroups$Officer.Race.Groups <-gsub('White;White|White;White;White|White;White;White;White|White;White;White;White;White|White;White;White;White;White;White|White;White;White;White;White;White;White;White', 'White', UOF_officerGroups$Officer.Race.Groups)
-UOF_officerGroups$Officer.Race.Groups <-gsub('Black;Asian|White;White;White;Black|Black;Asian;White;White|White;Black;White;White;Black;White;White;White|White;Black;White;White;White;White;Black;White|Black;Asian;White|
-                                              White;White;Black;White;Black;White|White;Asian;White;Asian;White|White;Asian;White;Black;White|White;Black;Asian;Black|
-                                              White;Asian;White;White;White;White;Black|Asian;Black|White;Black|White;Black;Black|Asian;White|Black;White|White;White;Black|
-                                              White;White;Black;White;White;White|Black;White;White;White;Black| Black;Black;Black;White|White;White;Black;White|White;Black;White;White;White|
-                                              White;Black;White|White;Asian|Black;White;White;White|White;Asian;White;Black;White|White;White;White;White;White;White;White;Asian|
-                                              White;White;White;Black|Black;White;White|Black;White;Black|White;White;Black;White;Black;White|Asian;White;White|                              
-                                              Black;Asian|White;Asian;White|Black;White;Black;White|White;Black;White;White|
-                                              White;White;White;Asian;White;White|White;White;White;Black;Black|White;White;White;White;Black;White;White|Black;White;White;White;White;White|            
-                                              White;White;White;Black;White|White;White;White;White;White;White;Black;Black|White;White;White;White;Black;White|Black;White;White;Black|
-                                              Black;Black;White|White;White;White;Asian|White;White;Asian;White|Black;Black;White;Black|White;White;Black;White;White;Black;White|
-                                              Asian;Black|White;Black;White;Asian|Asian;White;White;White|White;White;Asian|Asian;White;Black|White;Black;Black;Black|Black;White;Asian|                              
-                                              Black;Asian;White|White;Black;White;White;White;Black|White;Asian;White;White;White;White;Black|White;Asian;White;White|White;Black;Asian|                               
-                                              White;White;White;White;White;Black|Black;White;White;White;White;White;Black;White|White;Black;White;White;White;White;White|Asian;Black;Black|                        
-                                              Asian;Black;White;White|White;White;Black;White;White|White;Black;White;Black|Black;Black;White;White;Black;Black;White|Asian;White;White;White;White;White|          
-                                              White;White;Asian;White;White;White|Black;Black;White;White|Black;White;White;White;White|White;Asian;White;White;White;White;White|Black;Asian;Black|                              
-                                              Asian;Asian;White|White;Black;White;White;White;White;Black;White|White;White;White;White;Black|White;White;Asian;White;White|White;White;Black;Black|
-                                              White;Asian;White;Asian;White|White;White;Asian;Black|White;White;Black;White;Black|White;White;Black;Black;White;White|Black;White;White;Black;White|                   
-                                              White;Black;White;White;Black;White;White;White|White;Asian;White;White;White;White|Asian;Black;White|White;Black;Asian;White|White;White;White;Black;White;White|           
-                                              White;Black;Asian;Black|White;Asian;Asian|Asian;Black;White;Black|White;White;White;White;Asian|White;White;White;Asian;White|White;Black;Black;White|
-                                              White;Black;White;White;White;White|Asian;White;White;Black|White;White;Black;Asian|Black;White;Black;White;White|White;Asian;Black|White;Asian;White;White;White;White;White;White|
-                                              White;White;White;White;Black;Black|White;White;Black;White;White;White;White;White|Black;Asian;White;White', 'mixed', UOF_officerGroups$Officer.Race.Groups)
+#recombine them into one row to make groups
+UOF_officerGroupsTest %>% unite(Officers.Race, c(`Officer one Race`,`Officer two Race`,`Officer three Race`,`Officer four Race`,`Officer five Race`), sep = ";")
 
+UOF_officerGroupsTest %>% 
+  unite(Officers.Ethnicity, c('Officer one ethnicity', 'Officer two ethnicity', 'Officer three ethnicity','Officer four ethnicity', 'Officer five ethnicity'), sep = ";")
+
+#function to make it so mixed race groups say mixed and single race groups say that race in the Officer.Race.Groups col
+f <- function(x) ifelse(length(u <- unique(unlist((strsplit(x, ";"))))) > 1, "Mixed", u)
+
+UOF_officerGroupsTest = transform(UOF_officerGroupsTest, Officer.Race.Groups = Vectorize(f)(Officer.Race.Groups))
 
 ggplot(UOF_officerGroups, aes(Officer.Race.Groups)) +
   geom_bar()
 
 
-#second possible way to deal with this
+
+
+
+### Keeping just in case
 UOF_officerGroupsTest <-separate(UOF_officerGroupsTest, Officers.Race, c('Officer one Race', 'Officer two Race', 'Officer three Race','Officer four Race', 'Officer five Race'), sep=";")
 UOF_officerGroupsTest <-separate(UOF_officerGroupsTest, Officers.Ethnicity, c('Officer one ethnicity', 'Officer two ethnicity', 'Officer three ethnicity','Officer four ethnicity', 'Officer five ethnicity'), sep=";")
 

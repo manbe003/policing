@@ -120,8 +120,8 @@ AllMetadata_shootings_Fix$Suspect.Hit <- gsub(' No', 'No', AllMetadata_shootings
 AllMetadata_shootings_Fix$Suspect.Hit <- gsub('Unknown', NA, AllMetadata_shootings_Fix$Suspect.Hit)
 
 AllMetadata_shootings_Fix$Fatal <- gsub(' Yes', 'Yes', AllMetadata_shootings_Fix$Fatal)
-AllMetadata_shootings_Fix$Fatal <- gsub('N| No', 'No', AllMetadata_shootings_Fix$Fatal)
-
+AllMetadata_shootings_Fix$Fatal[AllMetadata_shootings_Fix$Fatal == "N"] <- "No"
+AllMetadata_shootings_Fix$Fatal <- gsub(' No', 'No', AllMetadata_shootings_Fix$Fatal)
 
 #save as data file/set
 write.csv(AllMetadata_shootings_Fix,(file=here('clean data/orlando/shooting (cleaned).csv')), row.names = FALSE)

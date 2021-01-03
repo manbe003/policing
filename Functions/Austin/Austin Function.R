@@ -1,13 +1,13 @@
-#set WD
-setwd("C:/Users/katie/Desktop/policing/clean data/Austin")
+#load libraries
+library(here)
 
 #load in data
-Citations<-read.csv("Citations_Austin.csv")
-Shootings<-read.csv("Shootings_Austin.csv")
-UOF<-read.csv("UseOfForce_Austin.csv")
-Demodata_Citations<-read.csv("Austin_City_DemoData.csv")
-DemoData_UOF<-read.csv("Austin_City_DemoData_UOF.csv")
-DemoData_Shootings<-read.csv("Austin_City_DemoData_Shootings.csv")
+Citations<-read.csv(file=here("clean data/Austin/Citations_Austin.csv"))
+Shootings<-read.csv(file=here("clean data/Austin/Shootings_Austin.csv"))
+UOF<-read.csv(file=here("clean data/Austin/UseOfForce_Austin.csv"))
+Demodata_Citations<-read.csv(file=here("clean data/Austin/Austin_City_DemoData.csv"))
+DemoData_UOF<-read.csv(file=here("clean data/Austin/Austin_City_DemoData_UOF.csv"))
+DemoData_Shootings<-read.csv(file=here("clean data/Austin/Austin_City_DemoData_Shootings.csv"))
 
 #get list of races
 listrace = unique(Citations$Subject.Race)

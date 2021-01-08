@@ -25,6 +25,12 @@ DallasShootings$subject_info <- gsub("Jr. ", "", DallasShootings$subject_info)
 DallasShootings[123, 6] = "Fuller, Antwuanne B/M"
 DallasShootings[147, 7] = "Loeb, Jeffrey W/M"
 
+View(DallasShootings)
+
+DallasShootings$officer_info[DallasShootings$officer_info == "Strand, Emmanuel A/M, Guerra, Carlos L/M"] <- "Strand, Emmanuel A/M; Guerra, Carlos L/M"
+
+DallasShootings = separate_rows(DallasShootings,"officer_info",sep = "; ")
+
 #seperating subject info and officer info
 DallasShootings <-separate(DallasShootings, subject_info, c('last_name', 'first_race_gender'), sep=", ")
 DallasShootings <-separate(DallasShootings, first_race_gender, c('first_name', 'race_gender'), sep=" ")
@@ -89,7 +95,7 @@ Dallas_R2R_2016 <- read.csv("Police_Response_to_Resistance_-_2016.csv", stringsA
 Dallas_R2R_2017 <- read.csv("Police_Response_to_Resistance___2017.csv", stringsAsFactors = FALSE)
 Dallas_R2R_2018 <- read.csv("Police_Response_to_Resistance_-_2018.csv", stringsAsFactors = FALSE)
 Dallas_R2R_2019 <- read.csv("Police_Response_to_Resistance___2019.csv", stringsAsFactors = FALSE)
-
+View(Dallas_R2R_2018)
 
 #making all of the datasets have the same column names, in the same order --- "RA", "BEAT", "SECTOR", "DIVISION", "DIST_NAME"
 

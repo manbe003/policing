@@ -2,8 +2,11 @@
 library (dplyr)
 library (tidyr)
 library(stringr)
+library(tidyverse)
 library(here)
+install.packages("data.table")
 install.packages("Here")
+library(data.table)
 
 #set working directory
 setwd("~/Desktop/policing/dirty data/Louisville")
@@ -12,7 +15,7 @@ setwd("~/Desktop/policing/dirty data/Louisville")
 LouisvilleStops<-read.csv(file = here('dirty data/Louisville/Louisville stops.csv'), stringsAsFactors = FALSE)
 LouisvilleShootings<-read.csv(file = here('dirty data/Louisville/all_louisville_OIS.csv'), stringsAsFactors = FALSE)
 LouisvilleCitations <- read.csv(unz("Louisville_citations.csv.zip", "Louisville_citations.csv"), stringsAsFactors = FALSE)
-
+View(LouisvilleShootings)
 #Below is my work making citations into a usable size by deleting columns.
 #LouisvilleCitations <- read.csv(unz("UniformCitationData .csv.zip", "UniformCitationData .csv"))
 #LouisvilleCitations[ ,c("AGENCY_DESC", "ID", "CITATION_YEAR", "ASCF_CODE", "STATUTE", "UCR_CODE", "PERSONS_HOME_CITY", "PERSONS_HOME_STATE", "PERSONS_HOME_ZIP")] <- list(NULL)
@@ -129,6 +132,33 @@ LouisvilleCitations[LouisvilleCitations == "        "] <- NA
 LouisvilleCitations[LouisvilleCitations == "            "] <- NA
 LouisvilleCitations[LouisvilleCitations == "  "] <- NA
 
+#This code is not done yet, skip to "Cleaning stops". 
+#What i'm trying to do is sort UCR_description into more general categories so I can do EDA with it.
+#I think I need to make this a new column instead of replacing the old data, but i'm not sure how to do that. 
+
+LouisvilleCitations <- LouisvilleCitations %>%
+  mutate(UCR_description = case_when(
+    str_detect(UCR_description, "RAPE") ~ "RAPE",
+    str_detect(UCR_description, "THEFT") ~ "THEFT",
+    str_detect(UCR_description, "EXTORTION/BLACKMAIL") ~ "THEFT",
+    str_detect(UCR_description, "EMBEZELLMENT") ~ "THEFT",
+    str_detect(UCR_description, "FORCIBLE SODOMY") ~ "RAPE",
+    str_detect(UCR_description, "PURSE SNATCHING") ~ "THEFT",
+    str_detect(UCR_description, "POCKET PICKING") ~ "THEFT",
+    str_detect(UCR_description, "ROBBERY") ~ "THEFT",
+    str_detect(UCR_description, "SHOPLIFTING") ~ "THEFT",
+    str_detect(UCR_description, "OTHER") ~ "OTHER",
+    str_detect(UCR_description, "NON REPORTABLE") ~ "OTHER",
+    str_detect(UCR_description, "EMBEZZLEMENT") ~ "THEFT",
+    str_detect(UCR_description, "STOLEN") ~ "THEFT",
+    str_detect(UCR_description, "BURGLARY") ~ "THEFT",
+    TRUE ~ UCR_description
+  ))
+LouisvilleCitations$UCR_description[with(LouisvilleCitations, UCR_description %in% unique(UCR_description)[table(UCR_description) < 10])] <- "OTHER"
+
+LouisvilleCitations$UCR_description <- as.factor(LouisvilleCitations$UCR_description)
+levels(LouisvilleCitations$UCR_description)
+
 
 #Cleaning stops
 LouisvilleStops[ ,c("ID", "ACTIVITY_TIME")] <- list(NULL)
@@ -150,6 +180,56 @@ LouisvilleStops$divison <- as.numeric(LouisvilleStops$number_of_passengers)
 LouisvilleStops[LouisvilleStops == ""] <- NA
 LouisvilleStops[LouisvilleStops == " "] <- NA
 LouisvilleStops$citation_control_number[LouisvilleStops$citation_control_number == 0] <- NA
+LouisvilleStops$driver_race[LouisvilleStops$driver_race == "Middle Eastern Descent"] <- "Middle Eastern"
+LouisvilleStops$driver_race[LouisvilleStops$driver_race == "Indian/India/Burmese"] <- "Indian"
+LouisvilleStops$driver_race[LouisvilleStops$driver_race == "Indian/India/Burmese      "] <- "Indian"
+LouisvilleStops$driver_race[LouisvilleStops$driver_race == "Asian/Pacific Islander" ] <- "Asian"
+LouisvilleStops$driver_race[LouisvilleStops$driver_race == "Unknown"] <- NA
+LouisvilleStops$driver_race[LouisvilleStops$driver_race == "Alaskan Native"] <- "Alaskan/American Native"
+LouisvilleStops$driver_race[LouisvilleStops$driver_race == "American Indian"] <- "Alaskan/American Native"
+
+#cleaning reason for search
+LouisvilleStops <- LouisvilleStops %>%
+  mutate(reason_for_search = case_when(
+    str_detect(reason_for_search, "GUN") ~ "Gun",
+    str_detect(reason_for_search, "MARI") ~ "Marijuana",
+    str_detect(reason_for_search, "ALCO")  ~ "Alcohol",
+    str_detect(reason_for_search, "NERVOUS")  ~ "Subject nervous",
+    str_detect(reason_for_search, "BEER")  ~ "Alcohol",
+    str_detect(reason_for_search, "WEED")  ~ "Marijuana",
+    str_detect(reason_for_search, "NARCOTICS")  ~ "Drugs",
+    str_detect(reason_for_search, "COCAINE")  ~ "Drugs",
+    str_detect(reason_for_search, "METH")  ~ "Drugs",
+    str_detect(reason_for_search, "HEROIN")  ~ "Drugs",
+    str_detect(reason_for_search, "CRACK") ~ "Drugs",
+    str_detect(reason_for_search, "ODOR") ~ "Odor",
+    str_detect(reason_for_search, "SMELL") ~ "Odor",
+    str_detect(reason_for_search, "ARREST") ~ "Arrest",
+    str_detect(reason_for_search, "BOTTLE") ~ "Alcohol",
+    str_detect(reason_for_search, "STOLEN") ~ "Stolen property",
+    str_detect(reason_for_search, "PLAIN") ~ "Contraband in plain view",
+    str_detect(reason_for_search, "OPEN") ~ "Alcohol",
+    str_detect(reason_for_search, "NEEDLE") ~ "Drugs",
+    str_detect(reason_for_search, "CAUSE") ~ "Probable cause",
+    str_detect(reason_for_search, "PROB") ~ "Probable cause",
+    str_detect(reason_for_search, "PC") ~ "Probable cause",
+    str_detect(reason_for_search, "CON") ~ "Consent",
+    str_detect(reason_for_search, "VERBAL") ~ "Consent",
+    str_detect(reason_for_search, "SUB") ~ "Subject strange/wanted",
+    str_detect(reason_for_search, "PASS") ~ "Subject strange/wanted",
+    str_detect(reason_for_search, "DRIVER") ~ "Subject strange/wanted",
+    str_detect(reason_for_search, "PERM") ~ "Permissive",
+    str_detect(reason_for_search, "9") ~ "K9 alert",
+    str_detect(reason_for_search, "DOG") ~ "K9 alert",
+    str_detect(reason_for_search, "SEARCH") ~ "Search",
+    str_detect(reason_for_search, "PILL") ~ "Drugs",
+    str_detect(reason_for_search, "DRUG") ~ "Drugs",
+TRUE ~ reason_for_search
+  ))
+
+LouisvilleStops <- setDT(LouisvilleStops, key='reason_for_search')[!(c('Drugs', 'Search', 
+                                              'Consent', 'Subject strange/wanted', 'Permissive', 'K9 alert', 'Probable cause', 'Alcohol', 'Contraband in plain view', 'Stolen property', 'Odor', 'Gun', 'Subject nervous', 'Marijuana', NA)), reason_for_search := 'Other']
+
 
 #write files into clean data folder
 setwd("~/Desktop/policing/clean data/Louisville")

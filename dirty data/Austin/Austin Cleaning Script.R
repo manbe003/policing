@@ -2,24 +2,22 @@
 library(dplyr)
 library(tidyr)
 library(gtools)
-
-#set working directory
-setwd("C:/Users/katie/Desktop/policing/dirty data/Austin")
+library(here)
 
 #Call datasets Austin (citations, use of force)
-UOF15<-read.csv(file='R2R_2015.csv', stringsAsFactors = FALSE)
-UOF14<-read.csv(file='R2R_2014.csv', stringsAsFactors = FALSE)
-UOF16<-read.csv(file='R2R_2016.csv', stringsAsFactors = FALSE)
-UOF17<-read.csv(file='R2R_2017.csv', stringsAsFactors = FALSE)
-UOF18<-read.csv(file='R2R_2018.csv', stringsAsFactors = FALSE)
-citations15<-read.csv(file='2015_RP__Citations.csv', stringsAsFactors = FALSE)
-citations14<-read.csv(file='2014_RP__Citations.csv', stringsAsFactors = FALSE)
-citations16<-read.csv(file='2016_RP__Citations.csv', stringsAsFactors = FALSE)
-citations17<-read.csv(file='2017_RP__Citations.csv', stringsAsFactors = FALSE)
-Citations18<-read.csv(file='2018_RP__Citations.csv', stringsAsFactors = FALSE)
-Shooting_Incidents<-read.csv(file='Officer_Involved_Shootings_2008-17_Incidents.csv', stringsAsFactors = FALSE)
-Shooting_officers<-read.csv(file='Officer_Involved_Shootings_2008-17_Officers.csv', stringsAsFactor = FALSE)
-Shooting_Subjects<-read.csv(file='Officer_Involved_Shootings_2008-17_Subjects.csv', stringsAsFactors = FALSE)
+UOF15<-read.csv(file=here('dirty data/Austin/R2R_2015.csv'), stringsAsFactors = FALSE)
+UOF14<-read.csv(file=here('dirty data/Austin/R2R_2014.csv'), stringsAsFactors = FALSE)
+UOF16<-read.csv(file=here('dirty data/Austin/R2R_2016.csv'), stringsAsFactors = FALSE)
+UOF17<-read.csv(file=here('dirty data/Austin/R2R_2017.csv'), stringsAsFactors = FALSE)
+UOF18<-read.csv(file=here('dirty data/Austin/R2R_2018.csv'), stringsAsFactors = FALSE)
+citations15<-read.csv(file=here('dirty data/Austin/2015_RP__Citations.csv'), stringsAsFactors = FALSE)
+citations14<-read.csv(file=here('dirty data/Austin/2014_RP__Citations.csv'), stringsAsFactors = FALSE)
+citations16<-read.csv(file=here('dirty data/Austin/2016_RP__Citations.csv'), stringsAsFactors = FALSE)
+citations17<-read.csv(file=here('dirty data/Austin/2017_RP__Citations.csv'), stringsAsFactors = FALSE)
+Citations18<-read.csv(file=here('dirty data/Austin/2018_RP__Citations.csv'), stringsAsFactors = FALSE)
+Shooting_Incidents<-read.csv(file=here('dirty data/Austin/Officer_Involved_Shootings_2008-17_Incidents.csv'), stringsAsFactors = FALSE)
+Shooting_officers<-read.csv(file=here('dirty data/Austin/Officer_Involved_Shootings_2008-17_Officers.csv'), stringsAsFactor = FALSE)
+Shooting_Subjects<-read.csv(file=here('dirty data/Austin/Officer_Involved_Shootings_2008-17_Subjects.csv'), stringsAsFactors = FALSE)
 
 
 #making columns the same so they merge easily

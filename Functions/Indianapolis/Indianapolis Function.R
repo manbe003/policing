@@ -1,12 +1,17 @@
 #Call libraries
+library(here)
+library(dplyr)
 
 #Set working directory
-setwd("~/Desktop/GitAndR/Policing/clean data/Indianapolis")
+setwd(here("clean data/Indianapolis"))
 
 #Import data
 OIS = read.csv("OIS.csv")
 UOF = read.csv("UOF.csv")
 
+#Checking Distinct Counts
+x=unique(UOF$residentAge)
+y=distinct(UOF, id, residentAge, )
 
 #Create list of races
 listrace = unique(UOF$residentRace)

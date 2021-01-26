@@ -116,12 +116,18 @@ LouisvilleShootings[LouisvilleShootings == "UNKNOWN"] <- NA
 LouisvilleShootings[LouisvilleShootings == "Unknown"] <- NA
 
 
+
 #Cleaning citations
 colnames(LouisvilleCitations)<-(c("case_number", "citation_control_number", "citation_type", "citation_date", "citation_location", "division", "beat", "subject_gender", "subject_race", "subject_ethnicity", "subject_age", "violation_code", "charge_description", "UCR_description"))
 LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "B "] <- "Black"
 LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "W "] <- "White"
-LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "L "] <- "Latinx"
-LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "H "] <- "?"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "A "] <- "Asian"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "H "] <- "Hispanic"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "M "] <- "Middle Eastern"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "IB "] <- "Indian"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "I "] <- "Indigenous"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "AN "] <- "Indigenous"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "U "] <- "NA"
 LouisvilleCitations$subject_ethnicity[LouisvilleCitations$subject_ethnicity == "N"] <- "Non-Hispanic"
 LouisvilleCitations$subject_ethnicity[LouisvilleCitations$subject_ethnicity == "H"] <- "Hispanic"
 LouisvilleCitations$subject_ethnicity[LouisvilleCitations$subject_ethnicity == "U"] <- NA
@@ -135,30 +141,55 @@ LouisvilleCitations[LouisvilleCitations == "  "] <- NA
 #This code is not done yet, skip to "Cleaning stops". 
 #What i'm trying to do is sort UCR_description into more general categories so I can do EDA with it.
 #I think I need to make this a new column instead of replacing the old data, but i'm not sure how to do that. 
+LouisvilleCitations[ , "citation_category"] <- list(NULL)
+
+LouisvilleCitations$citation_category <- LouisvilleCitations$UCR_description
 
 LouisvilleCitations <- LouisvilleCitations %>%
-  mutate(UCR_description = case_when(
-    str_detect(UCR_description, "RAPE") ~ "RAPE",
-    str_detect(UCR_description, "THEFT") ~ "THEFT",
-    str_detect(UCR_description, "EXTORTION/BLACKMAIL") ~ "THEFT",
-    str_detect(UCR_description, "EMBEZELLMENT") ~ "THEFT",
-    str_detect(UCR_description, "FORCIBLE SODOMY") ~ "RAPE",
-    str_detect(UCR_description, "PURSE SNATCHING") ~ "THEFT",
-    str_detect(UCR_description, "POCKET PICKING") ~ "THEFT",
-    str_detect(UCR_description, "ROBBERY") ~ "THEFT",
-    str_detect(UCR_description, "SHOPLIFTING") ~ "THEFT",
-    str_detect(UCR_description, "OTHER") ~ "OTHER",
-    str_detect(UCR_description, "NON REPORTABLE") ~ "OTHER",
-    str_detect(UCR_description, "EMBEZZLEMENT") ~ "THEFT",
-    str_detect(UCR_description, "STOLEN") ~ "THEFT",
-    str_detect(UCR_description, "BURGLARY") ~ "THEFT",
-    TRUE ~ UCR_description
+  mutate(citation_category = case_when(
+    str_detect(citation_category, "RAPE") ~ "SEXUAL ASSAULT",
+    str_detect(citation_category, "THEFT") ~ "THEFT",
+    str_detect(citation_category, "EXTORTION/BLACKMAIL") ~ "THEFT",
+    str_detect(citation_category, "EMBEZELLMENT") ~ "THEFT",
+    str_detect(citation_category, "FORCIBLE") ~ "SEXUAL ASSAULT",
+    str_detect(citation_category, "PURSE SNATCHING") ~ "THEFT",
+    str_detect(citation_category, "POCKET PICKING") ~ "THEFT",
+    str_detect(citation_category, "ROBBERY") ~ "THEFT",
+    str_detect(citation_category, "SHOPLIFTING") ~ "THEFT",
+    str_detect(citation_category, "OTHER") ~ "OTHER",
+    str_detect(citation_category, "NON REPORTABLE") ~ "OTHER",
+    str_detect(citation_category, "EMBEZZLEMENT") ~ "THEFT",
+    str_detect(citation_category, "STOLEN") ~ "THEFT",
+    str_detect(citation_category, "BURGLARY") ~ "THEFT",
+    str_detect(citation_category, "INFLUENCE") ~ "DRUGS/ALCOHOL",
+    str_detect(citation_category, "DESTRUCT") ~ "DISORDERLY CONDUCT",
+    str_detect(citation_category, "ARSON") ~ "DISORDERLY CONDUCT",
+    str_detect(citation_category, "GAMBLING") ~ "GAMBLING",
+    str_detect(citation_category, "PROSTITUTION") ~ "SEXUAL CRIMES",
+    str_detect(citation_category, "PEEPING") ~ "SEXUAL CRIMES",
+    str_detect(citation_category, "PORNOGRAPHY") ~ "SEXUAL CRIMES",
+    str_detect(citation_category, "LIQUOR") ~ "DRUGS/ALCOHOL",
+    str_detect(citation_category, "FRAUD") ~ "FRAUD",
+    str_detect(citation_category, "FORGERY") ~ "FRAUD",
+    str_detect(citation_category, "SWINDLE") ~ "FRAUD",
+    str_detect(citation_category, "INTIMIDATION") ~ "DISORDERLY CONDUCT",
+    str_detect(citation_category, "IMPERSONATION") ~ "FRAUD",
+    str_detect(citation_category, "LOITERING") ~ "TRESPASS/LOITERING",
+    str_detect(citation_category, "TRESPASS") ~ "TRESPASS/LOITERING",
+    str_detect(citation_category, "DRU") ~ "DRUGS/ALCOHOL",
+    str_detect(citation_category, "INCEST") ~ "SEXUAL CRIMES",
+    str_detect(citation_category, "BRIBERY") ~ "FRAUD",
+    str_detect(citation_category, "FAMILY") ~ "OTHER",
+    str_detect(citation_category, "DISORD") ~ "DISORDERLY CONDUCT",
+    str_detect(citation_category, "WORTHLESS CHECKS") ~ "FRAUD",
+    str_detect(citation_category, "RUNAWAY") ~ "OTHER",
+    str_detect(citation_category, "MURDER") ~ "MURDER",
+    TRUE ~ citation_category
   ))
-LouisvilleCitations$UCR_description[with(LouisvilleCitations, UCR_description %in% unique(UCR_description)[table(UCR_description) < 10])] <- "OTHER"
 
-LouisvilleCitations$UCR_description <- as.factor(LouisvilleCitations$UCR_description)
-levels(LouisvilleCitations$UCR_description)
-
+LouisvilleCitations$citation_category <- as.factor(LouisvilleCitations$citation_category)
+levels(LouisvilleCitations$citation_category)
+LouisvilleCitations$citation_category <- as.character(LouisvilleCitations$citation_category)
 
 #Cleaning stops
 LouisvilleStops[ ,c("ID", "ACTIVITY_TIME")] <- list(NULL)
@@ -224,12 +255,12 @@ LouisvilleStops <- LouisvilleStops %>%
     str_detect(reason_for_search, "SEARCH") ~ "Search",
     str_detect(reason_for_search, "PILL") ~ "Drugs",
     str_detect(reason_for_search, "DRUG") ~ "Drugs",
-TRUE ~ reason_for_search
+    TRUE ~ reason_for_search
   ))
 
 LouisvilleStops <- setDT(LouisvilleStops, key='reason_for_search')[!(c('Drugs', 'Search', 
-                                              'Consent', 'Subject strange/wanted', 'Permissive', 'K9 alert', 'Probable cause', 'Alcohol', 'Contraband in plain view', 'Stolen property', 'Odor', 'Gun', 'Subject nervous', 'Marijuana', NA)), reason_for_search := 'Other']
-
+                                                                       'Consent', 'Subject strange/wanted', 'Permissive', 'K9 alert', 'Probable cause', 'Alcohol', 'Contraband in plain view', 'Stolen property', 'Odor', 'Gun', 'Subject nervous', 'Marijuana', NA)), reason_for_search := 'Other']
+#test
 
 #write files into clean data folder
 setwd("~/Desktop/policing/clean data/Louisville")

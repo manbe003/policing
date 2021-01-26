@@ -2,7 +2,9 @@
 library(dplyr)
 library(tidyr)
 library(stringr)
-setwd("~/Desktop/policing/dirty data/Dallas")
+library(here)
+
+setwd(here("dirty data","Dallas"))
 DallasShootings <- read.csv("DallasPoliceShootings.csv", stringsAsFactors = FALSE)
 
 # I want to rename the columns
@@ -146,10 +148,8 @@ Dallas_shootings_linked <- merge(DallasLinker, DallasShootings, by = "officer_na
 
 View(Dallas_R2R_linked)
 
-#create new folder in clean data and export clean datasets in
-dir.create("~/Desktop/policing/clean data/Dallas")
-setwd("~/Desktop/policing/clean data/Dallas")
-write.csv(Dallas_shootings_linked,"~/Desktop/policing/clean data/Dallas/Dallas_shootings.csv",row.names = FALSE)
-write.csv(Dallas_R2R_linked,"~/Desktop/policing/clean data/Dallas/Dallas_R2R.csv",row.names = FALSE)
+#export clean datasets into clean data folder
+write.csv(Dallas_shootings_linked,here("clean data","Dallas","Dallas_shootings.csv"),row.names = FALSE)
+write.csv(Dallas_R2R_linked,here("clean data","Dallas","Dallas_shootings.csv"),row.names = FALSE)
 
 View(Dallas_shootings_linked)

@@ -168,9 +168,16 @@ ggplot(LouisvilleCitations,
            fill = subject_race))+
   geom_bar(position = "dodge")
 
-#This does not work yet, I need to finish cleaning URC_description first
-aes(x = UCR_description,
-    fill = subject_race)+
+#Take a look at these two as well. They took forever. 
+ggplot(data=subset(LouisvilleCitations, !(LouisvilleCitations$citation_category=="OTHER")),
+       aes(x = citation_category,
+           fill = subject_race))+
+  geom_bar(position = "fill") +
+  coord_flip()
+
+ggplot(data=subset(LouisvilleCitations, !(LouisvilleCitations$citation_category=="OTHER")),
+       aes(x = subject_race,
+           fill = citation_category))+
   geom_bar(position = "fill")
 
 

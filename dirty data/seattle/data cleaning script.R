@@ -9,8 +9,14 @@ setwd(here("dirty data", "seattle"))
 
 #I want to call in my datasets (citations, use of force).
 UOF<-read.csv(file='use_of_force_Seattle.csv', stringsAsFactors = FALSE)
-citations<-read.csv(file='citations_seattle.csv', stringsAsFactors = FALSE)
-shootings<-read.csv(file='Officer_involved_shooting_Seattle.csv', stringsAsFactors = FALSE)
+citation_SN<-read.csv(file='Citation SN.csv', stringsAsFactors = FALSE)
+citation_SN<-rename(citation_SN, Terry.Stop.ID = Field.Contact.Num)
+cites<-read.csv(file='citations_seattle.csv', stringsAsFactors = FALSE)
+citations<-merge(cites, citation_SN, by="Terry.Stop.ID", all = FALSE)
+
+shooting<-read.csv(file='Officer_involved_shooting_Seattle.csv', stringsAsFactors = FALSE)
+shooting_SN<-read.csv(file="shooting SN.csv", stringsAsFactors = FALSE)
+shootings<-merge(shooting,shooting_SN, by="GO", all = FALSE)
 
 #numericize the data
 #first split year/date into two separate variables

@@ -106,12 +106,6 @@ ggplot(Dallas.R2R,
   geom_bar(position = "fill")
 
 
-#read in Dallas demographics data.
-setwd("~/Desktop/policing/dirty data/Dallas")
-DallasDemographics <- read.csv("Dallas racial demographics.csv", stringsAsFactors = FALSE)
-
-View(DallasDemographics)
-
 
 
 

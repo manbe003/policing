@@ -19,6 +19,7 @@ DallasShootings$subject_info <- replace(as.character(DallasShootings$subject_inf
 DallasShootings$subject_info <- replace(as.character(DallasShootings$subject_info), DallasShootings$subject_info == "Unknown L/M; Unknown L/F", "Unknown, Unknown L/M")
 DallasShootings$subject_info <- replace(as.character(DallasShootings$subject_info), DallasShootings$subject_info == "Luster, Desmond Dwayne B/M", "Luster, Desmond-Dwayne B/M")
 DallasShootings$subject_info <- replace(as.character(DallasShootings$subject_info), DallasShootings$subject_info == "Folmar Jr., Alton Anthony W/M", "Folmar, Alton-Anthony W/M")
+DallasShootings$subject_info <- replace(as.character(DallasShootings$subject_info), DallasShootings$subject_info == "Dontrell Terrell B/M", "Dontrell, Terrell B/M")
 
 DallasShootings$officer_info <- gsub("Jr. ", "", DallasShootings$officer_info)
 DallasShootings$subject_info <- gsub("Jr. ", "", DallasShootings$subject_info)
@@ -154,7 +155,10 @@ Dallas_shootings_linked <- merge(DallasLinker, DallasShootings, by = "officer_na
 
 View(Dallas_R2R_linked)
 
+Dallas_shootings_unique<-subset(Dallas_shootings_linked, !duplicated(subject_name))
+
 #export clean datasets into clean data folder
+write.csv(Dallas_shootings_unique,here("clean data","Dallas","Dallas_shootings_unique.csv"),row.names = FALSE)
 write.csv(Dallas_shootings_linked,here("clean data","Dallas","Dallas_shootings.csv"),row.names = FALSE)
 write.csv(Dallas_R2R_linked,here("clean data","Dallas","Dallas_shootings.csv"),row.names = FALSE)
 

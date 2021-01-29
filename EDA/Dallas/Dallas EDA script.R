@@ -4,6 +4,7 @@ library(tidyverse)
 setwd("~/Desktop/policing/clean data/Dallas")
 Dallas.Shootings <- read.csv("Dallas_shootings.csv", stringsAsFactors = TRUE)
 Dallas.R2R <- read.csv("Dallas_R2R.csv", stringsAsFactors = TRUE)
+Dallas.Shootings.unique <- read.csv("Dallas_shootings_unique.csv", stringsAsFactors = TRUE)
 
 levels(Dallas.Shootings$subject_weapon)
 
@@ -21,22 +22,21 @@ ggplot(Dallas.Shootings, aes(subject_race)) +
 
 
 #subject weapon by race
-ggplot(Dallas.Shootings, 
+ggplot(Dallas.Shootings.unique, 
        aes(x = subject_race, 
            fill = subject_weapon)) + 
   geom_bar(position = "dodge")
 
-
 #stacked graph of subject weapon by race, using percentages
-ggplot(Dallas.Shootings, 
+ggplot(Dallas.Shootings.unique, 
        aes(x = subject_race, 
            fill = subject_weapon)) + 
   geom_bar(position = "fill")
 
 #same variables but using raw numbers instead of percentages.
-ggplot(Dallas.Shootings, 
-       aes(x = subject_race, 
-           fill = subject_weapon)) + 
+ggplot(Dallas.Shootings.unique, 
+       aes(x = subject_race), 
+           fill = subject_weapon) + 
   geom_bar(position = "stack")
 
 #the percentages of subjects of each race shot at by officers of each race

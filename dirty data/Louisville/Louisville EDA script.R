@@ -212,5 +212,5 @@ BooleanLouisville <- function(demodata, racecol){
   }
 }
 
-BooleanLouisville(LouisvilleDemographics, LouisvilleCitations$subject_race)
+BooleanLouisville(LouisvilleDemographics, LouisvilleCitations$subject_race_boolean)
 

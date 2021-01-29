@@ -119,6 +119,7 @@ LouisvilleShootings[LouisvilleShootings == "Unknown"] <- NA
 
 #Cleaning citations
 colnames(LouisvilleCitations)<-(c("case_number", "citation_control_number", "citation_type", "citation_date", "citation_location", "division", "beat", "subject_gender", "subject_race", "subject_ethnicity", "subject_age", "violation_code", "charge_description", "UCR_description"))
+# W-White, B-Black, H-Hispanic, A-Asian/Pacific Islander, I-American Indian, U-Undeclared, IB-Indian/India/Burmese, M-Middle Eastern Descent, AN-Alaskan Native
 LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "B "] <- "Black"
 LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "W "] <- "White"
 LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "A "] <- "Asian"
@@ -128,6 +129,12 @@ LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "IB "] <- "
 LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "I "] <- "Indigenous"
 LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "AN "] <- "Indigenous"
 LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "U "] <- "NA"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "H"] <- "Hispanic"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "M"] <- "Middle Eastern"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "IB"] <- "Indian"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "I"] <- "Indigenous"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "AN"] <- "Indigenous"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "U"] <- "NA"
 LouisvilleCitations$subject_ethnicity[LouisvilleCitations$subject_ethnicity == "N"] <- "Non-Hispanic"
 LouisvilleCitations$subject_ethnicity[LouisvilleCitations$subject_ethnicity == "H"] <- "Hispanic"
 LouisvilleCitations$subject_ethnicity[LouisvilleCitations$subject_ethnicity == "U"] <- NA
@@ -138,13 +145,14 @@ LouisvilleCitations[LouisvilleCitations == "        "] <- NA
 LouisvilleCitations[LouisvilleCitations == "            "] <- NA
 LouisvilleCitations[LouisvilleCitations == "  "] <- NA
 
-#This code is not done yet, skip to "Cleaning stops". 
-#What i'm trying to do is sort UCR_description into more general categories so I can do EDA with it.
-#I think I need to make this a new column instead of replacing the old data, but i'm not sure how to do that. 
-LouisvilleCitations[ , "citation_category"] <- list(NULL)
+#Making a column where races match census races for boolean, only Black, White, Hispanic, Asian, Alaskan/American Native
+LouisvilleCitations$subject_race_boolean <- LouisvilleCitations$subject_race
+LouisvilleCitations$subject_race_boolean[LouisvilleCitations$subject_race_boolean == "Indian"] <- "Asian"
+LouisvilleCitations$subject_race_boolean[LouisvilleCitations$subject_race_boolean == "Indigenous"] <- "Alaskan/American Native"
+LouisvilleCitations$subject_race_boolean[LouisvilleCitations$subject_race_boolean == "Indian"] <- "Asian"
+LouisvilleCitations$subject_race_boolean[LouisvilleCitations$subject_race_boolean == "Middle Eastern"] <- "White"
 
 LouisvilleCitations$citation_category <- LouisvilleCitations$UCR_description
-
 LouisvilleCitations <- LouisvilleCitations %>%
   mutate(citation_category = case_when(
     str_detect(citation_category, "RAPE") ~ "SEXUAL ASSAULT",
@@ -260,7 +268,6 @@ LouisvilleStops <- LouisvilleStops %>%
 
 LouisvilleStops <- setDT(LouisvilleStops, key='reason_for_search')[!(c('Drugs', 'Search', 
                                                                        'Consent', 'Subject strange/wanted', 'Permissive', 'K9 alert', 'Probable cause', 'Alcohol', 'Contraband in plain view', 'Stolen property', 'Odor', 'Gun', 'Subject nervous', 'Marijuana', NA)), reason_for_search := 'Other']
-#test
 
 #write files into clean data folder
 setwd("~/Desktop/policing/clean data/Louisville")

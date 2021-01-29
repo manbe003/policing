@@ -8,22 +8,29 @@ library(here)
 setwd(here("dirty data", "seattle"))
 
 #I want to call in my datasets (citations, use of force).
+roster<-read.csv(file='staff roster.csv', stringsAsFactors = FALSE)
+colnames(roster)<-(c("Officer.Serial","name","job","x","department"))
 UOF<-read.csv(file='use_of_force_Seattle.csv', stringsAsFactors = FALSE)
 citation_SN<-read.csv(file='Citation SN.csv', stringsAsFactors = FALSE)
 citation_SN<-rename(citation_SN, Terry.Stop.ID = Field.Contact.Num)
 cites<-read.csv(file='citations_seattle.csv', stringsAsFactors = FALSE)
-citations<-merge(cites, citation_SN, by="Terry.Stop.ID", all = FALSE)
+names_and_SNs<-left_join(citation_SN, roster, by="Officer.Serial")
+citations<-left_join(names_and_SNs, cites, by="Terry.Stop.ID")
 
 shooting<-read.csv(file='Officer_involved_shooting_Seattle.csv', stringsAsFactors = FALSE)
 shooting_SN<-read.csv(file="shooting SN.csv", stringsAsFactors = FALSE)
-shootings<-merge(shooting,shooting_SN, by="GO", all = FALSE)
+shooting_SN[] <- lapply(shooting_SN, as.character)
+shooting_names_and_SNs<-left_join(shooting_SN, roster, by="Officer.Serial")
+
+#because there are multiple of some GOs in each data set, this left join does not work--increases size of dataset. How can we determine which officer is which?
+shootings<-left_join(shooting, shooting_names_and_SNs, by="GO")
 
 #numericize the data
 #first split year/date into two separate variables
 SplitDateTime_UOF<-strsplit(as.character(UOF$Occured_date_time),"\\s")
 SplitDateTime_UOF<-do.call(rbind, SplitDateTime_UOF)
 SplitDateTime_UOF<-as.data.frame(SplitDateTime_UOF, stringsAsFactors=FALSE)
-colnames(SplitDateTime_UOF)<-(c("date","time"))
+colnames(SplitDateTime_UOF)<-(c("Date","time"))
 
 #making a table with all relevant metadata for UOF
 AllMetadata_UOF<-cbind.data.frame(SplitDateTime_UOF[,1:2],UOF[,1:3],UOF[,5:11], stringsAsFactors=FALSE)
@@ -67,8 +74,11 @@ colnames(AllMetadata_UOF_FixSector)<-c("sector")
 AllMetadata_UOF_Standardized<-cbind.data.frame(AllMetadata_UOF_FixRace[,1:6],AllMetadata_UOF_FixSector[,1], AllMetadata_UOF_FixRace[,8:12])
 colnames(AllMetadata_UOF_Standardized)[7]<-c("sector")
 
+#change date format
+AllMetadata_UOF_Standardized$Date<-as.Date(AllMetadata_UOF_Standardized$Date,"%m/%d/%y")
+
 #okay, now we'll export into a new dataset in a clean data folder
-write.csv(AllMetadata_UOF_Standardized,"/Users/katherine/Policing/clean data/seattle/UseOfForce_Seattle.csv",row.names = FALSE)
+write.csv(AllMetadata_UOF_Standardized,here("clean data","seattle","UseOfForce_Seattle.csv"),row.names = FALSE)
 
 
 #need to reorder date for citations to follow m/d/y format
@@ -147,7 +157,7 @@ AllMetadata_Citations_CleanPrecinct<-AllMetadata_Citations_NA
 AllMetadata_Citations_CleanPrecinct[AllMetadata_Citations_CleanPrecinct=="SouthWest"]<-"Southwest"
 
 #Make dataset with all updated data
-AllMetadata_Citations_NA$Reported.Date<-FixDate_Citations$date
+AllMetadata_Citations_NA$Reported.Date<-as.Date(FixDate_Citations$date, "%m/%d/%y")
 AllMetadata_Citations_NA$Reported.Time<-FixTime_Citations[,1]
 AllMetadata_Citations_NA$Precinct<-AllMetadata_Citations_CleanPrecinct$Precinct
 
@@ -155,7 +165,7 @@ AllMetadata_Citations_NA$Precinct<-AllMetadata_Citations_CleanPrecinct$Precinct
 AllMetadata_Citations_NA$Officer.ID <-trimws(citations$Officer.ID)
 
 #write the file to a new location in clean data folder!
-write.csv(AllMetadata_Citations_NA,"/Users/katherine/Policing/clean data/seattle/citations_Seattle.csv",row.names = FALSE)
+write.csv(AllMetadata_Citations_NA,here("clean data","seattle","citations_Seattle.csv"),row.names = FALSE)
 
 
 #finally fix the officer involved shooting dataset. I need to standardize times and races
@@ -231,8 +241,12 @@ AllMetadata_shootings$Years.of.SPD.Service<-as.numeric(AllMetadata_shootings$Yea
 AllMetadata_shootings$Number.of.Rounds[AllMetadata_shootings$Number.of.Rounds=="9"]<-"Multiple"
 AllMetadata_shootings$Number.of.Rounds[AllMetadata_shootings$Number.of.Rounds=="14"]<-"Multiple"
 
+#change date format
+AllMetadata_shootings$Date<-as.Date(AllMetadata_shootings$Date,"%m/%d/%y")
+
 #combine data into one dataset
 AllMetadata_shootings_clean<-cbind.data.frame(AllMetadata_shootings[,1:3],shooting_time,AllMetadata_shootings[,5:28])
 
 #save!
 write.csv(AllMetadata_shootings_clean,here("clean data","seattle","shootings_Seattle.csv"),row.names = FALSE)
+

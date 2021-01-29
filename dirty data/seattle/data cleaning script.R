@@ -2,9 +2,10 @@
 library(dplyr)
 library(tidyr)
 library(stringr)
+library(here)
 
 #set working directory
-setwd("/Users/katherine/Policing/dirty data/seattle")
+setwd(here("dirty data", "seattle"))
 
 #I want to call in my datasets (citations, use of force).
 UOF<-read.csv(file='use_of_force_Seattle.csv', stringsAsFactors = FALSE)
@@ -90,6 +91,7 @@ AllMetadata_Citations_NA[citations=="Other"]<-NA
 AllMetadata_Citations_NA[citations=="Unable to Determine"]<-NA
 AllMetadata_Citations_NA[citations=="Not Specified"]<-NA
 AllMetadata_Citations_NA[citations=="-"]<-NA
+AllMetadata_Citations_NA[citations=="-9"]<-NA
 
 #edit officer race for consistency
 AllMetadata_Citations_NA[AllMetadata_Citations_NA=="American Indian/Alaska Native"]<-"American Indian or Alaska Native"
@@ -227,4 +229,4 @@ AllMetadata_shootings$Number.of.Rounds[AllMetadata_shootings$Number.of.Rounds=="
 AllMetadata_shootings_clean<-cbind.data.frame(AllMetadata_shootings[,1:3],shooting_time,AllMetadata_shootings[,5:28])
 
 #save!
-write.csv(AllMetadata_shootings_clean,"/Users/katherine/Policing/clean data/seattle/shootings_Seattle.csv",row.names = FALSE)
+write.csv(AllMetadata_shootings_clean,here("clean data","seattle","shootings_Seattle.csv"),row.names = FALSE)

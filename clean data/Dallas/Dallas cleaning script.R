@@ -2,7 +2,9 @@
 library(dplyr)
 library(tidyr)
 library(stringr)
-setwd("~/Desktop/policing/dirty data/Dallas")
+library(here)
+
+setwd(here("dirty data","Dallas"))
 DallasShootings <- read.csv("DallasPoliceShootings.csv", stringsAsFactors = FALSE)
 
 # I want to rename the columns
@@ -24,6 +26,12 @@ DallasShootings$subject_info <- gsub("Jr. ", "", DallasShootings$subject_info)
 #changing values that had special characters
 DallasShootings[123, 6] = "Fuller, Antwuanne B/M"
 DallasShootings[147, 7] = "Loeb, Jeffrey W/M"
+
+View(DallasShootings)
+
+DallasShootings$officer_info[DallasShootings$officer_info == "Strand, Emmanuel A/M, Guerra, Carlos L/M"] <- "Strand, Emmanuel A/M; Guerra, Carlos L/M"
+
+DallasShootings = separate_rows(DallasShootings,"officer_info",sep = "; ")
 
 #seperating subject info and officer info
 DallasShootings <-separate(DallasShootings, subject_info, c('last_name', 'first_race_gender'), sep=", ")
@@ -89,7 +97,7 @@ Dallas_R2R_2016 <- read.csv("Police_Response_to_Resistance_-_2016.csv", stringsA
 Dallas_R2R_2017 <- read.csv("Police_Response_to_Resistance___2017.csv", stringsAsFactors = FALSE)
 Dallas_R2R_2018 <- read.csv("Police_Response_to_Resistance_-_2018.csv", stringsAsFactors = FALSE)
 Dallas_R2R_2019 <- read.csv("Police_Response_to_Resistance___2019.csv", stringsAsFactors = FALSE)
-
+View(Dallas_R2R_2018)
 
 #making all of the datasets have the same column names, in the same order --- "RA", "BEAT", "SECTOR", "DIVISION", "DIST_NAME"
 
@@ -146,10 +154,8 @@ Dallas_shootings_linked <- merge(DallasLinker, DallasShootings, by = "officer_na
 
 View(Dallas_R2R_linked)
 
-#create new folder in clean data and export clean datasets in
-dir.create("~/Desktop/policing/clean data/Dallas")
-setwd("~/Desktop/policing/clean data/Dallas")
-write.csv(Dallas_shootings_linked,"~/Desktop/policing/clean data/Dallas/Dallas_shootings.csv",row.names = FALSE)
-write.csv(Dallas_R2R_linked,"~/Desktop/policing/clean data/Dallas/Dallas_R2R.csv",row.names = FALSE)
+#export clean datasets into clean data folder
+write.csv(Dallas_shootings_linked,here("clean data","Dallas","Dallas_shootings.csv"),row.names = FALSE)
+write.csv(Dallas_R2R_linked,here("clean data","Dallas","Dallas_shootings.csv"),row.names = FALSE)
 
 View(Dallas_shootings_linked)

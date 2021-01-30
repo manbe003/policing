@@ -8,10 +8,11 @@ setwd(here("clean data/Indianapolis"))
 #Import data
 OIS = read.csv("OIS.csv")
 UOF = read.csv("UOF.csv")
+IndianapolisDemoData = read.csv("IndianapolisDemoData.csv")
 
 #Checking Distinct Counts
-x=unique(UOF$residentAge)
-y=distinct(UOF, id, residentAge, )
+#x=unique(UOF$residentAge)
+y=distinct(UOF,id,residentAge,residentCondition)
 
 #Create list of races
 listrace = unique(UOF$residentRace)
@@ -53,4 +54,7 @@ IndianapolisFunction = function(demodata, racecol){
     print(binom.test(as.integer(successes), l, demodata[,i]))
   }
 }
+
+IndianapolisFunction(demodata = IndianapolisDemoData, racecol = UOF$residentRace)
+IndianapolisFunction(demodata = IndianapolisDemoData, racecol = OIS$residentRace)
   

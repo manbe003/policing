@@ -3,6 +3,7 @@ library(dplyr)
 library(stringr)
 library(tidyverse)
 
+
 #load in datasets
 LouisvilleStops<-read.csv(file = here('clean data/Louisville/LouisvilleStops.csv'), stringsAsFactors = TRUE)
 LouisvilleShootings<-read.csv(file = here('clean data/Louisville/LouisvilleShootings.csv'), stringsAsFactors = TRUE)
@@ -183,7 +184,7 @@ ggplot(data=subset(LouisvilleCitations, !(LouisvilleCitations$citation_category=
 
 #Boolean. It works (I think), but I don't know if it is right. 
 
-LouisvilleDemographics<- data.frame("Black" = .236, "White"= .656, "Hispanic"= .056, "Asian"= .027, "Alaskan/American Native"= .002) 
+LouisvilleDemographics<- data.frame("White"= .656, "Black" = .236, "Hispanic"= .056, "Asian"= .027, "Alaskan/American Native"= .002) 
 
 #The function
 BooleanLouisville <- function(demodata, racecol){

@@ -1,4 +1,4 @@
-"date","time","ID","Incident_Num","Incident_Type","Precinct","sector","Beat","Officer_ID","Subject_ID","Subject_Race","Subject_Gender"
+"Date","time","ID","Incident_Num","Incident_Type","Precinct","sector","Beat","Officer_ID","Subject_ID","Subject_Race","Subject_Gender"
 "6/7/2014","0:09","2014UOF-0001-1377-203",251,"Level 1 - Use of Force","East","C","C2",1594,203,"Black or African American","Male"
 "5/30/2014","14:06","2014UOF-0002-1098-166",218,"Level 1 - Use of Force","East","G","G1",1673,166,"White","Male"
 "5/23/2014","17:24","2014UOF-0003-1031-125",178,"Level 1 - Use of Force","West","K","K3",1690,125,"Asian","Female"

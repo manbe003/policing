@@ -8,8 +8,9 @@ setwd("/Users/katherine/Policing/clean data/seattle")
 
 #I want to call in my datasets (citations).
 UOF<-read.csv(file='UseOfForce_Seattle.csv', stringsAsFactors = TRUE)
-#and now rule out all that are repeats of same suspect ID
+
 UOF_sansrepeats<-distinct(UOF,UOF$Subject_ID, .keep_all=TRUE)
+
 
 #summary data
 summary(UOF)

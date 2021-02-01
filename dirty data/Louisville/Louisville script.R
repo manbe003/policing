@@ -2,8 +2,11 @@
 library (dplyr)
 library (tidyr)
 library(stringr)
+library(tidyverse)
 library(here)
+install.packages("data.table")
 install.packages("Here")
+library(data.table)
 
 #set working directory
 setwd("~/Desktop/policing/dirty data/Louisville")
@@ -12,7 +15,7 @@ setwd("~/Desktop/policing/dirty data/Louisville")
 LouisvilleStops<-read.csv(file = here('dirty data/Louisville/Louisville stops.csv'), stringsAsFactors = FALSE)
 LouisvilleShootings<-read.csv(file = here('dirty data/Louisville/all_louisville_OIS.csv'), stringsAsFactors = FALSE)
 LouisvilleCitations <- read.csv(unz("Louisville_citations.csv.zip", "Louisville_citations.csv"), stringsAsFactors = FALSE)
-
+View(LouisvilleShootings)
 #Below is my work making citations into a usable size by deleting columns.
 #LouisvilleCitations <- read.csv(unz("UniformCitationData .csv.zip", "UniformCitationData .csv"))
 #LouisvilleCitations[ ,c("AGENCY_DESC", "ID", "CITATION_YEAR", "ASCF_CODE", "STATUTE", "UCR_CODE", "PERSONS_HOME_CITY", "PERSONS_HOME_STATE", "PERSONS_HOME_ZIP")] <- list(NULL)
@@ -113,12 +116,25 @@ LouisvilleShootings[LouisvilleShootings == "UNKNOWN"] <- NA
 LouisvilleShootings[LouisvilleShootings == "Unknown"] <- NA
 
 
+
 #Cleaning citations
 colnames(LouisvilleCitations)<-(c("case_number", "citation_control_number", "citation_type", "citation_date", "citation_location", "division", "beat", "subject_gender", "subject_race", "subject_ethnicity", "subject_age", "violation_code", "charge_description", "UCR_description"))
+# W-White, B-Black, H-Hispanic, A-Asian/Pacific Islander, I-American Indian, U-Undeclared, IB-Indian/India/Burmese, M-Middle Eastern Descent, AN-Alaskan Native
 LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "B "] <- "Black"
 LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "W "] <- "White"
-LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "L "] <- "Latinx"
-LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "H "] <- "?"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "A "] <- "Asian"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "H "] <- "Hispanic"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "M "] <- "Middle Eastern"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "IB "] <- "Indian"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "I "] <- "Indigenous"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "AN "] <- "Indigenous"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "U "] <- "NA"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "H"] <- "Hispanic"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "M"] <- "Middle Eastern"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "IB"] <- "Indian"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "I"] <- "Indigenous"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "AN"] <- "Indigenous"
+LouisvilleCitations$subject_race[LouisvilleCitations$subject_race == "U"] <- "NA"
 LouisvilleCitations$subject_ethnicity[LouisvilleCitations$subject_ethnicity == "N"] <- "Non-Hispanic"
 LouisvilleCitations$subject_ethnicity[LouisvilleCitations$subject_ethnicity == "H"] <- "Hispanic"
 LouisvilleCitations$subject_ethnicity[LouisvilleCitations$subject_ethnicity == "U"] <- NA
@@ -129,6 +145,59 @@ LouisvilleCitations[LouisvilleCitations == "        "] <- NA
 LouisvilleCitations[LouisvilleCitations == "            "] <- NA
 LouisvilleCitations[LouisvilleCitations == "  "] <- NA
 
+#Making a column where races match census races for boolean, only Black, White, Hispanic, Asian, Alaskan/American Native
+LouisvilleCitations$subject_race_boolean <- LouisvilleCitations$subject_race
+LouisvilleCitations$subject_race_boolean[LouisvilleCitations$subject_race_boolean == "Indian"] <- "Asian"
+LouisvilleCitations$subject_race_boolean[LouisvilleCitations$subject_race_boolean == "Indigenous"] <- "Alaskan/American Native"
+LouisvilleCitations$subject_race_boolean[LouisvilleCitations$subject_race_boolean == "Indian"] <- "Asian"
+LouisvilleCitations$subject_race_boolean[LouisvilleCitations$subject_race_boolean == "Middle Eastern"] <- "White"
+
+LouisvilleCitations$citation_category <- LouisvilleCitations$UCR_description
+LouisvilleCitations <- LouisvilleCitations %>%
+  mutate(citation_category = case_when(
+    str_detect(citation_category, "RAPE") ~ "SEXUAL ASSAULT",
+    str_detect(citation_category, "THEFT") ~ "THEFT",
+    str_detect(citation_category, "EXTORTION/BLACKMAIL") ~ "THEFT",
+    str_detect(citation_category, "EMBEZELLMENT") ~ "THEFT",
+    str_detect(citation_category, "FORCIBLE") ~ "SEXUAL ASSAULT",
+    str_detect(citation_category, "PURSE SNATCHING") ~ "THEFT",
+    str_detect(citation_category, "POCKET PICKING") ~ "THEFT",
+    str_detect(citation_category, "ROBBERY") ~ "THEFT",
+    str_detect(citation_category, "SHOPLIFTING") ~ "THEFT",
+    str_detect(citation_category, "OTHER") ~ "OTHER",
+    str_detect(citation_category, "NON REPORTABLE") ~ "OTHER",
+    str_detect(citation_category, "EMBEZZLEMENT") ~ "THEFT",
+    str_detect(citation_category, "STOLEN") ~ "THEFT",
+    str_detect(citation_category, "BURGLARY") ~ "THEFT",
+    str_detect(citation_category, "INFLUENCE") ~ "DRUGS/ALCOHOL",
+    str_detect(citation_category, "DESTRUCT") ~ "DISORDERLY CONDUCT",
+    str_detect(citation_category, "ARSON") ~ "DISORDERLY CONDUCT",
+    str_detect(citation_category, "GAMBLING") ~ "GAMBLING",
+    str_detect(citation_category, "PROSTITUTION") ~ "SEXUAL CRIMES",
+    str_detect(citation_category, "PEEPING") ~ "SEXUAL CRIMES",
+    str_detect(citation_category, "PORNOGRAPHY") ~ "SEXUAL CRIMES",
+    str_detect(citation_category, "LIQUOR") ~ "DRUGS/ALCOHOL",
+    str_detect(citation_category, "FRAUD") ~ "FRAUD",
+    str_detect(citation_category, "FORGERY") ~ "FRAUD",
+    str_detect(citation_category, "SWINDLE") ~ "FRAUD",
+    str_detect(citation_category, "INTIMIDATION") ~ "DISORDERLY CONDUCT",
+    str_detect(citation_category, "IMPERSONATION") ~ "FRAUD",
+    str_detect(citation_category, "LOITERING") ~ "TRESPASS/LOITERING",
+    str_detect(citation_category, "TRESPASS") ~ "TRESPASS/LOITERING",
+    str_detect(citation_category, "DRU") ~ "DRUGS/ALCOHOL",
+    str_detect(citation_category, "INCEST") ~ "SEXUAL CRIMES",
+    str_detect(citation_category, "BRIBERY") ~ "FRAUD",
+    str_detect(citation_category, "FAMILY") ~ "OTHER",
+    str_detect(citation_category, "DISORD") ~ "DISORDERLY CONDUCT",
+    str_detect(citation_category, "WORTHLESS CHECKS") ~ "FRAUD",
+    str_detect(citation_category, "RUNAWAY") ~ "OTHER",
+    str_detect(citation_category, "MURDER") ~ "MURDER",
+    TRUE ~ citation_category
+  ))
+
+LouisvilleCitations$citation_category <- as.factor(LouisvilleCitations$citation_category)
+levels(LouisvilleCitations$citation_category)
+LouisvilleCitations$citation_category <- as.character(LouisvilleCitations$citation_category)
 
 #Cleaning stops
 LouisvilleStops[ ,c("ID", "ACTIVITY_TIME")] <- list(NULL)
@@ -150,6 +219,55 @@ LouisvilleStops$divison <- as.numeric(LouisvilleStops$number_of_passengers)
 LouisvilleStops[LouisvilleStops == ""] <- NA
 LouisvilleStops[LouisvilleStops == " "] <- NA
 LouisvilleStops$citation_control_number[LouisvilleStops$citation_control_number == 0] <- NA
+LouisvilleStops$driver_race[LouisvilleStops$driver_race == "Middle Eastern Descent"] <- "Middle Eastern"
+LouisvilleStops$driver_race[LouisvilleStops$driver_race == "Indian/India/Burmese"] <- "Indian"
+LouisvilleStops$driver_race[LouisvilleStops$driver_race == "Indian/India/Burmese      "] <- "Indian"
+LouisvilleStops$driver_race[LouisvilleStops$driver_race == "Asian/Pacific Islander" ] <- "Asian"
+LouisvilleStops$driver_race[LouisvilleStops$driver_race == "Unknown"] <- NA
+LouisvilleStops$driver_race[LouisvilleStops$driver_race == "Alaskan Native"] <- "Alaskan/American Native"
+LouisvilleStops$driver_race[LouisvilleStops$driver_race == "American Indian"] <- "Alaskan/American Native"
+
+#cleaning reason for search
+LouisvilleStops <- LouisvilleStops %>%
+  mutate(reason_for_search = case_when(
+    str_detect(reason_for_search, "GUN") ~ "Gun",
+    str_detect(reason_for_search, "MARI") ~ "Marijuana",
+    str_detect(reason_for_search, "ALCO")  ~ "Alcohol",
+    str_detect(reason_for_search, "NERVOUS")  ~ "Subject nervous",
+    str_detect(reason_for_search, "BEER")  ~ "Alcohol",
+    str_detect(reason_for_search, "WEED")  ~ "Marijuana",
+    str_detect(reason_for_search, "NARCOTICS")  ~ "Drugs",
+    str_detect(reason_for_search, "COCAINE")  ~ "Drugs",
+    str_detect(reason_for_search, "METH")  ~ "Drugs",
+    str_detect(reason_for_search, "HEROIN")  ~ "Drugs",
+    str_detect(reason_for_search, "CRACK") ~ "Drugs",
+    str_detect(reason_for_search, "ODOR") ~ "Odor",
+    str_detect(reason_for_search, "SMELL") ~ "Odor",
+    str_detect(reason_for_search, "ARREST") ~ "Arrest",
+    str_detect(reason_for_search, "BOTTLE") ~ "Alcohol",
+    str_detect(reason_for_search, "STOLEN") ~ "Stolen property",
+    str_detect(reason_for_search, "PLAIN") ~ "Contraband in plain view",
+    str_detect(reason_for_search, "OPEN") ~ "Alcohol",
+    str_detect(reason_for_search, "NEEDLE") ~ "Drugs",
+    str_detect(reason_for_search, "CAUSE") ~ "Probable cause",
+    str_detect(reason_for_search, "PROB") ~ "Probable cause",
+    str_detect(reason_for_search, "PC") ~ "Probable cause",
+    str_detect(reason_for_search, "CON") ~ "Consent",
+    str_detect(reason_for_search, "VERBAL") ~ "Consent",
+    str_detect(reason_for_search, "SUB") ~ "Subject strange/wanted",
+    str_detect(reason_for_search, "PASS") ~ "Subject strange/wanted",
+    str_detect(reason_for_search, "DRIVER") ~ "Subject strange/wanted",
+    str_detect(reason_for_search, "PERM") ~ "Permissive",
+    str_detect(reason_for_search, "9") ~ "K9 alert",
+    str_detect(reason_for_search, "DOG") ~ "K9 alert",
+    str_detect(reason_for_search, "SEARCH") ~ "Search",
+    str_detect(reason_for_search, "PILL") ~ "Drugs",
+    str_detect(reason_for_search, "DRUG") ~ "Drugs",
+    TRUE ~ reason_for_search
+  ))
+
+LouisvilleStops <- setDT(LouisvilleStops, key='reason_for_search')[!(c('Drugs', 'Search', 
+                                                                       'Consent', 'Subject strange/wanted', 'Permissive', 'K9 alert', 'Probable cause', 'Alcohol', 'Contraband in plain view', 'Stolen property', 'Odor', 'Gun', 'Subject nervous', 'Marijuana', NA)), reason_for_search := 'Other']
 
 #write files into clean data folder
 setwd("~/Desktop/policing/clean data/Louisville")

@@ -9,6 +9,9 @@ setwd("/Users/katherine/Policing/clean data/seattle")
 #I want to call in my datasets (citations).
 UOF<-read.csv(file='UseOfForce_Seattle.csv', stringsAsFactors = TRUE)
 
+UOF_sansrepeats<-distinct(UOF,UOF$Subject_ID, .keep_all=TRUE)
+
+
 #summary data
 summary(UOF)
 

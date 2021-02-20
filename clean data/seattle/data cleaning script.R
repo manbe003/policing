@@ -18,12 +18,15 @@ names_and_SNs<-left_join(citation_SN, roster, by="Officer.Serial")
 citations<-left_join(names_and_SNs, cites, by="Terry.Stop.ID")
 
 shooting<-read.csv(file='Officer_involved_shooting_Seattle.csv', stringsAsFactors = FALSE)
+#why are there 120 shooting and 135 SNs?
 shooting_SN<-read.csv(file="shooting SN.csv", stringsAsFactors = FALSE)
+shooting_SN2<-read.csv(file="shooting_SN_2.csv", stringsAsFactors = FALSE)
+shooting_SN2<-rename(shooting_SN2, GO=General.Offense.Number, Officer.Serial = Badge.Num, Employee.Year.of.Birth=Year.of.Birth)
 shooting_SN[] <- lapply(shooting_SN, as.character)
+shooting_SN2[] <- lapply(shooting_SN2, as.character)
+shooting_SN<-rbind(shooting_SN, shooting_SN2)
 shooting_names_and_SNs<-left_join(shooting_SN, roster, by="Officer.Serial")
-
-#because there are multiple of some GOs in each data set, this left join does not work--increases size of dataset. How can we determine which officer is which?
-shootings<-left_join(shooting, shooting_names_and_SNs, by="GO")
+shootings_sansrepeats<-distinct(shooting,shooting$GO, .keep_all=TRUE)
 
 #numericize the data
 #first split year/date into two separate variables
@@ -169,7 +172,7 @@ write.csv(AllMetadata_Citations_NA,here("clean data","seattle","citations_Seattl
 
 
 #finally fix the officer involved shooting dataset. I need to standardize times and races
-AllMetadata_shootings<-shootings
+AllMetadata_shootings<-shooting
 AllMetadata_shootings[AllMetadata_shootings=="American Indian/Alaska Native"]<-("American Indian or Alaska Native")
 AllMetadata_shootings[AllMetadata_shootings=="Nat Hawaiian/Oth Pac Islander"]<-("Native Hawaiian or Other Pacific Islander")
 AllMetadata_shootings[AllMetadata_shootings=="Hispanic or Latino"]<-"Hispanic"
@@ -187,6 +190,7 @@ AllMetadata_shootings[AllMetadata_shootings=="On"]<-"No"
 AllMetadata_shootings[AllMetadata_shootings=="Within Policy "]<-"Justified"
 AllMetadata_shootings[AllMetadata_shootings=="Within Policy"]<-"Justified"
 AllMetadata_shootings[AllMetadata_shootings=="Out of Policy"]<-"Not Justified"
+AllMetadata_shootings[AllMetadata_shootings=="16-62644"]<-"16-062644"
 
 #add a colon 2 spaces into time
 shooting_hour<-as.numeric(substr(AllMetadata_shootings$Time,1,nchar(AllMetadata_shootings$Time)-2))

@@ -13,9 +13,9 @@ Shootings<-read.csv(file=here('clean data/orlando/shooting (cleaned).csv'), stri
 Demodata = data.frame(count=c(192770,61670,957,9084,50,13574), category=c("white","black", "Native America","Asian","Native Hawaiian","Mixed"))
 
   
-Demodata$fraction = Demodata2$count / sum(Demodata$count)
+Demodata$fraction = Demodata$count / sum(Demodata$count)
 Demodata = Demodata[order(Demodata$fraction), ]
-Demodata$ymax = cumsum(Demodata2$fraction)
+Demodata$ymax = cumsum(Demodata$fraction)
 Demodata$ymin = c(0, head(Demodata$ymax, n=-1))
 
 
@@ -29,18 +29,11 @@ ggplot(Demodata, aes(fill=category, ymax=ymax, ymin=ymin, xmax=4, xmin=3)) +
 #separating rows so there is only one offender per row
 Shootings_Offenders<- Shootings %>% separate_rows(Suspect.Race, Suspect.Gender, Suspect.Hit, Fatal, sep= ",")
 
-shootings_table<- table(Shootings_Offenders$Suspect.Race)
-shootings_table
-sum(shootings_table == White)
 
-
-
-
-ggplot(Shootings_Offenders2=data.frame(Suspect.Race), 
-       aes(x = factor(1),fill = factor(Suspect.Race))) + 
-  geom_bar(stat = "count") + 
-  scale_y_continuous(breaks = seq(0,12,3), labels = c("0", "25%", "50%", "75%", "100%")) + 
-  coord_polar(theta='y') +
+ggplot(data = as.data.frame(Shootings_Offenders$Suspect.Race), 
+       aes(x = factor(1),fill = factor(Shootings_Offenders$Suspect.Race))) + 
+  geom_bar(stat = "count") +
+ scale_y_continuous(breaks = seq(0,length(Shootings_Offenders$Suspect.Race),length(Shootings_Offenders$Suspect.Race)/4), labels = c("0", "25%", "50%", "75%", "100%")) + 
   coord_polar(theta='y') +
   theme(axis.text.y = element_blank(), 
         axis.title.y = element_blank(), 

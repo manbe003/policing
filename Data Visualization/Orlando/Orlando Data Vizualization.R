@@ -42,3 +42,16 @@ ggplot(data = as.data.frame(Shootings_Offenders$Suspect.Race),
   labs(fill = "Suspect.Race")
 
 
+Demodata_shoot = data.frame(count=c(192770,61670,23665), category=c("white","black", "other"))
+
+
+Demodata_shoot$fraction = Demodata_shoot$count / sum(Demodata_shoot$count)
+Demodata_shoot = Demodata_shoot[order(Demodata_shoot$fraction), ]
+Demodata_shoot$ymax = cumsum(Demodata_shoot$fraction)
+Demodata_shoot$ymin = c(0, head(Demodata_shoot$ymax, n=-1))
+
+ggplot(Demodata_shoot, aes(fill=category, ymax=ymax, ymin=ymin, xmax=4, xmin=3)) +
+  geom_rect() +
+  coord_polar(theta="y") +
+  xlim(c(0, 4)) +
+  labs(title="Shootings Demo Data")

@@ -11,15 +11,21 @@ library(epitools)
 setwd("~/policing/policing/clean data/seattle")
 
 #I want to call in my datasets
-shootings<-read.csv(file='shootings_Seattle.csv', stringsAsFactors = TRUE)
-shootings_join<-left_join(AllMetadata_shootings_clean, shooting_names_and_SNs, by="GO")
+shooting<-read.csv(file='shootings_Seattle.csv', stringsAsFactors = TRUE)
+shooting_SNs<-read.csv(file='shooting_SNs.csv', stringsAsFactors = TRUE)
+shooting_sansrepeats<-distinct(shooting,shooting$GO, .keep_all=TRUE)
+shootings_join<-left_join(shooting_sansrepeats, shooting_SNs, by="GO")
+
+
 Officer.Serial<-as.integer(shootings_join$Officer.Serial)
-shootings_join<-(cbind(shootings_join[,2:9], shootings_join[,16:28], Officer.Serial, shootings_join[30:34]))
+shootings_join<-(cbind(shootings_join[,2:9], shootings_join[,16:28], Officer.Serial, shootings_join[,31:34]))
+
+#FOR NOW I will just get rid of places where numbers of SNs per go =/= numbers of cases in shooting DB per go
+#11-208425, 13-236273, 14-019975, 14-431136,  15-423533, 15-340293, 15-340351, 16-062644, and 16-10077
+no_questionable_GOs<-shootings_join[!(shootings_join$GO=="11-208425" | shootings_join$GO=="13-236273" | shootings_join$GO=="14-019975" | shootings_join$GO=="14-431136" | shootings_join$GO=="15-423533" | shootings_join$GO=="15-340293" | shootings_join$GO=="15-340351" | shootings_join$GO=="16-062644" | shootings_join$GO=="16-10077"),]
 
 citations<-read.csv(file='citations_Seattle.csv', stringsAsFactors = TRUE)
 
-
-shootings_and_cites<-left_join(shootings_join, citations, by="Officer.Serial")
 
 #why does officer ID change here?
 officer_race_resolution<-as.data.frame(na.omit(cbind(as.character(citations$Subject.Perceived.Race), as.character(citations$Stop.Resolution), citations$Officer.Serial, citations$Officer.YOB, as.character(citations$Officer.Squad), as.character(citations$Officer.Race), citations$Officer.Serial, citations$name)))
@@ -94,7 +100,67 @@ OR_table<-na.omit(OR_table)
 OR_table<-rename(OR_table, Officer.Serial = `officer ID`)
 serial_int<-as.integer(OR_table$Officer.Serial)
 OR_table$Officer.Serial<-serial_int
+OR_table$`OR estimate`<-as.numeric(OR_table$`OR estimate`)
 
-#combine with shootings; this should include all serials that have associated ORs and thus we can next compute a y/n based on NAs to also have ppl who did not shoot anyone in there...
+
+#Graph by officer of OR estimate histogram. See that most people have ORs around ~1.7, but some up around 12!
+ggplot(OR_table, aes(`OR estimate`))+
+  geom_histogram()
+
 shootings_and_cites<-right_join(shootings_join, OR_table, by="Officer.Serial")
 
+#add a column for whether or not the officer shot someone
+for (i in 1:length(shootings_and_cites$GO)){
+  if(is.na(shootings_and_cites$Date[i])){
+    shootings_and_cites$shotyn[i]<-0
+    
+  }
+  if  (!is.na(shootings_and_cites$Date[i])){
+    shootings_and_cites$shotyn[i]<-1
+  }
+}
+
+#add a column for whether or not the officer shot someone Black
+for (i in 1:length(shootings_and_cites$shotyn)){
+  shootings_and_cites$shotBlackyn[i]<-0
+  if  (isTRUE(shootings_and_cites$Subject.Race[i]=="Black or African American")){
+    shootings_and_cites$shotBlackyn[i]<-1
+  }
+}
+
+#add a column for whether or not the officer shot someone White
+for (i in 1:length(shootings_and_cites$shotyn)){
+  shootings_and_cites$shotWhiteyn[i]<-0
+  if  (isTRUE(shootings_and_cites$Subject.Race[i]=="White")){
+    shootings_and_cites$shotWhiteyn[i]<-1
+  }
+}
+
+cops_who_killed_Blacks<-shootings_and_cites[shootings_and_cites$shotBlackyn==1,]
+mean_OR<-mean(as.numeric(cops_who_killed_Blacks$`OR estimate`))
+cops_who_killed_Whites<-shootings_and_cites[shootings_and_cites$shotWhiteyn==1,]
+mean_OR<-mean(as.numeric(cops_who_killed_Whites$`OR estimate`))
+cops_who_didnt_kill<-shootings_and_cites[shootings_and_cites$shotyn==0,]
+mean_OR<-mean(as.numeric(cops_who_didnt_kill$`OR estimate`))
+
+
+
+
+#figure out distribution of precincts where shootings happened.
+#first, create a DB that combines all citation data with all shootings data so that I can use precinct-level data from citation
+add_precinct<-right_join(citations, shootings_join, by="Officer.Serial")
+add_precinct<-distinct(add_precinct, add_precinct$Officer.Serial, .keep_all=TRUE)
+
+#let's check out the odds ratios of different precincts
+OR_and_precinct<-left_join(OR_table, citations, by="Officer.Serial")
+OR_and_precinct<-distinct(OR_and_precinct,OR_and_precinct$Officer.Serial, .keep_all=TRUE)
+OR_and_precinct$`OR estimate`<-(as.numeric(OR_and_precinct$`OR estimate`))
+x<-aggregate(OR_and_precinct$`OR estimate`, list(OR_and_precinct$Precinct), mean)
+    
+
+for (i in 1:length(add_precinct)){
+  if (add_precinct$Precinct[i]==NA & str_contains(add_precinct$Officer.Squad, "Nor")==TRUE
+  
+}
+    
+    

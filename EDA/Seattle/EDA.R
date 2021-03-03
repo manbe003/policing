@@ -4,11 +4,10 @@ library(stringr)
 library(tidyverse)
 
 #set working directory
-setwd("/Users/katherine/Policing/clean data/seattle")
+setwd("~/policing/policing/clean data/seattle")
 
 #I want to call in my datasets (citations).
 UOF<-read.csv(file='UseOfForce_Seattle.csv', stringsAsFactors = TRUE)
-
 UOF_sansrepeats<-distinct(UOF,UOF$Subject_ID, .keep_all=TRUE)
 
 
@@ -38,6 +37,8 @@ ggplot(UOF,
 
 #shootings EDA
 shootings<-read.csv(file='shootings_Seattle.csv', stringsAsFactors = TRUE)
+shootings_sansrepeats<-distinct(shootings,shootings$GO, .keep_all=TRUE)
+shootings<-shootings_sansrepeats
 
 #summary data
 summary(shootings)
@@ -85,9 +86,8 @@ levels(shootings$Type.of.Weapon)
 levels(shootings$Fatal)
 levels(shootings$On.duty)
 levels(shootings$Justified)
-levels(shootings$Within.Policy)
-levels(shootings$Officer.Disciplined.)
-#the ones that return NULL are T/F
+levels(as.factor(shootings$Within.Policy))
+levels(as.factor(shootings$Officer.Disciplined.))
 
 ggplot(shootings, aes(Officer.Gender))+
   geom_bar()
@@ -133,6 +133,12 @@ ggplot(shootings,
        aes(x = Subject.Race,
            fill = Within.Policy))+
   geom_bar(position = "dodge")
+
+ggplot(shootings,
+       aes(x = Subject.Race,
+           fill = Officer.Disciplined.))+
+  geom_bar(position = "dodge")
+
 
 ggplot(shootings,
        aes(x = Type.of.Weapon,

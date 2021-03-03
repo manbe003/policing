@@ -26,7 +26,8 @@ shooting_SN[] <- lapply(shooting_SN, as.character)
 shooting_SN2[] <- lapply(shooting_SN2, as.character)
 shooting_SN<-rbind(shooting_SN, shooting_SN2)
 shooting_names_and_SNs<-left_join(shooting_SN, roster, by="Officer.Serial")
-shootings_sansrepeats<-distinct(shooting,shooting$GO, .keep_all=TRUE)
+write.csv(shooting_names_and_SNs,here("clean data","seattle","shooting_SNs.csv"),row.names = FALSE)
+
 
 #numericize the data
 #first split year/date into two separate variables

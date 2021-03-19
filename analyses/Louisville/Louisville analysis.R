@@ -7,13 +7,13 @@ library(data.table)
 library(tidyverse)
 library(tidyr) 
 library(dplyr) 
-
+library(ggplot2)
 LouisvilleShootings<-read.csv(file = here('clean data/Louisville/LouisvilleShootings.csv'), stringsAsFactors = FALSE)
-View(DallasIncidents)
+DallasShootings<-read.csv(file = here('clean data/Dallas/Dallas_shootings.csv'), stringsAsFactors = FALSE)
 
-DallasIncidents<-read.csv(file = here('dirty data/Dallas/Dallas_Police_Public_Data_-_RMS_Incidents-With_GeoLocation.zip'), stringsAsFactors = FALSE)
 
-sum(is.na(DallasShootings$officer_badge_number))
+
+View(DallasShootings)
 
 #the function
 OfficerGroupSize <- function(dataset, mergecol, together){
@@ -23,16 +23,21 @@ OfficerGroupSize <- function(dataset, mergecol, together){
   dataset <- merge(matching, dataset, by = mergecol, all.y = TRUE)
   return(dataset)
 }
-
+View(LouisvilleShootings)
 LouisvilleShootings <- OfficerGroupSize(LouisvilleShootings, "PIU_number", LouisvilleShootings$PIU_number)
+
+
+DallasShootings <- OfficerGroupSize(DallasShootings, "case", DallasShootings$case)
+
+ggplot(DallasShootingsUnique, aes(officer_group_size))+
+  geom_bar()
+
 
 #questions
 #rare cases of multiple victims per one officer. Should i switch PUI_number with subject_name? what if the same person gets two different citations then? And there are a good deal of NAs in that column
 
 
 #Ok. That worked. Now lets try to make a function for the % white/black column . This one will be more difficult. 
-
-# Does not work, but close? -- LouisvilleShootings$white_officers <- ave(LouisvilleShootings$officer_race == "White", LouisvilleShootings$PIU_number)
 
 #This works, but there is probably a better way. Still it took me hours and I am quite proud of it.
 
@@ -42,8 +47,6 @@ OfficerRaceGroup <- LouisvilleShootings %>%
 
 OfficerRaceGroup<-OfficerRaceGroup[sample_n(OfficerRaceGroup$officer_race=="White")]
 
-OfficerRaceGroup<-OfficerRaceGroup[!(OfficerRaceGroup$officer_race=="Black"),]
-OfficerRaceGroup<-OfficerRaceGroup[!(OfficerRaceGroup$officer_race=="Asian"),]
 OfficerRaceGroup[,"officer_race"] <- list(NULL)
 colnames(OfficerRaceGroup) <- c("PIU_number", "white_officers")
 LouisvilleShootings <- merge(OfficerRaceGroup, LouisvilleShootings, by = "PIU_number", all.y = TRUE)
@@ -55,51 +58,77 @@ LouisvilleShootings$percent_white <- LouisvilleShootings$percent_white * 100
 LouisvilleShootings$percent_white <- as.factor(LouisvilleShootings$percent_white)
 
 LouisvilleShootingsUnique<-subset(LouisvilleShootings, !duplicated(PIU_number))
+View(LouisvilleShootingsUnique)
 
 ggplot(LouisvilleShootingsUnique, aes(percent_white))+
   geom_bar()
 
-#This works. Now lets make it into a fuction! The function does not work yet, there are problems we=ith the colum names having "" or not i think. also $ dont work. help?
-PercentWhiteCol <- function(dataset, numbercol, racecol){
-  OfficerRaceGroup <- dataset %>%  
-    group_by(numbercol, racecol) %>% 
-    summarise(Freq = n()) 
-  
-  OfficerRaceGroup<-OfficerRaceGroup[!(OfficerRaceGroup$racecol=="Black"),]
-  OfficerRaceGroup<-OfficerRaceGroup[!(OfficerRaceGroup$racecol=="Asian"),]
-  OfficerRaceGroup[,racecol] <- list(NULL)
-  colnames(OfficerRaceGroup) <- c(numbercol, "white_officers")
-  dataset <- merge(OfficerRaceGroup, dataset, by = numbercol, all.y = TRUE)
-  
-  dataset$white_officers[is.na(dataset$white_officers)] <- 0
-  dataset$percent_white <- dataset$white_officers / dataset$officer_group_size
-  dataset$percent_white <- dataset$percent_white * 100
-  return(dataset)
-}
+#This works. Now lets try it with DallasShootings
+OfficerRaceGroup <- DallasShootings %>%  
+  group_by(case, officer_race) %>% 
+  summarise(Freq = n()) 
 
-LouisvilleShootings <- PercentWhiteCol(LouisvilleShootings, "PIU_number", "officer_race")
+OfficerRaceGroup<-OfficerRaceGroup[sample_n(OfficerRaceGroup$officer_race=="White")]
+
+OfficerRaceGroup[,"officer_race"] <- list(NULL)
+colnames(OfficerRaceGroup) <- c("case", "white_officers")
+DallasShootings <- merge(OfficerRaceGroup, DallasShootings, by = "case", all.y = TRUE)
+
+DallasShootings$white_officers[is.na(DallasShootings$white_officers)] <- 0
+DallasShootings$percent_white <- DallasShootings$white_officers / DallasShootings$officer_group_size
+DallasShootings$percent_white <- DallasShootings$percent_white * 100
+
+DallasShootings$percent_white <- as.factor(DallasShootings$percent_white)
+
+DallasShootingsUnique<-subset(DallasShootings, !duplicated(case))
+View(DallasShootingsUnique)
+
+ggplot(DallasShootingsUnique, aes(percent_white))+
+  geom_bar()
+
+ggplot(data=subset(DallasShootingsUnique, !(officer_group_size == 1)), aes(percent_white))+
+  geom_bar()
+  
+ggplot(data=subset(DallasShootingsUnique, !(officer_group_size == 1)),
+       aes(x = percent_white,
+           fill = subject_race))+
+  geom_bar(position = "dodge")
+
+ggplot(DallasShootingsUnique,
+       aes(x = percent_white,
+           fill = subject_race))+
+  geom_bar(position = "dodge")
+
+
+#Bootstrapping
+  
+
+DS_race<-subset(DallasShootings, select = "officer_race")
+
+x <- replicate(2, DS_race[sample(nrow(DS_race), 1000, replace = TRUE), ])
+
 
 
 #this is all just brainstorming and varius ideas. Ignore below. 
-for i in 1:length(DS)
-if [id == i]
-LouisvilleShootings$white_officers <- sum(LouisvilleShootings$officer_race == White)
 
+x$V2 <- DS_race[sample(nrow(DS_race), 1000, replace = TRUE), ]
+x <- replicate(1000, DS_race[sample(nrow(DS_race)),])
 
-ds$n <- sum(incident_number==x)
-X== incident number for every row.
-For i in 1:length(unique(ID)
-unique (id), length (table)
-Group IDS, and count them
-Then match by ID
-
-library(dplyr)
-
-x = unique(dat$PIU_number)
-y = list()
-                  
-for (i in 1:length(x)){
-y[i] = sum(dat$PIU_number==x[i])  
+for (i in 1:1000){
+  #randomly sample from df
+  x[i,race]<-sample(DS_race, 1, replace=TRUE)
+  
 }
+View(x)
+View(all_samples)
+all_samples<-sample(DS_race, 2, replace=TRUE)
+mean(x)
+all_means[i]<-mean(x)
+
+
+x<-sample(DS_race, 2, replace=TRUE)
+x
+
+
 
 

@@ -5,12 +5,12 @@ library(dplyr)
 library(tidyr)
 library(tidyverse)
 
-#WD
+#loading files
 DemoData_UOF<-read.csv(file=here('clean data/orlando/Orlando City DemoData UOF.csv'), stringsAsFactors = FALSE)
 DemoData_Shootings<-read.csv(file=here('clean data/orlando/Orlando City DemoData Shootings.csv'), stringsAsFactors = FALSE)
 Shootings<-read.csv(file=here('clean data/orlando/shooting (cleaned).csv'), stringsAsFactors = FALSE)
 
-
+#demodata pie chart as practice
 Demodata = data.frame(count=c(192770,61670,957,9084,50,13574), category=c("white","black", "Native America","Asian","Native Hawaiian","Mixed"))
 
   
@@ -26,7 +26,7 @@ ggplot(Demodata, aes(fill=category, ymax=ymax, ymin=ymin, xmax=4, xmin=3)) +
   xlim(c(0, 4)) +
   labs(title="Basic ring plot")
 
-
+##Shootings data doughnut chart practice
 #separating rows so there is only one offender per row
 Shootings_Offenders<- Shootings %>% separate_rows(Suspect.Race, Suspect.Gender, Suspect.Hit, Fatal, sep= ",")
 
@@ -42,7 +42,7 @@ ggplot(data = as.data.frame(na.omit(Shootings_Offenders$Suspect.Race, na.rm = TR
         axis.title.x = element_blank()) +
   labs(fill = "Suspect.Race")
 
-#making a doughnut plot for just the races the shootings dataset includes
+#making a demo doughnut plot for just the races the shootings dataset includes
 Demodata_shoot = data.frame(count=c(61670,23665,192770), category=c("Black","Other", "White"))
 
 
@@ -61,8 +61,7 @@ ggplot(Demodata_shoot, aes(fill=category, ymax=ymax, ymin=ymin, xmax=4, xmin=3))
 
 
 
-
-##trying to combine the charts/make a double donought chart
+##trying to combine the charts/make a double doughnut chart
 #making a combined data set
 shoot = as.data.frame(table(na.omit(Shootings_Offenders$Suspect.Race)))
 demo = data.frame(category=c("Black","Other", "White"), count=c(61670,23665,192770))
@@ -72,7 +71,7 @@ colnames(combined)[1] <- "Race"
 colnames(combined)[2] <- "police_freq"
 colnames(combined)[3] <- "demo_freq"
 
-## doughnut chart w demo data/ proof of concept
+# doughnut chart w demo data/ proof of concept
 combined$fraction = combined$demo_freq / sum(combined$demo_freq)
 combined = combined[order(combined$fraction), ]
 combined$ymax = cumsum(combined$fraction)
@@ -97,28 +96,9 @@ ggplot(combined, aes(fill=Race, ymax=ymax2, ymin=ymin2, xmax=4, xmin=3)) +
   xlim(c(0, 4)) +
   labs(title="Basic ring plot 2")
 
-
-
-##combined doughnut chart failed attempts
-ggplot(combined, aes(demo_freq, police_freq, fill=Race, ymax=ymax2, ymin=ymin2, xmax=4, xmin=3)) +
-  geom_rect() +
-  coord_polar(theta="y") +
-  xlim(c(0, 4)) +
-  labs(title="Basic ring plot 2")
-
-
-
-ggplot(combined) + 
-  geom_rect(aes(fill=Race, ymax=ymax, ymin=ymin, xmax=4, xmin=3)) +
-  geom_rect(aes(fill=Race, ymax=ymax2, ymin=ymin2, xmax=4, xmin=3)) +
-  xlab("demo_freq") + ylab("police_freq") +
-  coord_polar(theta="y") +
-  xlim(c(0, 4)) +
-  labs(title="Basic ring plot 2")
-
   
   
-#####different style I think worked??
+###combined chart
 #different combined, frequencies stolen from the combined table, calculated above 
 df <- data.frame (
   type = rep(c("demo", "police"), each = 3), 
@@ -127,7 +107,7 @@ df <- data.frame (
 )
 
 ggplot(df, aes(x = type, y = freq, fill = Race)) +
-  geom_col() +
+  geom_col()+
   scale_x_discrete(limits = c(" ", "police","demo")) +
   scale_fill_viridis_d() +
   coord_polar("y")

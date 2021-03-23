@@ -13,7 +13,7 @@ DallasShootings<-read.csv(file = here('clean data/Dallas/Dallas_shootings.csv'),
 
 
 
-View(DallasShootings)
+View(LouisvilleShootings)
 
 #the function
 OfficerGroupSize <- function(dataset, mergecol, together){
@@ -105,29 +105,37 @@ ggplot(DallasShootingsUnique,
 
 DS_race<-subset(DallasShootings, select = "officer_race")
 
-x <- replicate(2, DS_race[sample(nrow(DS_race), 1000, replace = TRUE), ])
+DS_bootstrap <- replicate(2, DS_race[sample(nrow(DS_race), 1000, replace = TRUE), ])
+
+
+LS_race<-subset(LouisvilleShootings, select = "officer_race")
+
+LS_bootstrap <- replicate(2, LS_race[sample(nrow(LS_race), 1000, replace = TRUE), ])
+colnames(LS_bootstrap) <- c("off1", "off2")
+LS_bootstrap <- as.data.frame(LS_bootstrap)
+
+LS_bootstrap_freqs <- data.frame(table(LS_bootstrap$off1, LS_bootstrap$off2))
+View(LS_bootstrap_freqs)
 
 
 
-#this is all just brainstorming and varius ideas. Ignore below. 
+LS_race2 <- subset(LouisvilleShootings, LouisvilleShootings$officer_group_size == 2)
 
-x$V2 <- DS_race[sample(nrow(DS_race), 1000, replace = TRUE), ]
-x <- replicate(1000, DS_race[sample(nrow(DS_race)),])
+x<-subset(LS_race2, select = c("PIU_number", "officer_race"))
 
-for (i in 1:1000){
-  #randomly sample from df
-  x[i,race]<-sample(DS_race, 1, replace=TRUE)
-  
-}
-View(x)
-View(all_samples)
-all_samples<-sample(DS_race, 2, replace=TRUE)
-mean(x)
-all_means[i]<-mean(x)
+x<- x %>%
+  group_by(grp = str_c('Column', rep(1:2, length.out = n()))) %>%
+  mutate(rn = row_number()) %>%
+  ungroup %>%
+  pivot_wider(names_from = grp, values_from = officer_race) %>%
+  select(-rn)
 
+LS_race2 <- x
+LS_race2[ ,"PIU_number"] <- list(NULL)
+colnames(LS_race2) <- c("off1", "off2")
+LS_group_freqs <- data.frame(table(LS_race2$off1, LS_race2$off2))
 
-x<-sample(DS_race, 2, replace=TRUE)
-x
+View(LS_group_freqs)
 
 
 

@@ -32,9 +32,9 @@ SplitDateTime_UOF<-as.data.frame(SplitDateTime_UOF, stringsAsFactors=FALSE)
 
 
 #making a table with all relevant metadata for UOF
-AllMetadata_UOF<-cbind.data.frame(UOF$ï..Incident.Number,SplitDateTime_UOF$date,SplitDateTime_UOF$time,SplitDateTime_UOF$hour,UOF$Officers.Involved,UOF$Officers.Race,UOF$Officers.Ethnicity,UOF$Officers.Sex,UOF$Offenders.Race,UOF$Offenders.Ethnicity,UOF$Offenders.Sex, stringsAsFactors=FALSE)
+AllMetadata_UOF<-cbind.data.frame(UOF$ï..Incident.Number,SplitDateTime_UOF$date,SplitDateTime_UOF$time,SplitDateTime_UOF$hour,UOF$Officers.Involved,UOF$Officers.Race,UOF$Officers.Ethnicity,UOF$Officers.Sex,UOF$Electronic.Device.Used,UOF$Chemical.Agent.Used,UOF$Tackle.Take.Down,UOF$Impact.Weapons.Used,UOF$Physical.Strikes.Made,UOF$Deflation.Device.Used,UOF$K9.Unit.Involved,UOF$Offenders.Race,UOF$Offenders.Ethnicity,UOF$Offenders.Sex, stringsAsFactors=FALSE)
 
-colnames(AllMetadata_UOF)<-(c("Incident Number","date","time", "hour","Officers Involved","Officers.Race","Officers.Ethnicity","Officers.Sex", "Offenders.Race","Offenders.Ethnicity","Offenders.Sex"))
+colnames(AllMetadata_UOF)<-(c("Incident Number","date","time", "hour","Officers Involved","Officers.Race","Officers.Ethnicity","Officers.Sex","Electronic Device Used","Chemical Agent Used", "Tackle Take Down","Impact Weapons Used","Physical Strikes Made","Deflation Devices Used","K9 Unit Involved","Offenders.Race","Offenders.Ethnicity","Offenders.Sex"))
 
 #make all null values = NA for UOF
 AllMetadata_UOF_NA<-AllMetadata_UOF

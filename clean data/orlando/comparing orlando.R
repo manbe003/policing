@@ -78,8 +78,8 @@ AllMetadata_UOF_Fix$Offenders.Sex <- gsub('U', NA, AllMetadata_UOF_Fix$Offenders
 #NoTitle_shootings <- shootings[shootings$Date != "", ]
 
 #making a table with all relevant metadata for shootings
-AllMetadata_shootings<-cbind.data.frame(shootings$ï..Case..,shootings$Date,shootings$Officer.Name,shootings$Officer.Race,shootings$Ethnicity,shootings$Officer.Gender,shootings$Suspect.Race,shootings$Suspect.Gender,shootings$Suspect.Hit,shootings$Fatal, stringsAsFactors=FALSE)
-colnames(AllMetadata_shootings)<-(c("Incident Number","date","Officer Name","Officer Race","Officer Ethnicity","Officer Gender", "Suspect.Race","Suspect.Gender","Suspect.Hit","Fatal"))
+AllMetadata_shootings<-cbind.data.frame(shootings$ï..Case..,shootings$Date,shootings$Number.of.Officers.Involved,shootings$Officer.Name,shootings$Officer.Race,shootings$Ethnicity,shootings$Officer.Gender,shootings$Suspect.Race,shootings$Suspect.Gender,shootings$Suspect.Hit,shootings$Fatal, stringsAsFactors=FALSE)
+colnames(AllMetadata_shootings)<-(c("Incident Number","date","Number Of Officers Involved","Officer Name","Officer Race","Officer Ethnicity","Officer Gender", "Suspect.Race","Suspect.Gender","Suspect.Hit","Fatal"))
 
 #make all null values NA for shootings
 AllMetadata_shootings_NA<-AllMetadata_shootings

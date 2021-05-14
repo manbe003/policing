@@ -33,11 +33,6 @@ UOF_levels[UOF_levels==""]<-NA
 VictimRace_UOFLevel <- as.data.frame(na.omit(cbind(as.character(UOF_levels$UOF.Level), as.character(UOF_levels$Offenders.Race))))
 VictimRace_UOFLevel <- VictimRace_UOFLevel %>% separate_rows(V2, sep = ";")
 
-#counting instances in each race
-Victim_Levels<- as.data.frame(VictimRace_UOFLevel %>% group_by(V2,V1) %>% summarise(count = length(V1[!is.na(V1)])))
-Race_Level<- VictimRace_UOFLevel %>% unite("Race and Level", V1:V2, sep = ", ")
-Victim_Levels2<- as.data.frame(Race_Level %>% group_by(`Race and Level`) %>% summarise(count = length(`Race and Level`[!is.na(`Race and Level`)])))
-
 #making a table of Level of force used with each race
 Level.Race<-table(VictimRace_UOFLevel$V2, VictimRace_UOFLevel$V1)
 Level.Race <- Level.Race[c(3,1:2),]
@@ -58,32 +53,27 @@ ggplot(VictimRace_UOFLevel,
 
 ##Odds ratio for group sizes
 
-#making the number of officers row <2 or 3+
+#making the number of officers row either groups of 1, 2, or 3
 UOF_Officers<- UOF_levels
 UOF_Officers$Officers.Involved <- gsub('3|4|5|6|7|8|9|10|12','3+',UOF_Officers$Officers.Involved)
-UOF_Officers2<- UOF_Officers
-UOF_Officers$Officers.Involved <- gsub("1|2",'<2',UOF_Officers$Officers.Involved)
 
-#making a dataframe of just the UOF levels and Group Sizes
+#making the number of officers row either groups of <2 or 3+ for another comparison
+UOF_Officers2<- UOF_Officers
+UOF_Officers2$Officers.Involved <- gsub("1|2",'<2',UOF_Officers2$Officers.Involved)
+
+
+# comparing groups of 1, 2, or 3+
+#making a dataframe of just the UOF levels and Group Sizes for comparing 1, 2, or 3+
 UOF_GroupsandLevels <-as.data.frame(na.omit(cbind(as.character(UOF_Officers$UOF.Level), as.character(UOF_Officers$Officers.Involved))))
-UOF_Groupsandlevels2 <-as.data.frame(na.omit(cbind(as.character(UOF_Officers2$UOF.Level), as.character(UOF_Officers2$Officers.Involved))))
 
 #making a table of Group size and UOF level
-Levels.Groups<-table(UOF_GroupsandLevels$V1,UOF_GroupsandLevels$V2)
+Levels.Groups<-table(UOF_GroupsandLevels$V2,UOF_GroupsandLevels$V1)
 print(Levels.Groups)
 
-Levels.Groups2<-table(UOF_Groupsandlevels2$V1,UOF_Groupsandlevels2$V2)
-print(Levels.Groups2)
-
-###Odds Ratio of <2 and 3+
+#Odds Ratio of 1,2,3+
 Groups.OR<-oddsratio(Levels.Groups)
 print(Groups.OR$measure)
 print(Groups.OR$p.value)
-
-###Odds ratio of 1, 2, and 3+ officers
-Groups.OR2<-oddsratio(Levels.Groups2)
-print(Groups.OR2$measure)
-print(Groups.OR2$p.value)
 
 #Graph
 ggplot(UOF_GroupsandLevels,
@@ -91,6 +81,20 @@ ggplot(UOF_GroupsandLevels,
            fill = V2))+
   geom_bar(position = "dodge")
 
+
+
+#comparing groups of <2 or 3+
+UOF_Groupsandlevels2 <-as.data.frame(na.omit(cbind(as.character(UOF_Officers2$UOF.Level), as.character(UOF_Officers2$Officers.Involved))))
+
+Levels.Groups2<-table(UOF_Groupsandlevels2$V2,UOF_Groupsandlevels2$V1)
+print(Levels.Groups2)
+
+###Odds Ratio of <2 and 3+
+Groups.OR2<-oddsratio(Levels.Groups2)
+print(Groups.OR2$measure)
+print(Groups.OR2$p.value)
+
+#Graph
 ggplot(UOF_Groupsandlevels2,
        aes(x = V1,
            fill = V2))+
@@ -139,7 +143,6 @@ Function_UOFType = function(Data){
   Type<- as.data.frame(na.omit(cbind(as.character(UOF_Types$Offenders.Race), as.character(Data))))
   TypeCounts<- table(Type$V1,Type$V2)
   TypeCounts <- TypeCounts[c(3,1:2),]
-  TypeCounts <- TypeCounts[,c(2,1)]
   print(TypeCounts)
 
   Type.OR<-oddsratio(TypeCounts)
@@ -156,7 +159,6 @@ Function_UOFType = function(Data){
 Function_TypesGroups = function(Data){
   Groups <- as.data.frame(na.omit(cbind(as.character(UOF_Types$Officers.Involved), as.character(Data))))
   GroupsCounts<- table(Groups$V1,Groups$V2)
-  GroupsCounts <- GroupsCounts[,c(2,1)]
   print(GroupsCounts)
   
   Group.OR<-oddsratio(GroupsCounts)
@@ -196,4 +198,36 @@ Function_TypesGroups(Data = UOF_Types$Deflation.Devices.Used)
 #K9
 Function_UOFType(Data = UOF_Types$K9.Unit.Involved)
 Function_TypesGroups(Data = UOF_Types$K9.Unit.Involved)
+
+
+
+### Shootings OR
+Shootings<- read.csv(file = here("clean data/orlando/shooting (cleaned).csv"), stringsAsFactors = FALSE)
+Shootings_Offenders<- Shootings %>% separate_rows(Suspect.Race, Suspect.Gender, Suspect.Hit, Fatal, sep= ",")
+Shootings_Offenders[Shootings_Offenders=="Self-Inflicted"]<-(NA)
+Shootings_Offenders$Suspect.Race[Shootings_Offenders$Suspect.Race=="Other"]<-(NA)
+
+#dataframe with the variables I want
+Shooting_Outcome <-as.data.frame(na.omit(cbind(as.character(Shootings_Offenders$Fatal), as.character(Shootings_Offenders$Suspect.Race))))
+
+#table of shooting outcomes and race
+Outcomes<-table(Shooting_Outcome$V2,Shooting_Outcome$V1)
+print(Outcomes)
+
+###Odds Ratio Race and Fatality of shooting
+Outcomes.OR<-oddsratio(Outcomes)
+print(Outcomes.OR$measure)
+print(Outcomes.OR$p.value)
+
+#graph
+ggplot(Shooting_Outcome,
+       aes(x = V1,
+           fill = V2))+
+  geom_bar(position = "dodge")
+
+
+
+
+
+
 

@@ -102,22 +102,75 @@ ggplot(DallasShootingsUnique,
 
 #Bootstrapping
   
-
 DS_race<-subset(DallasShootings, select = "officer_race")
-
+DS_race<-na.omit(DS_race)
 DS_bootstrap <- replicate(2, DS_race[sample(nrow(DS_race), 1000, replace = TRUE), ])
+View(DS_bootstrap)
 
+#If V1= white and V2= black, then make v1=black and v2= white
+if (DS_bootstrap[,1] == "Black" && DS_bootstrap[,2] == "White" ) {
+  
+  DS_bootstrap[,1][DS_bootstrap[,1] == "Black"] <- "White"
+  DS_bootstrap[,2][DS_bootstrap[,2] == "White"] <- "Black"
+
+}
+
+#make it such that each i identifies itself, i shows up in table; LS_bootstrap<-cbind(LS_bootstrap, i)
+# or switch the columns to make consistent
+
+#once completes a round, check to see if 0's exist and if not add them
+# or add 0's until 1000 (or start with table full of 0's)
 
 LS_race<-subset(LouisvilleShootings, select = "officer_race")
 
-LS_bootstrap <- replicate(2, LS_race[sample(nrow(LS_race), 1000, replace = TRUE), ])
+LS_bootstrap <- replicate(2, LS_race[sample(nrow(LS_race), 15, replace = TRUE), ])
 colnames(LS_bootstrap) <- c("off1", "off2")
 LS_bootstrap <- as.data.frame(LS_bootstrap)
-
 LS_bootstrap_freqs <- data.frame(table(LS_bootstrap$off1, LS_bootstrap$off2))
 View(LS_bootstrap_freqs)
 
 
+y  <- NULL;
+for (i in 1:1000) {
+  LS_bootstrap <- replicate(2, LS_race[sample(nrow(LS_race), 15, replace = TRUE), ])
+  colnames(LS_bootstrap) <- c("off1", "off2")
+  LS_bootstrap <- as.data.frame(LS_bootstrap)
+  LS_bootstrap_freqs <- data.frame(table(LS_bootstrap$off1, LS_bootstrap$off2))
+  y <- rbind(y, LS_bootstrap_freqs)
+}
+View(y)
+
+colnames(y) <- c("off1", "off2", "freq")
+
+whitewhite <- subset(y, y$off1 == "White")
+whitewhite <- subset(whitewhite, whitewhite$off2 == "White")
+
+whiteblack <- subset(y, y$off1 == "White")
+whiteblack <- subset(whiteblack, whiteblack$off2 == "Black")
+blackwhite <- subset(y, y$off1 == "Black")
+blackwhite <- subset(blackwhite, blackwhite$off2 == "White")
+blackwhite <- rbind(blackwhite, whiteblack)
+
+blackblack <- subset(y, y$off1 == "Black")
+blackblack <- subset(blackblack, blackblack$off2 == "Black")
+
+whiteasian <- subset(y, y$off1 == "White")
+whiteasian <- subset(whiteasian, whiteasian$off2 == "Asian")
+asianwhite <- subset(y, y$off1 == "Asian")
+asianwhite <- subset(asianwhite, asianwhite$off2 == "White")
+asianwhite <- rbind(whiteasian, asianwhite)
+
+#blackasian
+whiteasian <- subset(y, y$off1 == "White")
+whiteasian <- subset(whiteasian, whiteasian$off2 == "Asian")
+asianwhite <- subset(y, y$off1 == "Asian")
+asianwhite <- subset(asianwhite, asianwhite$off2 == "White")
+asianwhite <- rbind(whiteasian, asianwhite)
+
+View(blackblack)
+
+hist(whitewhite$freq)
+hist(blackblack$freq)
 
 LS_race2 <- subset(LouisvilleShootings, LouisvilleShootings$officer_group_size == 2)
 
@@ -135,7 +188,7 @@ LS_race2[ ,"PIU_number"] <- list(NULL)
 colnames(LS_race2) <- c("off1", "off2")
 LS_group_freqs <- data.frame(table(LS_race2$off1, LS_race2$off2))
 
-View(LS_group_freqs)
+View(LS_race2)
 
 
 

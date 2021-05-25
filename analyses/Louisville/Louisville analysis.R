@@ -108,12 +108,13 @@ DS_bootstrap <- replicate(2, DS_race[sample(nrow(DS_race), 1000, replace = TRUE)
 View(DS_bootstrap)
 
 #If V1= white and V2= black, then make v1=black and v2= white
-if (DS_bootstrap[,1] == "Black" && DS_bootstrap[,2] == "White" ) {
+for(i in 1:length(DS_bootstrap[,1])){
+if (DS_bootstrap[i,1] == "Black" && DS_bootstrap[i,2] == "White" ) {
   
-  DS_bootstrap[,1][DS_bootstrap[,1] == "Black"] <- "White"
-  DS_bootstrap[,2][DS_bootstrap[,2] == "White"] <- "Black"
+  DS_bootstrap[i,1][DS_bootstrap[i,1] == "Black"] <- "White"
+  DS_bootstrap[i,2][DS_bootstrap[i,2] == "White"] <- "Black"
 
-}
+}}
 
 #make it such that each i identifies itself, i shows up in table; LS_bootstrap<-cbind(LS_bootstrap, i)
 # or switch the columns to make consistent

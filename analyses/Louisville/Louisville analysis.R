@@ -106,20 +106,38 @@ DS_race<-subset(DallasShootings, select = "officer_race")
 DS_race<-na.omit(DS_race)
 DS_bootstrap <- replicate(2, DS_race[sample(nrow(DS_race), 1000, replace = TRUE), ])
 View(DS_bootstrap)
-
+#Making race orders consistant 
 #If V1= white and V2= black, then make v1=black and v2= white
 if (DS_bootstrap[,1] == "Black" && DS_bootstrap[,2] == "White" ) {
-  
   DS_bootstrap[,1][DS_bootstrap[,1] == "Black"] <- "White"
   DS_bootstrap[,2][DS_bootstrap[,2] == "White"] <- "Black"
-
+}
+#for asian, white
+if (DS_bootstrap[,1] == "Asian" && DS_bootstrap[,2] == "White" ) {
+  DS_bootstrap[,1][DS_bootstrap[,1] == "Asian"] <- "White"
+  DS_bootstrap[,2][DS_bootstrap[,2] == "White"] <- "Asian"
+}
+#for asian, black
+if (DS_bootstrap[,1] == "Black" && DS_bootstrap[,2] == "Asian" ) {
+  DS_bootstrap[,1][DS_bootstrap[,1] == "Black"] <- "Asian"
+  DS_bootstrap[,2][DS_bootstrap[,2] == "Asian"] <- "Black"
+}
+#for latinx, white
+if (DS_bootstrap[,1] == "Latinx" && DS_bootstrap[,2] == "White" ) {
+  DS_bootstrap[,1][DS_bootstrap[,1] == "Latinx"] <- "White"
+  DS_bootstrap[,2][DS_bootstrap[,2] == "White"] <- "Asian"
+}
+#for latinx, black
+if (DS_bootstrap[,1] == "Black" && DS_bootstrap[,2] == "Latinx" ) {
+  DS_bootstrap[,1][DS_bootstrap[,1] == "Black"] <- "Latinx"
+  DS_bootstrap[,2][DS_bootstrap[,2] == "Latinx"] <- "Black"
+}
+#for asian, latinx
+if (DS_bootstrap[,1] == "Asian" && DS_bootstrap[,2] == "Latinx" ) {
+  DS_bootstrap[,1][DS_bootstrap[,1] == "Asian"] <- "Latinx"
+  DS_bootstrap[,2][DS_bootstrap[,2] == "Latinx"] <- "Asian"
 }
 
-#make it such that each i identifies itself, i shows up in table; LS_bootstrap<-cbind(LS_bootstrap, i)
-# or switch the columns to make consistent
-
-#once completes a round, check to see if 0's exist and if not add them
-# or add 0's until 1000 (or start with table full of 0's)
 
 LS_race<-subset(LouisvilleShootings, select = "officer_race")
 

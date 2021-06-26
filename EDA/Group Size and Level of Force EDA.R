@@ -78,10 +78,10 @@ print(table(IndianapolisDistinct_UOF$officer_group_size))
 
 
 ########################################################################################################################
-#Cleaning up the Types of UOF
+#Cleaning up the UOF
 
 
-#Seattle Key- 1= minor discomfort, 2= some injury/harm, 2= serious injury/lethal
+#Seattle binning UOF level according to paper outline
 SeattleDistinct_UOF$Incident_Type<- gsub('Level 1 - Use of Force',"1" ,SeattleDistinct_UOF$Incident_Type)
 SeattleDistinct_UOF$Incident_Type<- gsub('Level 2 - Use of Force',"2" ,SeattleDistinct_UOF$Incident_Type)
 SeattleDistinct_UOF$Incident_Type<- gsub('Level 3 - Use of Force|Level 3 - OIS',"3" ,SeattleDistinct_UOF$Incident_Type)
@@ -89,8 +89,24 @@ SeattleDistinct_UOF$Incident_Type<- gsub('Level 3 - Use of Force|Level 3 - OIS',
 ggplot(SeattleDistinct_UOF, aes(Incident_Type))+
   geom_bar()
 
+#Seattle binning officers according to paper outline
+SeattleDistinct_UOF_Off <- SeattleDistinct_UOF
+SeattleDistinct_UOF_Off$officer_group_size<- gsub('1',"0" ,SeattleDistinct_UOF_Off$officer_group_size)
+SeattleDistinct_UOF_Off$officer_group_size<- gsub('2',"1" ,SeattleDistinct_UOF_Off$officer_group_size)
+SeattleDistinct_UOF_Off$officer_group_size<- gsub('3|4|5|6|9',"2" ,SeattleDistinct_UOF_Off$officer_group_size)
 
-#Indianapolis Key: 1= physical, 2= Less than lethal weapon, 3= Lethal
+print(table(SeattleDistinct_UOF_Off$officer_group_size))
+
+ggplot(SeattleDistinct_UOF_Off, aes(officer_group_size))+
+  geom_bar()
+
+ggplot(SeattleDistinct_UOF_Off,
+       aes(x = officer_group_size,
+           fill = Incident_Type))+
+  geom_bar(position = "dodge")
+
+
+#Indianapolis Key:binning UOF level according to paper outline
 IndianapolisDistinct_UOF$officerForceType<- gsub('Physical-Kick|Physical-Hands, Fist, Feet|Physical-Weight Leverage|Physical-Take Down|Physical-Palm Strike|Physical-Elbow Strike|Physical-Handcuffing|Physical-Leg Sweep|Physical-Knee Strike|Physical-Push|Physical-Other|Physical-Joint/Pressure|Physical-Fist Strike','1',IndianapolisDistinct_UOF$officerForceType)
 IndianapolisDistinct_UOF$officerForceType<- gsub('Less Lethal-Taser|Less Lethal-Personal CS/OC spray|Less Lethal-Baton|Less Lethal-Burning CS|Less Lethal-Flash Bang|Less Lethal-Pepperball|Less Lethal-Bps Gas|Less Lethal-CS Grenade|Less Lethal-Other|Less Lethal-CS/OC|Less Lethal-Clearout OC|Less Lethal-Bean Bag|Less Lethal-CS Fogger|Canine Bite','2',IndianapolisDistinct_UOF$officerForceType)
 IndianapolisDistinct_UOF$officerForceType<- gsub('Lethal-Handgun|Lethal-Vehicle','3',IndianapolisDistinct_UOF$officerForceType)
@@ -98,6 +114,24 @@ IndianapolisDistinct_UOF$officerForceType<- gsub('N/A',NA,IndianapolisDistinct_U
 
 ggplot(IndianapolisDistinct_UOF, aes(officerForceType))+
   geom_bar()
+
+#Indianapolis Binning officers according to paper outline
+IndianapolisDistinct_UOF_Off <- IndianapolisDistinct_UOF
+IndianapolisDistinct_UOF_Off$officer_group_size<- gsub("^1$","0" ,IndianapolisDistinct_UOF_Off$officer_group_size)
+IndianapolisDistinct_UOF_Off$officer_group_size<- gsub("^2$","1" ,IndianapolisDistinct_UOF_Off$officer_group_size)
+IndianapolisDistinct_UOF_Off$officer_group_size<- gsub("3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|24|26|27|28|31|46","2" ,IndianapolisDistinct_UOF_Off$officer_group_size)
+
+print(table(IndianapolisDistinct_UOF_Off$officer_group_size))
+
+ggplot(IndianapolisDistinct_UOF_Off, aes(officer_group_size))+
+  geom_bar()
+
+ggplot(IndianapolisDistinct_UOF_Off,
+       aes(x = officer_group_size,
+           fill = officerForceType))+
+  geom_bar(position = "dodge")
+
+
 
 #Orlando Key: 3= physical, 4= less than lethal force
 Orlando_UOF$Electronic.Device.Used[Orlando_UOF$Electronic.Device.Used=="Yes"]<-("4")
@@ -111,8 +145,8 @@ Orlando_UOF[Orlando_UOF=="No"]<-NA
 
 Orlando_UOF<- Orlando_UOF %>% unite("UOF.Level", Electronic.Device.Used:K9.Unit.Involved, sep = ";", na.rm = TRUE, remove = TRUE)
 
-Orlando_UOF$UOF.Level<- gsub('3;4|4;3|4;4;3|4;3;4|4;4;4|4;4|4;4;3;3|4;3;3|4;4;3;4|4;4;3;4;3|4;4;4;3|3;3;4|3;4;4|4;3;4;3|4;3;4;3;4|3;4;3|4;4;3;4;3;4|3;4;3;4|4;4;3;3;4', '4', Orlando_UOF$UOF.Level)
-Orlando_UOF$UOF.Level<- gsub('3;3','3',Orlando_UOF$UOF.Level)
+Orlando_UOF$UOF.Level<- gsub('4|3;4|4;3|4;4;3|4;3;4|4;4;4|4;4|4;4;3;3|4;3;3|4;4;3;4|4;4;3;4;3|4;4;4;3|3;3;4|3;4;4|4;3;4;3|4;3;4;3;4|3;4;3|4;4;3;4;3;4|3;4;3;4|4;4;3;3;4', '2', Orlando_UOF$UOF.Level)
+Orlando_UOF$UOF.Level<- gsub('3|3;3','1',Orlando_UOF$UOF.Level)
 Orlando_UOF[Orlando_UOF==""]<-NA
 
 
@@ -120,8 +154,27 @@ ggplot(Orlando_UOF, aes(UOF.Level))+
   geom_bar()
 
 
+#Orlando Binning according to paper notes
+Orlando_UOF_Off <- Orlando_UOF
+Orlando_UOF_Off$Officers.Involved<- gsub("^1$","0" ,Orlando_UOF_Off$Officers.Involved)
+Orlando_UOF_Off$Officers.Involved<- gsub("^2$","1" ,Orlando_UOF_Off$Officers.Involved)
+Orlando_UOF_Off$Officers.Involved<- gsub("3|4|5|6|7|8|9|10|11|12","2" ,Orlando_UOF_Off$Officers.Involved)
 
-#Graphs compairing UOF level and Groupsize
+print(table(Orlando_UOF_Off$Officers.Involved))
+
+ggplot(Orlando_UOF_Off, aes(Officers.Involved))+
+  geom_bar()
+
+ggplot(Orlando_UOF_Off,
+       aes(x = Officers.Involved,
+           fill = UOF.Level))+
+  geom_bar(position = "dodge")
+
+
+
+
+
+#Graphs compairing UOF level and original Groupsize
 ggplot(SeattleDistinct_UOF,
        aes(x = officer_group_size,
            fill = Incident_Type))+

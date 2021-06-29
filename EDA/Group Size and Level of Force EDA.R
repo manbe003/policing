@@ -189,7 +189,6 @@ ggplot(IndianapolisDistinct_UOF,
   scale_x_continuous(breaks=seq(0,50,by=5))
 
 
-
 ggplot(Orlando_UOF,
        aes(x = Officers.Involved,
            fill = UOF.Level))+

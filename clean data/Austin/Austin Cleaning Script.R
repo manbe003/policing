@@ -72,8 +72,8 @@ SplitDateTime_UOF_ALL<-do.call(rbind, SplitDateTime_UOF_ALL)
 colnames(SplitDateTime_UOF_ALL)<-(c("date", "time"))
 SplitDateTime_UOF_ALL<-as.data.frame(SplitDateTime_UOF_ALL, stringsAsFactors=FALSE)
 #making a tables with relevant metadata
-ALLMetadata_UOF<-cbind.data.frame(SplitDateTime_UOF_ALL$date,UOF_ALL$Time.Occurred,UOF_ALL$Subject.Race,UOF_ALL$Subject.Ethnicity,UOF_ALL$Subject.Sex,UOF_ALL$Officer.Yrs.of.Service,UOF_ALL$Area.Command, stringsAsFactors=FALSE)
-colnames(ALLMetadata_UOF)<-(c("date","time","subject race","Subject Ethnicity","subject sex","officer Yrs of service","Area Command"))
+ALLMetadata_UOF<-cbind.data.frame(SplitDateTime_UOF_ALL$date,UOF_ALL$Time.Occurred,UOF_ALL$R2R.Level,UOF_ALL$Subject.Race,UOF_ALL$Subject.Ethnicity,UOF_ALL$Subject.Sex,UOF_ALL$Officer.Yrs.of.Service,UOF_ALL$Area.Command, stringsAsFactors=FALSE)
+colnames(ALLMetadata_UOF)<-(c("date","time","R2R.Level","subject race","Subject Ethnicity","subject sex","officer Yrs of service","Area Command"))
 
 #make all null values = NA for UOF
 ALLMetadata_UOF_NA<-ALLMetadata_UOF
@@ -160,8 +160,8 @@ OIS_ALL$Subject.Weapon[OIS_ALL$Subject.Weapon=="pellet gun"]<-("air pistol/pelle
 
 #make a table with available data
 AllMetadata_Shootings<-cbind.data.frame(OIS_ALL$Case..,OIS_ALL$Date,OIS_ALL$Time,OIS_ALL$Officer.Name,OIS_ALL$Rank,OIS_ALL$Officer.Race.Ethnicity,OIS_ALL$Officer.Gender,OIS_ALL$Officer.Age,OIS_ALL$Prev.OIS,OIS_ALL$Less.Lethal.Force.used.by.APD.prior.to.shooting.,
-                                        OIS_ALL$Subject.Race.Ethnicity,OIS_ALL$Subject.Gender,OIS_ALL$Subject.Injuries,OIS_ALL$Subject.Weapon, stringsAsFactors = FALSE)
-colnames(AllMetadata_Shootings)<-(c("Case","Date","Time","Officer Name","Officer Rank","Officer Race","Officer Gender","Officer Age","Officer Prev. OIS","Less than Lethal Forced Used by APD Prior to Shooting","Subject Race","Subject Gender","Subject Injuries","Subject Weapons" ))
+                                        OIS_ALL$Subject.Race.Ethnicity,OIS_ALL$Subject.Gender,OIS_ALL$Subject.Injuries,OIS_ALL$Subject.Weapon,OIS_ALL$X..Hits, stringsAsFactors = FALSE)
+colnames(AllMetadata_Shootings)<-(c("Case","Date","Time","Officer Name","Officer Rank","Officer Race","Officer Gender","Officer Age","Officer Prev. OIS","Less than Lethal Forced Used by APD Prior to Shooting","Subject Race","Subject Gender","Subject Injuries","Subject Weapons","Number of Hits" ))
 
 #saving new dataset to clean data file
 write.csv(AllMetadata_Shootings,"C:/Users/katie/Desktop/policing/clean data/Austin\\Shootings_Austin.csv",row.names = FALSE)

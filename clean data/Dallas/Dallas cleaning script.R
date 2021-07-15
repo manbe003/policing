@@ -4,6 +4,8 @@ library(tidyr)
 library(stringr)
 library(here)
 
+
+
 setwd(here("dirty data","Dallas"))
 DallasShootings <- read.csv("DallasPoliceShootings.csv", stringsAsFactors = FALSE)
 
@@ -158,8 +160,8 @@ View(Dallas_R2R_linked)
 Dallas_shootings_unique<-subset(Dallas_shootings_linked, !duplicated(subject_name))
 
 #export clean datasets into clean data folder
-write.csv(Dallas_shootings_unique,here("clean data","Dallas","Dallas_shootings_unique.csv"),row.names = FALSE)
-write.csv(Dallas_shootings_linked,here("clean data","Dallas","Dallas_shootings.csv"),row.names = FALSE)
-write.csv(Dallas_R2R_linked,here("clean data","Dallas","Dallas_shootings.csv"),row.names = FALSE)
+write.csv(Dallas_shootings_unique,here("clean data","Dallas","Dallas_shootings_unique_testing.csv"),row.names = FALSE)
+write.csv(Dallas_shootings_linked,here("clean data","Dallas","Dallas_shootings_testing.csv"),row.names = FALSE)
+write.csv(Dallas_R2R_linked,here("clean data","Dallas","Dallas_R2R_linked_testing.csv"),row.names = FALSE)
 
 View(Dallas_shootings_linked)

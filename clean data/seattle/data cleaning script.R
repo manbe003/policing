@@ -253,5 +253,5 @@ AllMetadata_shootings$Date<-as.Date(AllMetadata_shootings$Date,"%m/%d/%y")
 AllMetadata_shootings_clean<-cbind.data.frame(AllMetadata_shootings[,1:3],shooting_time,AllMetadata_shootings[,5:28])
 
 #save!
-write.csv(AllMetadata_shootings_clean,here("clean data","seattle","shootings_Seattle.csv"),row.names = FALSE)
+write.csv(shootings_Seattle,here("clean data","seattle","shootings_Seattle_Testing.csv"),row.names = FALSE)
 

@@ -41,10 +41,24 @@ UOF_ALL_GenderFix$`Subject Gender`[UOF_ALL_GenderFix$`Subject Gender`=="F"]<- "F
 UOF_ALL_RaceFix<- UOF_ALL_GenderFix
 UOF_ALL_RaceFix$`Subject Race`[UOF_ALL_RaceFix$`Subject Race`=="white"]<- "White"
 UOF_ALL_RaceFix$`Subject Ethnicity`[UOF_ALL_RaceFix$`Subject Ethnicity`=="Non - Hisp."]<- "Non-Hisp."
-UOF_ALL_RaceFix$`Subject Ethnicity`[UOF_ALL_RaceFix$`Subject Ethnicityr`=="Non-His"]<- "Non-Hisp."
+UOF_ALL_RaceFix$`Subject Ethnicity`[UOF_ALL_RaceFix$`Subject Ethnicity`=="Non-His"]<- "Non-Hisp."
+
+#binning officer group sizes according to paper notes (1 off = 0, 2 off = 1, 3+ off = 2)
+UOF_ALL_GroupFix<- UOF_ALL_RaceFix
+UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="1+"]<- NA
+UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="1"]<- "0"
+UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="2"]<- "1"
+UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="3"]<- "2"
+UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="4"]<- "2"
+UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="5"]<- "2"
+UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="6"]<- "2"
+UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="7"]<- "2"
+
+
+
 
 #Binning force types into levels according to paper outline
-UOF_All_FixLevels <- UOF_ALL_GenderFix
+UOF_All_FixLevels <- UOF_ALL_GroupFix
 UOF_All_FixLevels <- UOF_All_FixLevels %>%
   mutate(`PD Force Type` = case_when(
     str_detect(`PD Force Type`, "Fired at Human") ~ "3",
@@ -90,8 +104,10 @@ UOF_All_FixLevels <- UOF_All_FixLevels %>%
     str_detect(`PD Force Type`, "Handcuffed hands in front, bodyweight to hold legs down") ~ "1",
     str_detect(`PD Force Type`, "Physically pushed back") ~ "1",
     str_detect(`PD Force Type`, "Lifted and placed in back seat") ~ "1",
+    str_detect(`PD Force Type`, "Carry/Drag") ~ "1",
     TRUE ~ `PD Force Type`
   ))
 
+write.csv(UOF_All_FixLevels,here("clean data","Northampton","Northampton UOF.csv"),row.names = FALSE)
 
 

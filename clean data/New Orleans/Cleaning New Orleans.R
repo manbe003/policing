@@ -13,4 +13,18 @@ colnames(AllMetadata_UOF)<-(c("PIB File Number","Date","Disposition","Service Ty
 
 #separating rows to be one offender per row
 UOF_Officers <- AllMetadata_UOF
-UOF_Offiers<- UOF_Officers %>% separate_rows("Officer Race", "Officer Gender", "Officer Age","Officers Yrs of Service",  sep= "|")
+UOF_Officers<- UOF_Officers %>% separate_rows("Officer Race", "Officer Gender", "Officer Age","Officers Yrs of Service",  sep= "|")
+
+
+UOF_Officers$test = mutate(UOF_Officers,nchar(UOF_Officers$`Force Level`))
+UOF_Officers <- AllMetadata_UOF
+UOF_Officers<- UOF_Officers %>% separate_rows("Officer Race", "Officer Gender", "Officer Age","Officers Yrs of Service",  sep= "|")
+test = mutate(UOF_Officers,length = nchar(UOF_Officers$`Force Level`))
+sort(test$length, decreasing = TRUE)
+
+#separating rows to be one offender per row
+UOF_Officers <- AllMetadata_UOF
+UOF_Officers<- UOF_Officers %>% separate_rows("Officer Race", "Officer Gender", "Officer Age","Officers Yrs of Service",  sep= "|")
+test = mutate(UOF_Officers,length = nchar(UOF_Officers$`Force Level`))
+sort(test$length, decreasing = TRUE)
+x = filter(test, length > 22)

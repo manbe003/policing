@@ -1,152 +1,152 @@
-"Case","Date","Time","Officer Name","Officer Rank","Officer Race","Officer Gender","Officer Age","Officer Prev. OIS","Less than Lethal Forced Used by APD Prior to Shooting","Subject Race","Subject Gender","Subject Injuries","Subject Weapons"
+"Case","Date","Time","Officer Name","Officer Rank","Officer Race","Officer Gender","Officer Age","Officer Prev. OIS","Less than Lethal Forced Used by APD Prior to Shooting","Subject Race","Subject Gender","Subject Injuries","Subject Weapons","Number of Hits"
 "08-5059600
-08-3110300","11/6/2008","3:56 AM","Ofc. Will Ray","ofc","White","Male",23,"No","no","Hispanic","Male","killed","gun"
-"09-0431751","2/12/2009","5:51 PM","Dep. Darren Sartin (U.S. Marshal)","other - dep","White","Male",40,"No","no","White","Male","shot (injured only)","gun, vehicle"
+08-3110300","11/6/2008","3:56 AM","Ofc. Will Ray","ofc","White","Male",23,"No","no","Hispanic","Male","killed","gun",2
+"09-0431751","2/12/2009","5:51 PM","Dep. Darren Sartin (U.S. Marshal)","other - dep","White","Male",40,"No","no","White","Male","shot (injured only)","gun, vehicle",2
 "09-5006129
-09-0302652","1/30/2009","10:46 PM","Ofc. Jeffrey Kirkpatrick","ofc","White","Male",36,"No","no","Hispanic","Male","injured - incidentally","gun"
+09-0302652","1/30/2009","10:46 PM","Ofc. Jeffrey Kirkpatrick","ofc","White","Male",36,"No","no","Hispanic","Male","injured - incidentally","gun",0
 "09-5052963
-09-2280484","8/16/2009","3:06 AM","Agt. John Altum (TABC)","other - agt","White","Male",36,"No","no","White","Male","killed","vehicle"
+09-2280484","8/16/2009","3:06 AM","Agt. John Altum (TABC)","other - agt","White","Male",36,"No","no","White","Male","killed","vehicle",4
 "09-5052963
-09-2280484","8/16/2009","3:06 AM","Agt. Joe Cronin (TABC)","other - agt","White","Male",31,"No","no","White","Male","killed","vehicle"
+09-2280484","8/16/2009","3:06 AM","Agt. Joe Cronin (TABC)","other - agt","White","Male",31,"No","no","White","Male","killed","vehicle",4
 "09-5053921
-09-1310302","5/11/2009","5:07 AM","Ofc. Leonardo Quintana","ofc","Hispanic","Male",33,"No","no","Black","Male","shot (injured only)","gun"
+09-1310302","5/11/2009","5:07 AM","Ofc. Leonardo Quintana","ofc","Hispanic","Male",33,"No","no","Black","Male","shot (injured only)","gun",3
 "09-5053921
-09-1310302","5/11/2009","5:07 AM","Ofc. Leonardo Quintana","ofc","Hispanic","Male",33,"No","no","Black","Male","killed","gun"
+09-1310302","5/11/2009","5:07 AM","Ofc. Leonardo Quintana","ofc","Hispanic","Male",33,"No","no","Black","Male","killed","gun",3
 "09-5072203
-09-3620161","12/28/2009","2:54 AM","Ofc. Justin Berry","ofc","White","Male",24,"No","no","Black","Male","killed","gun"
+09-3620161","12/28/2009","2:54 AM","Ofc. Justin Berry","ofc","White","Male",24,"No","no","Black","Male","killed","gun",1
 "09-5072203
-09-3620161","12/28/2009","2:54 AM","Dep. Theodore Ramsey (TCSO)","other - dep","White","Male",36,"No","no","Black","Male","killed","gun"
+09-3620161","12/28/2009","2:54 AM","Dep. Theodore Ramsey (TCSO)","other - dep","White","Male",36,"No","no","Black","Male","killed","gun",1
 "10-2740401
-10-2741075","10/1/2010","5:53 AM","Ofc. Derrick Bowman","ofc","White","Male",27,"No","no","Hispanic","Male","killed","gun"
+10-2741075","10/1/2010","5:53 AM","Ofc. Derrick Bowman","ofc","White","Male",27,"No","no","Hispanic","Male","killed","gun",4
 "10-5055642
-10-2680066","9/25/2010","4:26 AM","Cpl. Javier Bustos","cpl","Hispanic","Male",42,"No","no","White","Male","killed (self-inflicted)","gun"
-"11-3390300","12/5/2011","6:53 AM","TCSO Dep. Tracy Stirman","other - dep","White","Male",46,"No","no","White","Male","shot (injured only)","vehicle"
-"11-3390300","12/5/2011","6:53 AM","Ofc. Christopher Allen","ofc","White","Male",34,"No","no","White","Male","shot (injured only)","vehicle"
+10-2680066","9/25/2010","4:26 AM","Cpl. Javier Bustos","cpl","Hispanic","Male",42,"No","no","White","Male","killed (self-inflicted)","gun",1
+"11-3390300","12/5/2011","6:53 AM","TCSO Dep. Tracy Stirman","other - dep","White","Male",46,"No","no","White","Male","shot (injured only)","vehicle",3
+"11-3390300","12/5/2011","6:53 AM","Ofc. Christopher Allen","ofc","White","Male",34,"No","no","White","Male","shot (injured only)","vehicle",3
 "11-5023381
-11-1290071","5/9/2011","1:03 AM","Ofc. Steven Peña","ofc","Hispanic","Male",27,"No","no","Hispanic","Male","killed","gun"
+11-1290071","5/9/2011","1:03 AM","Ofc. Steven Peña","ofc","Hispanic","Male",27,"No","no","Hispanic","Male","killed","gun",3
 "11-5052201
-11-3090370","11/5/2011","3:10 AM","Ofc. Derrick Bowman","ofc","White","Male",28,"Yes","Yes - Taser","Hispanic","Male","None","none"
+11-3090370","11/5/2011","3:10 AM","Ofc. Derrick Bowman","ofc","White","Male",28,"Yes","Yes - Taser","Hispanic","Male","None","none",0
 "12-5005552
-12-0341696","2/3/2012","9:33 PM","Ofc. Shaun Donovan","ofc","White","Male",33,"No","no","White","Male","shot (injured only)","gun"
+12-0341696","2/3/2012","9:33 PM","Ofc. Shaun Donovan","ofc","White","Male",33,"No","no","White","Male","shot (injured only)","gun",1
 "12-5043966
-12-2691696","9/25/2012","8:39 PM","Ofc. George Blanch","ofc","White","Male",36,"No","no","White","Male","killed","vehicle"
+12-2691696","9/25/2012","8:39 PM","Ofc. George Blanch","ofc","White","Male",36,"No","no","White","Male","killed","vehicle",1
 "13-5002063
-13-0141039","1/14/2013","3:30 PM","Ofc. Roosevelt Granderson","ofc","Black","Male",39,"No","no","Black","Male","None","gun"
+13-0141039","1/14/2013","3:30 PM","Ofc. Roosevelt Granderson","ofc","Black","Male",39,"No","no","Black","Male","None","gun",0
 "13-5002063
-13-0141039","1/14/2013","3:30 PM","Ofc. Aaron Pippin","ofc","White","Male",46,"No","no","Black","Male","None","gun"
+13-0141039","1/14/2013","3:30 PM","Ofc. Aaron Pippin","ofc","White","Male",46,"No","no","Black","Male","None","gun",0
 "13-5009062
-13-0600435","3/1/2013","7:32 AM","Ofc. Johnathan Whitted","ofc","White","Male",33,"No","no","White","Male","killed","gun"
+13-0600435","3/1/2013","7:32 AM","Ofc. Johnathan Whitted","ofc","White","Male",33,"No","no","White","Male","killed","gun",2
 "13-5017606
-13-1131720","4/23/2013","8:40 PM","Ofc. Ricardo Cardona","ofc","Hispanic","Male",29,"No","no","White","Male","killed","gun"
+13-1131720","4/23/2013","8:40 PM","Ofc. Ricardo Cardona","ofc","Hispanic","Male",29,"No","no","White","Male","killed","gun",7
 "13-5017606
-13-1131720","4/23/2013","8:40 PM","Ofc. Nicholas Moore","ofc","White","Male",30,"No","no","White","Male","killed","gun"
+13-1131720","4/23/2013","8:40 PM","Ofc. Nicholas Moore","ofc","White","Male",30,"No","no","White","Male","killed","gun",7
 "13-5017606
-13-1131720","4/23/2013","8:40 PM","Ofc. Matthew Henion","ofc","White","Male",28,"No","no","White","Male","killed","gun"
+13-1131720","4/23/2013","8:40 PM","Ofc. Matthew Henion","ofc","White","Male",28,"No","no","White","Male","killed","gun",7
 "13-5017606
-13-1131720","4/23/2013","8:40 PM","Ofc. Donovan Hunter","ofc","White","Male",31,"No","no","White","Male","killed","gun"
+13-1131720","4/23/2013","8:40 PM","Ofc. Donovan Hunter","ofc","White","Male",31,"No","no","White","Male","killed","gun",7
 "13-5021565
-13-1370254","5/17/2013","3:27 AM","Ofc. Robert Barger ","ofc","White","Male",45,"No","no","White","Male","None","gun"
+13-1370254","5/17/2013","3:27 AM","Ofc. Robert Barger ","ofc","White","Male",45,"No","no","White","Male","None","gun",0
 "13-5033792
-13-2071392","7/26/2013","4:10 PM","Det. Charles ""Trey"" Kleinert","det","White","Male",49,"No","no","Black","Male","killed","none"
+13-2071392","7/26/2013","4:10 PM","Det. Charles ""Trey"" Kleinert","det","White","Male",49,"No","no","Black","Male","killed","none",1
 "13-5039952
-13-2430035","8/31/2013","12:13 AM","Ofc. Shane Cunningham","ofc","Asian","Male",35,"No","no","Hispanic","Male","injured - incidentally","vehicle"
+13-2430035","8/31/2013","12:13 AM","Ofc. Shane Cunningham","ofc","Asian","Male",35,"No","no","Hispanic","Male","injured - incidentally","vehicle",5
 "13-5048070
 13-5048073
-13-2911294","10/18/2013","3:20 PM","Ofc. Cecil Jones","ofc","Black","Male",52,"No","no","White","Male","shot (injured only)","gun"
+13-2911294","10/18/2013","3:20 PM","Ofc. Cecil Jones","ofc","Black","Male",52,"No","no","White","Male","shot (injured only)","gun",1
 "13-5048070
 13-5048073
-13-2911294","10/18/2013","3:20 PM","Ofc. Michael Decker","ofc","White","Male",30,"No","no","White","Male","shot (injured only)","gun"
+13-2911294","10/18/2013","3:20 PM","Ofc. Michael Decker","ofc","White","Male",30,"No","no","White","Male","shot (injured only)","gun",1
 "13-5048070
 13-5048073
-13-2911294","10/18/2013","3:20 PM","Ofc. Cory Knop","ofc","White","Male",29,"No","no","White","Male","shot (injured only)","gun"
+13-2911294","10/18/2013","3:20 PM","Ofc. Cory Knop","ofc","White","Male",29,"No","no","White","Male","shot (injured only)","gun",1
 "13-5052096
-13-3141499","11/10/2013","9:17 PM","Ofc. Leonardo Cardenas","ofc","Hispanic","Male",34,"No","no","Hispanic","Male","shot (injured only)","gun"
+13-3141499","11/10/2013","9:17 PM","Ofc. Leonardo Cardenas","ofc","Hispanic","Male",34,"No","no","Hispanic","Male","shot (injured only)","gun",1
 "13-5052096
-13-3141499","11/10/2013","9:17 PM","Ofc. Adrien Chopin","ofc","White","Male",34,"No","no","Hispanic","Male","shot (injured only)","gun"
-"14-2511591","9/8/2014","7:38 PM","Det. Philip Hogue","det","White","Male",41,"No","no","White","Male","killed","gun"
-"14-2511591","9/8/2014","7:38 PM","Det. Scott Glasgow","det","White","Male",40,"Yes","no","White","Male","killed","gun"
+13-3141499","11/10/2013","9:17 PM","Ofc. Adrien Chopin","ofc","White","Male",34,"No","no","Hispanic","Male","shot (injured only)","gun",1
+"14-2511591","9/8/2014","7:38 PM","Det. Philip Hogue","det","White","Male",41,"No","no","White","Male","killed","gun",2
+"14-2511591","9/8/2014","7:38 PM","Det. Scott Glasgow","det","White","Male",40,"Yes","no","White","Male","killed","gun",2
 "14-5003813
-14-0250881","1/25/2014","1:42 PM","Ofc. John Gabrielson","ofc","White","Male",39,"No","no","Hispanic","Male","None","vehicle"
+14-0250881","1/25/2014","1:42 PM","Ofc. John Gabrielson","ofc","White","Male",39,"No","no","Hispanic","Male","None","vehicle",0
 "14-5012166
-14-0770816","3/18/2014","12:24 PM","Sgt. Greg White","sgt","White","Male",39,"Yes","no","Black","Male","shot (injured only)","air pistol/pellet gun"
+14-0770816","3/18/2014","12:24 PM","Sgt. Greg White","sgt","White","Male",39,"Yes","no","Black","Male","shot (injured only)","air pistol/pellet gun",2
 "15-0230201
 15-5003040
-15-5003476","1/23/2015","3:45 AM","Ofc. Daniel Hannah","ofc","White","Male",26,"No","no","White","Male","killed","gun"
+15-5003476","1/23/2015","3:45 AM","Ofc. Daniel Hannah","ofc","White","Male",26,"No","no","White","Male","killed","gun",2
 "15-0381788
 15-5005471
-15-5006662","2/8/2015","12:09 PM","Ofc. Luke Serrato","ofc","White","Male",30,"No","no","White","Male","killed","gun"
+15-5006662","2/8/2015","12:09 PM","Ofc. Luke Serrato","ofc","White","Male",30,"No","no","White","Male","killed","gun",1
 "15-1440098
-15-5022158","5/24/2015","1:14 AM","Ofc. Jessica Martinez","ofc","Hispanic","Female",28,"No","no","Black","Male","shot (injured only)","gun"
+15-5022158","5/24/2015","1:14 AM","Ofc. Jessica Martinez","ofc","Hispanic","Female",28,"No","no","Black","Male","shot (injured only)","gun",3
 "15-1440098
-15-5022158","5/24/2015","1:14 AM","Ofc. Troy Wiser","ofc","White","Male",28,"No","no","Black","Male","shot (injured only)","gun"
+15-5022158","5/24/2015","1:14 AM","Ofc. Troy Wiser","ofc","White","Male",28,"No","no","Black","Male","shot (injured only)","gun",3
 "15-1450142
 15-5022316
-15-5022877","5/25/2015","6:13 AM","Ofc. Robert Pfaff","ofc","White","Male",33,"No","Yes - impact weapon","White","Female","killed","gun"
+15-5022877","5/25/2015","6:13 AM","Ofc. Robert Pfaff","ofc","White","Male",33,"No","Yes - impact weapon","White","Female","killed","gun",3
 "15-1860670
 15-5029092
-15-5030645","7/5/2015","4:14 AM","Ofc. Matthew Murphy","ofc","White","Male",28,"No","Yes - Taser","White","Male","killed","air pistol/pellet gun"
+15-5030645","7/5/2015","4:14 AM","Ofc. Matthew Murphy","ofc","White","Male",28,"No","Yes - Taser","White","Male","killed","air pistol/pellet gun",6
 "15-1860670
 15-5029092
-15-5030645","7/5/2015","4:14 AM","Ofc. Stephen Johnson","ofc","White","Male",24,"No","Yes - Taser","White","Male","killed","air pistol/pellet gun"
+15-5030645","7/5/2015","4:14 AM","Ofc. Stephen Johnson","ofc","White","Male",24,"No","Yes - Taser","White","Male","killed","air pistol/pellet gun",6
 "15-1860670
 15-5029092
-15-5030645","7/5/2015","4:14 AM","Ofc. John Nelson","ofc","White","Male",32,"No","Yes - Taser","White","Male","killed","air pistol/pellet gun"
+15-5030645","7/5/2015","4:14 AM","Ofc. John Nelson","ofc","White","Male",32,"No","Yes - Taser","White","Male","killed","air pistol/pellet gun",6
 "15-1860826
 15-5029094
-15-5030656 ","7/5/2015","4:54 AM","Ofc. Carlos Lopez","ofc","Hispanic","Male",44,"No","no","White","Male","killed","gun"
+15-5030656 ","7/5/2015","4:54 AM","Ofc. Carlos Lopez","ofc","Hispanic","Male",44,"No","no","White","Male","killed","gun",10
 "15-1922009
-15-5030362 ","7/12/2015","12:51 PM","Ofc. Patrick Cheatham","ofc","White","Male",35,"No","no","White","Male","killed","gun"
+15-5030362 ","7/12/2015","12:51 PM","Ofc. Patrick Cheatham","ofc","White","Male",35,"No","no","White","Male","killed","gun",2
 "16-1050267
-16-5015495","4/14/2016","5:56 AM","Ofc Leighton Radtke","ofc","White","Male",32,"No","no","White","Male","None","gun"
+16-5015495","4/14/2016","5:56 AM","Ofc Leighton Radtke","ofc","White","Male",32,"No","no","White","Male","None","gun",0
 "16-1131869
 16-5031156
-16-5016874","4/22/2016","10:20 PM","Ofc Matthew Paredes","ofc","Hispanic","Male",30,"No","no","White","Male","killed","knife"
+16-5016874","4/22/2016","10:20 PM","Ofc Matthew Paredes","ofc","Hispanic","Male",30,"No","no","White","Male","killed","knife",1
 "16-1660189
-16-5024527","6/14/2016","6:00 AM","Ofc James Harvel","ofc","White","Male",42,"Yes","no","Hispanic","Male","shot (injured only)","knife"
+16-5024527","6/14/2016","6:00 AM","Ofc James Harvel","ofc","White","Male",42,"Yes","no","Hispanic","Male","shot (injured only)","knife",1
 "16-2492260
 16-5036999
-16-5036744","9/5/2016","9:03 AM","Ofc Andrew McRae","ofc","White","Male",33,"No","Yes - impact weapon","Hispanic","Male","killed","gun"
+16-5036744","9/5/2016","9:03 AM","Ofc Andrew McRae","ofc","White","Male",33,"No","Yes - impact weapon","Hispanic","Male","killed","gun",4
 "16-2492260
 16-5036999
-16-5036744","9/5/2016","9:03 AM","Cpl Salvatore Reale","cpl","White","Male",56,"No","Yes - impact weapon","Hispanic","Male","killed","gun"
+16-5036744","9/5/2016","9:03 AM","Cpl Salvatore Reale","cpl","White","Male",56,"No","Yes - impact weapon","Hispanic","Male","killed","gun",4
 "16-2581947
 16-5040418
-16-5038102","9/15/2016","12:02 AM","Ofc Bernardo Ramirez","ofc","Hispanic","Male",55,"No","Yes - Taser","White","Male","killed","gun"
+16-5038102","9/15/2016","12:02 AM","Ofc Bernardo Ramirez","ofc","Hispanic","Male",55,"No","Yes - Taser","White","Male","killed","gun",5
 "16-2581947
 16-5040418
-16-5038102","9/15/2016","12:02 AM","Ofc Brett Fritz","ofc","White","Male",27,"No","Yes - Taser","White","Male","killed","gun"
+16-5038102","9/15/2016","12:02 AM","Ofc Brett Fritz","ofc","White","Male",27,"No","Yes - Taser","White","Male","killed","gun",5
 "16-2900369
 16-5046503
-16-5042860","10/16/2016","3:54 AM","Ofc Deborah Lindeman","ofc","White","Female",33,"No","no","White","Female","killed","air pistol/pellet gun"
+16-5042860","10/16/2016","3:54 AM","Ofc Deborah Lindeman","ofc","White","Female",33,"No","no","White","Female","killed","air pistol/pellet gun",5
 "16-2900369
 16-5046503
-16-5042860","10/16/2016","3:54 AM","Ofc Richard Smith","ofc","White","Male",33,"No","no","White","Female","killed","air pistol/pellet gun"
+16-5042860","10/16/2016","3:54 AM","Ofc Richard Smith","ofc","White","Male",33,"No","no","White","Female","killed","air pistol/pellet gun",5
 "16-390552
 16-5007698
 16-6005558
-","2/8/2016","10:26 AM","Ofc Geoffrey Freeman","ofc","Black","Male",41,"No","no","Black","Male","killed","none"
+","2/8/2016","10:26 AM","Ofc Geoffrey Freeman","ofc","Black","Male",41,"No","no","Black","Male","killed","none",2
 "16-801294
-16-5011754","3/20/2016","11:07 PM","Ofc Matthew Michaelson","ofc","White","Male",29,"No","no","Black","Male","shot (injured only)","knife"
+16-5011754","3/20/2016","11:07 PM","Ofc Matthew Michaelson","ofc","White","Male",29,"No","no","Black","Male","shot (injured only)","knife",1
 "17-0531372
 17-5015929
-17-5007713","2/22/2017","6:16 PM","Ofc Benjamin Rogers","ofc","White","Male",30,"No","no","Black","Female","killed","knife"
+17-5007713","2/22/2017","6:16 PM","Ofc Benjamin Rogers","ofc","White","Male",30,"No","no","Black","Female","killed","knife",2
 "17-1220770
 17-5018080
-17-5041807","5/2/2017","11:17 AM","Ofc James Harvel","ofc","White","Male",42,"Yes","no","Hispanic","Male","killed","gun"
+17-5041807","5/2/2017","11:17 AM","Ofc James Harvel","ofc","White","Male",42,"Yes","no","Hispanic","Male","killed","gun",2
 "17-140100
 17-5001846
-17-5020338","1/14/2017","2:03 AM","Ofc Jesse Lane ","ofc","White","Male",31,"No","no","White","Male","killed","gun"
+17-5020338","1/14/2017","2:03 AM","Ofc Jesse Lane ","ofc","White","Male",31,"No","no","White","Male","killed","gun",5
 "17-5005154
-17-370047","2/6/2017","12:41 AM","Ofc Samuel Travis","ofc","White","Male",29,"No","no","Hispanic","Male","None","vehicle"
+17-370047","2/6/2017","12:41 AM","Ofc Samuel Travis","ofc","White","Male",29,"No","no","Hispanic","Male","None","vehicle",0
 "17-5049741
-17-3490320","12/15/2017","6:49 AM","Ofc Alfredo Delvalle","ofc","Hispanic","Male",51,"No","no","Black","Male","shot (injured only)","knife"
+17-3490320","12/15/2017","6:49 AM","Ofc Alfredo Delvalle","ofc","Hispanic","Male",51,"No","no","Black","Male","shot (injured only)","knife",1
 "17-5049986
-17-3510568","12/17/2017","10:42 AM","Ofc Jason Canales","ofc","Hispanic","Male",41,"No","no","White","Male","shot (injured only)","knife"
+17-3510568","12/17/2017","10:42 AM","Ofc Jason Canales","ofc","Hispanic","Male",41,"No","no","White","Male","shot (injured only)","knife",NA
 "17-972006
-17-5014510","4/7/2017","10:12 PM","Ofc Marcos Johnson","ofc","Black","Male",30,"No","no","Black","Male","shot (injured only)","gun"
+17-5014510","4/7/2017","10:12 PM","Ofc Marcos Johnson","ofc","Black","Male",30,"No","no","Black","Male","shot (injured only)","gun",9
 "17-972006
-17-5014510","4/7/2017","10:12 PM","Ofc Paul Bianchi","ofc","White","Male",32,"No","no","Black","Male","shot (injured only)","gun"
+17-5014510","4/7/2017","10:12 PM","Ofc Paul Bianchi","ofc","White","Male",32,"No","no","Black","Male","shot (injured only)","gun",9
 "17-972006
-17-5014510","4/7/2017","10:12 PM","Ofc Dane O'Neill","ofc","White","Male",29,"No","no","Black","Male","shot (injured only)","gun"
+17-5014510","4/7/2017","10:12 PM","Ofc Dane O'Neill","ofc","White","Male",29,"No","no","Black","Male","shot (injured only)","gun",9
 "17-972006
-17-5014510","4/7/2017","10:12 PM","Ofc Jordan Wagstaff","ofc","White","Male",30,"No","no","Black","Male","shot (injured only)","gun"
+17-5014510","4/7/2017","10:12 PM","Ofc Jordan Wagstaff","ofc","White","Male",30,"No","no","Black","Male","shot (injured only)","gun",9

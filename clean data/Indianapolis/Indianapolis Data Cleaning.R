@@ -2,9 +2,11 @@
 library(dplyr)
 library(tidyr)
 library(stringr)
+library(here)
 
 #Set working directory
-setwd("~/Desktop/GitAndR/Policing/dirty data/Indianapolis")
+
+setwd(here("clean data","Indianapolis"))
 
 #I want to call in my datasets (OIS, UOF)
 OIS<-read.csv(file = 'Indianapolis Officer Involved Shootings.csv', stringsAsFactors = FALSE)

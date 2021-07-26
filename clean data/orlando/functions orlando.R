@@ -10,8 +10,10 @@ options(scipen=999)
 # change these two lines!
 #I want to call in my datasets (use of force, shootings).
 library(readr)
-UOF <- read_csv("dirty data/orlando/OPD_Response_To_Resistance.csv")
-shootings <- read_csv("dirty data/orlando/OPD_Officer-Involved_Shootings.csv")
+library(here)
+UOF <- read_csv(here("dirty data/orlando/OPD_Response_To_Resistance.csv"))
+
+shootings <- read_csv(here("dirty data/orlando/OPD_Officer-Involved_Shootings.csv"))
 
 #numericize the data (UOF)
 #first split year/date into two separate variables

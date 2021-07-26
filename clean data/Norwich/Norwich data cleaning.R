@@ -10,7 +10,12 @@ install.packages("data.table")
 install.packages("Here")
 library(data.table)
 
+
 #I want to load in my datasets
+#set working directory
+setwd("~/Desktop/policing/dirty data/Louisville")
+
+#I want to call in my datasets
 NorwichUOF2017<-read.csv(file = here('dirty data/Norwich/NorwichUOF2017.csv'), stringsAsFactors = FALSE, header= TRUE)
 NorwichUOF2018<-read.csv(file = here('dirty data/Norwich/NorwichUOF2018.csv'), stringsAsFactors = FALSE)
 NorwichUOF2019<-read.csv(file = here('dirty data/Norwich/NorwichUOF2019.csv'), stringsAsFactors = FALSE)
@@ -40,7 +45,6 @@ NorwichUOF[ ,"Event #"] <- list(NULL)
 
 #Fixing the column names so they are not multiple words
 colnames(NorwichUOF) <- c("call_type", "time", "subject_weapon", "subject_age", "subject_gender", "subject_race", "subject_ethnicity", "alcohol_drugs", "PD_force_type", "number_of_officers", "arrest_or_protective_custody", "subject_injured", "officer_injured", "year")
-
 
 #Turning F and M into Female and Male
 NorwichUOF$subject_gender[NorwichUOF$subject_gender== "F"] <- "Female"
@@ -81,7 +85,6 @@ NorwichUOF$officer_injury_description <- trimws(NorwichUOF$officer_injury_descri
 NorwichUOF$officer_injury_description <- tolower(NorwichUOF$officer_injury_description)
 substr(NorwichUOF$officer_injury_description, 1, 1) <- toupper(substr(NorwichUOF$officer_injury_description, 1, 1))
 
+
 #exporting to clean data folder 
 write.csv(NorwichUOF,here("clean data","Norwich","norwich_UOF.csv"),row.names = FALSE)
-
-

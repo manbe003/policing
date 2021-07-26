@@ -1,5 +1,6 @@
 #Norwich Cleaning script
 
+#calling libraries 
 library (dplyr)
 library (tidyr)
 library(stringr)
@@ -9,6 +10,8 @@ install.packages("data.table")
 install.packages("Here")
 library(data.table)
 
+
+#I want to load in my datasets
 #set working directory
 setwd("~/Desktop/policing/dirty data/Louisville")
 
@@ -27,7 +30,6 @@ NorwichUOF2019 = NorwichUOF2019[-1,]
 
 #I'm going to merge the datasets together so I can do all of the cleaning once, instead of repeating it.
 #First, i'm going to add a year column to each dataset so I will know which one is which
-
 NorwichUOF2017$Year <- 2017
 NorwichUOF2018$Year <- 2018
 NorwichUOF2019$Year <- 2019
@@ -44,10 +46,6 @@ NorwichUOF[ ,"Event #"] <- list(NULL)
 #Fixing the column names so they are not multiple words
 colnames(NorwichUOF) <- c("call_type", "time", "subject_weapon", "subject_age", "subject_gender", "subject_race", "subject_ethnicity", "alcohol_drugs", "PD_force_type", "number_of_officers", "arrest_or_protective_custody", "subject_injured", "officer_injured", "year")
 
-NorwichUOFSaved<- NorwichUOF
-NorwichUOF <- NorwichUOFSaved
-
-View(NorwichUOFSaved)
 #Turning F and M into Female and Male
 NorwichUOF$subject_gender[NorwichUOF$subject_gender== "F"] <- "Female"
 NorwichUOF$subject_gender[NorwichUOF$subject_gender== "M"] <- "Male"
@@ -75,7 +73,6 @@ NorwichUOF$subject_injury_description <- trimws(NorwichUOF$subject_injury_descri
 NorwichUOF$subject_injury_description <- tolower(NorwichUOF$subject_injury_description)
 substr(NorwichUOF$subject_injury_description, 1, 1) <- toupper(substr(NorwichUOF$subject_injury_description, 1, 1))
 
-
 #Repeat with officer_injured
 NorwichUOF <-separate(NorwichUOF, officer_injured, c('officer_injured', 'injury_description2'), sep="-", extra = "merge")
 NorwichUOF <-separate(NorwichUOF, officer_injured, c('officer_injured', 'injury_description1'), sep=", ", extra = "merge")
@@ -89,6 +86,5 @@ NorwichUOF$officer_injury_description <- tolower(NorwichUOF$officer_injury_descr
 substr(NorwichUOF$officer_injury_description, 1, 1) <- toupper(substr(NorwichUOF$officer_injury_description, 1, 1))
 
 
-
-View(NorwichUOF)
-
+#exporting to clean data folder 
+write.csv(NorwichUOF,here("clean data","Norwich","norwich_UOF.csv"),row.names = FALSE)

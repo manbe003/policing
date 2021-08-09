@@ -3,7 +3,11 @@ library(here)
 library(dplyr)
 library(tidyr)
 library(splitstackshape)
+<<<<<<< HEAD
 library(stringi)
+=======
+library(stringr)
+>>>>>>> dddc787b87d874fe800537647a5418e4927cad85
 
 #loading datasets
 UOF <- read.csv(file=here('dirty data/New Orleans/NOPD_Use_of_Force_Incidents.csv'), stringsAsFactors = FALSE)
@@ -16,7 +20,7 @@ colnames(AllMetadata_UOF)<-(c("PIB File Number","Date","Disposition","Service Ty
 AllMetadata_UOF_NA<- AllMetadata_UOF
 AllMetadata_UOF_NA[AllMetadata_UOF_NA==""]<-NA
 
-#binning force type according to paper notes
+#binning force type according to paper notes - this needs to go 
 UOF_All_FixLevels <- UOF_All_FixLevels %>%
     mutate(`PD Force Type` = case_when(
     str_detect(`PD Force Type`, "Firearm") ~ "3",
@@ -30,6 +34,7 @@ UOF_All_FixLevels <- UOF_All_FixLevels %>%
 
 
 
+<<<<<<< HEAD
 separate_rows(Force Level, sep = ";") %>%
     separate(location, c("Officer Race", "value")) %>%
     filter(location_type %in% c("country", "city")) %>%
@@ -50,6 +55,8 @@ UOF_Officers<-cSplit(UOF_Officers, "Officer Race","|")
 
 
 
+=======
+>>>>>>> dddc787b87d874fe800537647a5418e4927cad85
 
 
 
@@ -77,15 +84,27 @@ UOF_Officers_Test4$test = mutate(UOF_Officers_Test4,nchar(UOF_Officers_Test4$`Of
 UOF_Officers_Test5<- UOF_Officers
 UOF_Officers_Test5$test = mutate(UOF_Officers_Test5,nchar(UOF_Officers_Test5$`Officers Yrs of Service`))
 
+UOF_Officers_Test6<- UOF_Officers
+UOF_Officers_Test6$test = mutate(UOF_Officers_Test6,nchar(UOF_Officers_Test6$`Officer Race`))
+
+
+
+#Dick's code to help figure out the problem
+UOF_Officers$test = mutate(UOF_Officers,nchar(UOF_Officers$`Force Level`))
+UOF_Officers <- AllMetadata_UOF
+UOF_Officers<- UOF_Officers %>% separate_rows("Officer Race", "Officer Gender", "Officer Age","Officers Yrs of Service",  sep= "|")
+test = mutate(UOF_Officers,length = nchar(UOF_Officers$`Force Level`))
+sort(test$length, decreasing = TRUE)
 
 UOF_Officers <- AllMetadata_UOF
+UOF_Officers<- UOF_Officers %>% separate_rows("Officer Race", "Officer Gender", "Officer Age","Officers Yrs of Service",  sep= "|")
+test = mutate(UOF_Officers,length = nchar(UOF_Officers$`Force Level`))
+sort(test$length, decreasing = TRUE)
+x = filter(test, length > 22) 
 UOF_Officers<- UOF_Officers %>% separate_rows(`Force Level`,`Officer Race`, `Officer Age`, `Officer Gender`, `Officer Age`,`Officers Yrs of Service`, sep= "|")
 test = mutate(UOF_Officers, length = nchar(UOF_Officers$`Force Level`))
 sort(test$length, decreasing = TRUE)
 
-
-
-
-
-
+#new approach
+UOF_Officers$number.of.officers<- str_count(UOF_Officers$`Officer Age`, "|")
 

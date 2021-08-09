@@ -3,6 +3,7 @@ library(here)
 library(dplyr)
 library(tidyr)
 library(splitstackshape)
+library(stringi)
 
 #loading datasets
 UOF <- read.csv(file=here('dirty data/New Orleans/NOPD_Use_of_Force_Incidents.csv'), stringsAsFactors = FALSE)
@@ -36,6 +37,10 @@ separate_rows(Force Level, sep = ";") %>%
 
 
 UOF_Officers<- AllMetadata_UOF_NA
+UOF_Officers$number.of.officers <- str_count(UOF_Officers$`Officer Race`, "|")
+UOF_Officers$number.of.officers <- string.counter(strings=UOF_Officers$`Officer Race`, pattern="a")
+
+UOF_Officers$number.of.officers <- str_count(UOF_Officers$`Officer Race`, fixed = "|")
 UOF_Officers<-cSplit(UOF_Officers, "Officer Race","|")
 
 

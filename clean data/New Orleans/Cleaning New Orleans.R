@@ -49,7 +49,6 @@ UOF_All_FixLevels <- UOF_All_FixLevels %>%
     str_detect(`Force Type`, "Canine") ~ "2",
     str_detect(`Force Type`, "Baton") ~ "2",
     str_detect(`Force Type`, "NonTrad Impact Weapon") ~ "2",
-    str_detect(`Force Type`, "Rifle") ~ "1",
     str_detect(`Force Type`, "Hands") ~ "1",
     str_detect(`Force Type`, "Take Down") ~ "1",
     str_detect(`Force Type`, "Takedown") ~ "1",

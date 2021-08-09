@@ -3,11 +3,8 @@ library(here)
 library(dplyr)
 library(tidyr)
 library(splitstackshape)
-<<<<<<< HEAD
 library(stringi)
-=======
 library(stringr)
->>>>>>> dddc787b87d874fe800537647a5418e4927cad85
 
 #loading datasets
 UOF <- read.csv(file=here('dirty data/New Orleans/NOPD_Use_of_Force_Incidents.csv'), stringsAsFactors = FALSE)
@@ -19,92 +16,47 @@ colnames(AllMetadata_UOF)<-(c("PIB File Number","Date","Disposition","Service Ty
 #making blanks NA
 AllMetadata_UOF_NA<- AllMetadata_UOF
 AllMetadata_UOF_NA[AllMetadata_UOF_NA==""]<-NA
+AllMetadata_UOF_NA[AllMetadata_UOF_NA=="Other | Other | Other"]<-NA
+AllMetadata_UOF_NA[AllMetadata_UOF_NA=="Other"]<-NA
+AllMetadata_UOF_NA[AllMetadata_UOF_NA=="Other | Other"]<-NA
+
+#making a column counting number of officers in a group based on a column and its separator
+OfficerBinning <- function (dataframe, dataframecol, separator){
+    dataframe['Number of Officers'] <- NA
+    dataframe['Binning Number of Officers'] <- NA
+    dataframe$`Number of Officers` <- str_count(dataframecol, coll(separator))+1
+    dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="1"]<- "0"
+    dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="2"]<- "1"
+    dataframe$`Binning Number of Officers`[dataframe$`Number of Officers` > "2"]<- "2"
+    return(dataframe)
+    
+}
+
+UOF_Officers <- AllMetadata_UOF_NA
+UOF_Officers <- OfficerBinning(UOF_Officers, UOF_Officers$`Officer Gender`, "|")
+
 
 #binning force type according to paper notes - this needs to go 
+UOF_All_FixLevels <- UOF_Officers
 UOF_All_FixLevels <- UOF_All_FixLevels %>%
-    mutate(`PD Force Type` = case_when(
-    str_detect(`PD Force Type`, "Firearm") ~ "3",
-    str_detect(`PD Force Type`, "Escort Tech") ~ "2",
-    str_detect(`PD Force Type`, "CEW") ~ "2",
-    str_detect(`PD Force Type`, "Canine") ~ "2",
-    str_detect(`PD Force Type`, "Hands") ~ "3",
-    str_detect(`PD Force Type`, "Take Down") ~ "1",
-    TRUE ~ `PD Force Type`
+    mutate(`Force Type` = case_when(
+    str_detect(`Force Type`, "Firearm") ~ "3",
+    str_detect(`Force Type`, "Rifle") ~ "3",
+    str_detect(`Force Type`, "Vehicle as Weapon") ~ "3",
+    str_detect(`Force Type`, "Shotgun") ~ "3",
+    str_detect(`Force Type`, "Escort Tech") ~ "2",
+    str_detect(`Force Type`, "CEW") ~ "2",
+    str_detect(`Force Type`, "Canine") ~ "2",
+    str_detect(`Force Type`, "Baton") ~ "2",
+    str_detect(`Force Type`, "NonTrad Impact Weapon") ~ "2",
+    str_detect(`Force Type`, "Rifle") ~ "1",
+    str_detect(`Force Type`, "Hands") ~ "1",
+    str_detect(`Force Type`, "Take Down") ~ "1",
+    str_detect(`Force Type`, "Takedown") ~ "1",
+    str_detect(`Force Type`, "Head Strike") ~ "1",
+    str_detect(`Force Type`, "Force") ~ "1",
+    str_detect(`Force Type`, "Handcuffed Subject") ~ "1",
+    TRUE ~ `Force Type`
     ))
 
-
-
-<<<<<<< HEAD
-separate_rows(Force Level, sep = ";") %>%
-    separate(location, c("Officer Race", "value")) %>%
-    filter(location_type %in% c("country", "city")) %>%
-    spread(location_type, value)
-
-
-UOF_Officers<- AllMetadata_UOF_NA
-UOF_Officers$number.of.officers <- str_count(UOF_Officers$`Officer Race`, "|")
-UOF_Officers$number.of.officers <- string.counter(strings=UOF_Officers$`Officer Race`, pattern="a")
-
-UOF_Officers$number.of.officers <- str_count(UOF_Officers$`Officer Race`, fixed = "|")
-UOF_Officers<-cSplit(UOF_Officers, "Officer Race","|")
-
-
-
-
-
-
-
-
-=======
->>>>>>> dddc787b87d874fe800537647a5418e4927cad85
-
-
-
-
-
-#separating rows to be one officer per row
-UOF_Officers<- AllMetadata_UOF_NA
-UOF_Officers<- UOF_Officers %>% separate_rows("Force Level","Officer Race", "Officer Gender", "Officer Age","Officers Yrs of Service", sep= "|")
-UOF_Officers<- UOF_Officers[-c(1391, 1709, 1710, 2214, 2250, 1393, 1332, 241, 243, 734, 1622, 1736, 2068, 2338, 2399, 98, 226, 683, 1105, 1170, 1402, 1584, 1644, 1727, 1818, 1896, 1945, 1985, 2006, 2190, 2451, 2484, 1365, 2550, 1393, 1332, 241, 243, 734, 1622, 1736, 2068, 2338, 2399, 98, 226), ]
-UOF_Officers<- UOF_Officers %>% separate_rows("Force Level","Officer Race", "Officer Gender", "Officer Age","Officers Yrs of Service", sep= "|")
-
-#trying to see what the length of each is to see if we can find the incompatible ones
-UOF_Officers_Test1<- UOF_Officers
-UOF_Officers_Test1$test = mutate(UOF_Officers_Test1,nchar(UOF_Officers_Test1$`Officer Age`))
-
-UOF_Officers_Test2<- UOF_Officers
-UOF_Officers_Test2$test = mutate(UOF_Officers_Test2,nchar(UOF_Officers_Test2$`Officer Gender`))
-
-UOF_Officers_Test3<- UOF_Officers
-UOF_Officers_Test3$test = mutate(UOF_Officers_Test3,nchar(UOF_Officers_Test3$`Force Level`))
-
-UOF_Officers_Test4<- UOF_Officers
-UOF_Officers_Test4$test = mutate(UOF_Officers_Test4,nchar(UOF_Officers_Test4$`Officer Age`))
-
-UOF_Officers_Test5<- UOF_Officers
-UOF_Officers_Test5$test = mutate(UOF_Officers_Test5,nchar(UOF_Officers_Test5$`Officers Yrs of Service`))
-
-UOF_Officers_Test6<- UOF_Officers
-UOF_Officers_Test6$test = mutate(UOF_Officers_Test6,nchar(UOF_Officers_Test6$`Officer Race`))
-
-
-
-#Dick's code to help figure out the problem
-UOF_Officers$test = mutate(UOF_Officers,nchar(UOF_Officers$`Force Level`))
-UOF_Officers <- AllMetadata_UOF
-UOF_Officers<- UOF_Officers %>% separate_rows("Officer Race", "Officer Gender", "Officer Age","Officers Yrs of Service",  sep= "|")
-test = mutate(UOF_Officers,length = nchar(UOF_Officers$`Force Level`))
-sort(test$length, decreasing = TRUE)
-
-UOF_Officers <- AllMetadata_UOF
-UOF_Officers<- UOF_Officers %>% separate_rows("Officer Race", "Officer Gender", "Officer Age","Officers Yrs of Service",  sep= "|")
-test = mutate(UOF_Officers,length = nchar(UOF_Officers$`Force Level`))
-sort(test$length, decreasing = TRUE)
-x = filter(test, length > 22) 
-UOF_Officers<- UOF_Officers %>% separate_rows(`Force Level`,`Officer Race`, `Officer Age`, `Officer Gender`, `Officer Age`,`Officers Yrs of Service`, sep= "|")
-test = mutate(UOF_Officers, length = nchar(UOF_Officers$`Force Level`))
-sort(test$length, decreasing = TRUE)
-
-#new approach
-UOF_Officers$number.of.officers<- str_count(UOF_Officers$`Officer Age`, "|")
-
+write.csv(UOF_All_FixLevels,here("clean data","New Orleans","New Orleans UOF.csv"),row.names = FALSE)

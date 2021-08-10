@@ -45,15 +45,11 @@ UOF_ALL_RaceFix$`Subject Ethnicity`[UOF_ALL_RaceFix$`Subject Ethnicity`=="Non-Hi
 
 #binning officer group sizes according to paper notes (1 off = 0, 2 off = 1, 3+ off = 2)
 UOF_ALL_GroupFix<- UOF_ALL_RaceFix
-UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="1+"]<- NA
-UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="1"]<- "0"
-UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="2"]<- "1"
-UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="3"]<- "2"
-UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="4"]<- "2"
-UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="5"]<- "2"
-UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="6"]<- "2"
-UOF_ALL_GroupFix$`Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="7"]<- "2"
-
+UOF_ALL_GroupFix['Binning Number of Officers'] <- NA
+UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="1+"]<- NA
+UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="1"]<- "0"
+UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="2"]<- "1"
+UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Number of Officers` > 2]<- "2"
 
 
 

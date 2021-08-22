@@ -57,3 +57,6 @@ write.csv(NationalOfficerName,here("clean data","National","national_officer_nam
 write.csv(NationalAll,here("clean data","National","national_all.csv"),row.names = FALSE)
 
 
+NationalCleanAll<-read.csv(file = here('clean data/National/national_all.csv'), stringsAsFactors = FALSE, header= TRUE)
+NationalClean<-read.csv(file = here('clean data/National/national_officer_name.csv'), stringsAsFactors = FALSE, header= TRUE)
+View(NationalCleanAll)

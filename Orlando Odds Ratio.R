@@ -77,8 +77,8 @@ print(Groups.OR$p.value)
 
 #Graph
 ggplot(UOF_GroupsandLevels,
-       aes(x = V1,
-           fill = V2))+
+       aes(x = V2,
+           fill = V1))+
   geom_bar(position = "dodge")
 
 

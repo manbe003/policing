@@ -51,15 +51,10 @@ OR_Function = function(row,column1,column2){
 
 OR_Function(UOF$Binning.Number.of.Officers,UOF$`Lethal.vs.Non-lethal.Weapon`,UOF$Weapon.vs.Weapon)
 
-ggplot(UOF,
-       aes(x = Force.Type,
-           fill = Binning.Number.of.Officers))+
-  geom_bar(position = "dodge")
 
-#this is how i want it to be shown but it is not working, don't know why
 ggplot(UOF,
        aes(x = Binning.Number.of.Officers,
-           fill = Force.Type))+
+           fill = as.character(Force.Type)))+
   geom_bar(position = "dodge")
 
 

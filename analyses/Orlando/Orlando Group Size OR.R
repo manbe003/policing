@@ -1,10 +1,9 @@
-Libraries
+#Libraries
 library(here)
 library(tidyverse)
 
 #loading in datasets
 UOF <- read.csv(file = here("clean data/Orlando/UOF (cleaned).csv"), stringsAsFactors = FALSE)
-OIS <- read.csv(file = here("clean data/Orlando/shooting (cleaned).csv"), stringsAsFactors = FALSE)
 
 
 OR_Prep = function(dataset,column){

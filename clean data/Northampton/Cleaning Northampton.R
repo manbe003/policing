@@ -40,6 +40,7 @@ UOF_ALL_GenderFix$`Subject Gender`[UOF_ALL_GenderFix$`Subject Gender`=="F"]<- "F
 #fixing the races and ethnicities so they are consistent
 UOF_ALL_RaceFix<- UOF_ALL_GenderFix
 UOF_ALL_RaceFix$`Subject Race`[UOF_ALL_RaceFix$`Subject Race`=="white"]<- "White"
+UOF_ALL_RaceFix$`Subject Race`[UOF_ALL_RaceFix$`Subject Race`=="Black "]<- "Black"
 UOF_ALL_RaceFix$`Subject Ethnicity`[UOF_ALL_RaceFix$`Subject Ethnicity`=="Non - Hisp."]<- "Non-Hisp."
 UOF_ALL_RaceFix$`Subject Ethnicity`[UOF_ALL_RaceFix$`Subject Ethnicity`=="Non-His"]<- "Non-Hisp."
 
@@ -47,9 +48,9 @@ UOF_ALL_RaceFix$`Subject Ethnicity`[UOF_ALL_RaceFix$`Subject Ethnicity`=="Non-Hi
 UOF_ALL_GroupFix<- UOF_ALL_RaceFix
 UOF_ALL_GroupFix['Binning Number of Officers'] <- NA
 UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="1+"]<- NA
-UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="1"]<- "0"
-UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="2"]<- "1"
-UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Number of Officers` > 2]<- "2"
+UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="1"]<- "1"
+UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="2"]<- "2"
+UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Number of Officers` > 2]<- "3+"
 
 
 

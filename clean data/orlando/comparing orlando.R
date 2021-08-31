@@ -42,6 +42,7 @@ AllMetadata_UOF_NA[AllMetadata_UOF=="Not Specified"]<-NA
 AllMetadata_UOF_NA[AllMetadata_UOF=="-"]<-NA
 AllMetadata_UOF_NA[AllMetadata_UOF=="X"]<-NA
 AllMetadata_UOF_NA[AllMetadata_UOF=="I"]<-NA
+AllMetadata_UOF_NA[AllMetadata_UOF==""]<-NA
 
 #Change race, ethnicity, sex to be consistent with UOF
 AllMetadata_UOF_Fix<-AllMetadata_UOF_NA
@@ -71,6 +72,34 @@ AllMetadata_UOF_Fix$Offenders.Ethnicity <- gsub('U', NA, AllMetadata_UOF_Fix$Off
 AllMetadata_UOF_Fix$Offenders.Sex <- gsub('M', 'Male', AllMetadata_UOF_Fix$Offenders.Sex)
 AllMetadata_UOF_Fix$Offenders.Sex <- gsub('F', 'Female', AllMetadata_UOF_Fix$Offenders.Sex)
 AllMetadata_UOF_Fix$Offenders.Sex <- gsub('U', NA, AllMetadata_UOF_Fix$Offenders.Sex)
+
+#Binning Orlando to UOF Levels for analysis
+#Orlando Key: 3= physical, 4= less than lethal force
+AllMetadata_UOF_FixLevels<- AllMetadata_UOF_Fix
+AllMetadata_UOF_FixLevels$`Electronic Device Used`[AllMetadata_UOF_FixLevels$`Electronic Device Used`=="Yes"]<-("4")
+AllMetadata_UOF_FixLevels$`Chemical Agent Used`[AllMetadata_UOF_FixLevels$`Chemical Agent Used`=="Yes"]<-("4")
+AllMetadata_UOF_FixLevels$`Tackle Take Down`[AllMetadata_UOF_FixLevels$`Tackle Take Down`=="Yes"]<-("3")
+AllMetadata_UOF_FixLevels$`Impact Weapons Used`[AllMetadata_UOF_FixLevels$`Impact Weapons Used`=="Yes"]<-("4")
+AllMetadata_UOF_FixLevels$`Physical Strikes Made`[AllMetadata_UOF_FixLevels$`Physical Strikes Made`=="Yes"]<-("3")
+AllMetadata_UOF_FixLevels$`Deflation Devices Used`[AllMetadata_UOF_FixLevels$`Deflation Devices Used`=="Yes"]<-("4")
+AllMetadata_UOF_FixLevels$`K9 Unit Involved`[AllMetadata_UOF_FixLevels$`K9 Unit Involved`=="Yes"]<-("4")
+AllMetadata_UOF_FixLevels[AllMetadata_UOF_FixLevels=="No"]<-NA
+
+AllMetadata_UOF_FixLevels<- AllMetadata_UOF_FixLevels %>% unite("UOF.Level", `Electronic Device Used`:`K9 Unit Involved`, sep = ";", na.rm = TRUE, remove = TRUE)
+
+AllMetadata_UOF_FixLevels <- AllMetadata_UOF_FixLevels %>%
+  mutate(`UOF.Level` = case_when(
+    str_detect(`UOF.Level`, "4") ~ "2",
+    str_detect(`UOF.Level`, "3") ~ "1",
+    TRUE ~ `UOF.Level`
+  ))
+
+#binning group size
+UOF_ALL_GroupFix<- AllMetadata_UOF_FixLevels
+UOF_ALL_GroupFix['Binning Number of Officers'] <- NA
+UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Officers Involved` =="1"]<- "1"
+UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Officers Involved`=="2"]<- "2"
+UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Officers Involved` > 2]<- "3+"
 
 #####################
 
@@ -123,6 +152,8 @@ AllMetadata_shootings_Fix$Fatal <- gsub(' Yes', 'Yes', AllMetadata_shootings_Fix
 AllMetadata_shootings_Fix$Fatal[AllMetadata_shootings_Fix$Fatal == "N"] <- "No"
 AllMetadata_shootings_Fix$Fatal <- gsub(' No', 'No', AllMetadata_shootings_Fix$Fatal)
 
+
+
 #save as data file/set
 write.csv(AllMetadata_shootings_Fix,(file=here('clean data/orlando/shooting (cleaned).csv')), row.names = FALSE)
-write.csv(AllMetadata_UOF_Fix,(File=here('clean data/orlando/UOF (cleaned).csv')), row.names = FALSE)
+write.csv(UOF_ALL_GroupFix,(File=here('clean data/orlando/UOF (cleaned).csv')), row.names = FALSE)

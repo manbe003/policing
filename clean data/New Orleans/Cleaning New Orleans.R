@@ -25,9 +25,9 @@ OfficerBinning <- function (dataframe, dataframecol, separator){
     dataframe['Number of Officers'] <- NA
     dataframe['Binning Number of Officers'] <- NA
     dataframe$`Number of Officers` <- str_count(dataframecol, coll(separator))+1
-    dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="1"]<- "0"
-    dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="2"]<- "1"
-    dataframe$`Binning Number of Officers`[dataframe$`Number of Officers` > "2"]<- "2"
+    dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="1"]<- "1"
+    dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="2"]<- "2"
+    dataframe$`Binning Number of Officers`[dataframe$`Number of Officers` > "2"]<- "3+"
     return(dataframe)
     
 }

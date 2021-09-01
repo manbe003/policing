@@ -1,4 +1,3 @@
-#test comment
 Dallas_Shootings <- read.csv("Dallas_shootings.csv", stringsAsFactors = FALSE)
 View(Dallas_Shootings)
 library(utils)

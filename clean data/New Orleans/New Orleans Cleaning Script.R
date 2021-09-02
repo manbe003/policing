@@ -1,13 +1,10 @@
-#loading libraries
-library(here)
-library(dplyr)
-library(tidyr)
-library(splitstackshape)
-library(stringi)
-library(stringr)
+#load dependencies and set working directory
+setwd(here())
+source("ProjectPackageManagement.R")
+PackageDependency()
 
 #loading datasets
-UOF <- read.csv(file=here('dirty data/New Orleans/NOPD_Use_of_Force_Incidents.csv'), stringsAsFactors = FALSE)
+UOF <- read.csv(file='dirty data/New Orleans/NOPD_Use_of_Force_Incidents.csv', stringsAsFactors = FALSE)
 
 #making a table with relevant data
 AllMetadata_UOF<- cbind.data.frame(UOF$PIB.File.Number,UOF$Date.Occurred,UOF$Disposition,UOF$Service.Type,UOF$Use.of.Force.Type,UOF$Use.of.Force.Level,UOF$Officer.Race.Ethnicity,UOF$Officer.Gender,UOF$Officer.Age,UOF$Officer.Years.of.Service,UOF$Subject.Gender,UOF$Subject.Ethnicity,UOF$Subject.Age,UOF$Subject.Injured,UOF$Use.of.Force.Reason,UOF$Officer.Injured, stringsAsFactors=FALSE)
@@ -58,4 +55,4 @@ UOF_All_FixLevels <- UOF_All_FixLevels %>%
     TRUE ~ `Force Type`
     ))
 
-write.csv(UOF_All_FixLevels,here("clean data","New Orleans","New Orleans UOF.csv"),row.names = FALSE)
+write.csv(UOF_All_FixLevels,"clean data/New Orleans/New Orleans UOF.csv",row.names = FALSE)

@@ -1,13 +1,13 @@
 # Dallas data cleaning script
-library(dplyr)
-library(tidyr)
-library(stringr)
-library(here)
+
+#load dependencies and set working directory
+setwd(here())
+source("ProjectPackageManagement.R")
+PackageDependency()
 
 
 
-setwd(here("dirty data","Dallas"))
-DallasShootings <- read.csv("DallasPoliceShootings.csv", stringsAsFactors = FALSE)
+DallasShootings <- read.csv(here("dirty data", "Dallas", "DallasPoliceShootings.csv"), stringsAsFactors = FALSE)
 
 # I want to rename the columns
 colnames(DallasShootings) <- c("case", "date", "location", "result_of_shot_in_subject", "subject_weapon", "subject_info", "officer_info", "grand_jury_disposition", "attorney_general_forms", "summary_url", "geolocation")
@@ -29,8 +29,6 @@ DallasShootings$subject_info <- gsub("Jr. ", "", DallasShootings$subject_info)
 #changing values that had special characters
 DallasShootings[123, 6] = "Fuller, Antwuanne B/M"
 DallasShootings[147, 7] = "Loeb, Jeffrey W/M"
-
-View(DallasShootings)
 
 DallasShootings$officer_info[DallasShootings$officer_info == "Strand, Emmanuel A/M, Guerra, Carlos L/M"] <- "Strand, Emmanuel A/M; Guerra, Carlos L/M"
 
@@ -93,14 +91,14 @@ DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Rifle"] <- "Gu
 
 
 #lets clean the the response to resistance dataset. We have to read in all of the R2R ones by year.
-Dallas_R2R_2013 <- read.csv("Police_Response_to_Resistance_-_2013.csv", stringsAsFactors = FALSE)
-Dallas_R2R_2014 <- read.csv("Police__2014_Response_to_Resistance.csv", stringsAsFactors = FALSE)
-Dallas_R2R_2015 <- read.csv("Police__2015_Response_to_Resistance.csv", stringsAsFactors = FALSE)
-Dallas_R2R_2016 <- read.csv("Police_Response_to_Resistance_-_2016.csv", stringsAsFactors = FALSE)
-Dallas_R2R_2017 <- read.csv("Police_Response_to_Resistance___2017.csv", stringsAsFactors = FALSE)
-Dallas_R2R_2018 <- read.csv("Police_Response_to_Resistance_-_2018.csv", stringsAsFactors = FALSE)
-Dallas_R2R_2019 <- read.csv("Police_Response_to_Resistance___2019.csv", stringsAsFactors = FALSE)
-View(Dallas_R2R_2018)
+Dallas_R2R_2013 <- read.csv(here("dirty data", "Dallas", "Police_Response_to_Resistance_-_2013.csv"), stringsAsFactors = FALSE)
+Dallas_R2R_2014 <- read.csv(here("dirty data", "Dallas", "Police__2014_Response_to_Resistance.csv"), stringsAsFactors = FALSE)
+Dallas_R2R_2015 <- read.csv(here("dirty data", "Dallas", "Police__2015_Response_to_Resistance.csv"), stringsAsFactors = FALSE)
+Dallas_R2R_2016 <- read.csv(here("dirty data", "Dallas", "Police_Response_to_Resistance_-_2016.csv"), stringsAsFactors = FALSE)
+Dallas_R2R_2017 <- read.csv(here("dirty data", "Dallas", "Police_Response_to_Resistance___2017.csv"), stringsAsFactors = FALSE)
+Dallas_R2R_2018 <- read.csv(here("dirty data", "Dallas", "Police_Response_to_Resistance_-_2018.csv"), stringsAsFactors = FALSE)
+Dallas_R2R_2019 <- read.csv(here("dirty data", "Dallas", "Police_Response_to_Resistance___2019.csv"), stringsAsFactors = FALSE)
+
 
 #making all of the datasets have the same column names, in the same order --- "RA", "BEAT", "SECTOR", "DIVISION", "DIST_NAME"
 
@@ -150,12 +148,10 @@ stopwords = c(" 12:00:00 AM")
 Dallas_R2R$hire_date <- gsub(paste0(stopwords, collapse = "|"),"", Dallas_R2R$hire_date)
 Dallas_R2R$date <- gsub(paste0(stopwords, collapse = "|"),"", Dallas_R2R$date)
 
-DallasLinker <- read.csv("DallasLink.csv", stringsAsFactors = FALSE)
+DallasLinker <- read.csv(here("dirty data", "Dallas", "DallasLink.csv"), stringsAsFactors = FALSE)
 
 Dallas_R2R_linked <- merge(DallasLinker, Dallas_R2R, by = "officer_badge_number", all.y = TRUE)
 Dallas_shootings_linked <- merge(DallasLinker, DallasShootings, by = "officer_name", all.y = TRUE)
-
-View(Dallas_R2R_linked)
 
 Dallas_shootings_unique<-subset(Dallas_shootings_linked, !duplicated(subject_name))
 
@@ -163,5 +159,3 @@ Dallas_shootings_unique<-subset(Dallas_shootings_linked, !duplicated(subject_nam
 write.csv(Dallas_shootings_unique,here("clean data","Dallas","Dallas_shootings_unique_testing.csv"),row.names = FALSE)
 write.csv(Dallas_shootings_linked,here("clean data","Dallas","Dallas_shootings_testing.csv"),row.names = FALSE)
 write.csv(Dallas_R2R_linked,here("clean data","Dallas","Dallas_R2R_linked_testing.csv"),row.names = FALSE)
-
-View(Dallas_shootings_linked)

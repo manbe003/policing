@@ -1,14 +1,13 @@
-#libraries
-library(here)
-library(gtools)
-library(stringr)
-library(dplyr)
+#load dependencies and set working directory
+setwd(here())
+source("ProjectPackageManagement.R")
+PackageDependency()
 
 #loading in datasets
-UOF14<-read.csv(file=here('dirty data/Northampton/PDI Use of Force 2014 DONE.csv'), stringsAsFactors = FALSE)
-UOF15<-read.csv(file=here('dirty data/Northampton/PDI Use of Force 2015 DONE.csv'), stringsAsFactors = FALSE)
-UOF18<-read.csv(file=here('dirty data/Northampton/Use of Force 2018.csv'), stringsAsFactors = FALSE)
-UOF19<-read.csv(file=here('dirty data/Northampton/Use of Force 2019 - incident level.csv'), stringsAsFactors = FALSE)
+UOF14<-read.csv(file='dirty data/Northampton/PDI Use of Force 2014 DONE.csv', stringsAsFactors = FALSE)
+UOF15<-read.csv(file='dirty data/Northampton/PDI Use of Force 2015 DONE.csv', stringsAsFactors = FALSE)
+UOF18<-read.csv(file='dirty data/Northampton/Use of Force 2018.csv', stringsAsFactors = FALSE)
+UOF19<-read.csv(file='dirty data/Northampton/Use of Force 2019 - incident level.csv', stringsAsFactors = FALSE)
 
 #renaming columns in each to what they should be named and removing the first row where the column names were
 UOF14_FixCol<- UOF14
@@ -105,6 +104,4 @@ UOF_All_FixLevels <- UOF_All_FixLevels %>%
     TRUE ~ `PD Force Type`
   ))
 
-write.csv(UOF_All_FixLevels,here("clean data","Northampton","Northampton UOF.csv"),row.names = FALSE)
-
-
+write.csv(UOF_All_FixLevels,"clean data/Northampton/Northampton UOF.csv",row.names = FALSE)

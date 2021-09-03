@@ -1,16 +1,11 @@
-#First I want to call libraries
-library(dplyr)
-library(tidyr)
-library(stringr)
-library(here)
-
-#Set working directory
-
-setwd(here("clean data","Indianapolis"))
+#load dependencies and set working directory
+setwd(here())
+source("ProjectPackageManagement.R")
+PackageDependency()
 
 #I want to call in my datasets (OIS, UOF)
-OIS<-read.csv(file = 'Indianapolis Officer Involved Shootings.csv', stringsAsFactors = FALSE)
-UOF<-read.csv(file = 'Indianapolis Use of Force Incidents.csv', stringsAsFactors = FALSE)
+OIS<-read.csv(file = 'dirty data/Indianapolis/Indianapolis Officer Involved Shootings.csv', stringsAsFactors = FALSE)
+UOF<-read.csv(file = 'dirty data/Indianapolis/Indianapolis Use of Force Incidents.csv', stringsAsFactors = FALSE)
 
 
 #Match and replace for OIS
@@ -321,5 +316,5 @@ UOF$residentRace[UOF$residentRace=="Unknown"]<-("N/A")
 UOF$residentSex[UOF$residentSex=="Unknown"]<-("N/A")
 
 #Save
-write.csv(OIS,"~/Desktop/GitAndR/Policing/clean data/Indianapolis/OIS.csv",row.names = FALSE)
-write.csv(UOF,"~/Desktop/GitAndR/Policing/clean data/Indianapolis/UOF.csv",row.names = FALSE)
+write.csv(OIS,"clean data/Indianapolis/OIS.csv",row.names = FALSE)
+write.csv(UOF,"clean data/Indianapolis/UOF.csv",row.names = FALSE)

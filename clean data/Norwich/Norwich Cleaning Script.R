@@ -1,24 +1,15 @@
 #Norwich Cleaning script
 
-#calling libraries 
-library (dplyr)
-library (tidyr)
-library(stringr)
-library(tidyverse)
-library(here)
-install.packages("data.table")
-install.packages("Here")
-library(data.table)
+#load dependencies and set working directory
+setwd(here())
+source("ProjectPackageManagement.R")
+PackageDependency()
 
-
-#I want to load in my datasets
-#set working directory
-setwd("~/Desktop/policing/dirty data/Louisville")
 
 #I want to call in my datasets
-NorwichUOF2017<-read.csv(file = here('dirty data/Norwich/NorwichUOF2017.csv'), stringsAsFactors = FALSE, header= TRUE)
-NorwichUOF2018<-read.csv(file = here('dirty data/Norwich/NorwichUOF2018.csv'), stringsAsFactors = FALSE)
-NorwichUOF2019<-read.csv(file = here('dirty data/Norwich/NorwichUOF2019.csv'), stringsAsFactors = FALSE)
+NorwichUOF2017<-read.csv(file = 'dirty data/Norwich/NorwichUOF2017.csv', stringsAsFactors = FALSE, header= TRUE)
+NorwichUOF2018<-read.csv(file = 'dirty data/Norwich/NorwichUOF2018.csv', stringsAsFactors = FALSE)
+NorwichUOF2019<-read.csv(file = 'dirty data/Norwich/NorwichUOF2019.csv', stringsAsFactors = FALSE)
 
 #The first row was the supposed to be the column names. Here is me fixing that for all years
 colnames(NorwichUOF2017) <- NorwichUOF2017[1,]
@@ -87,4 +78,4 @@ substr(NorwichUOF$officer_injury_description, 1, 1) <- toupper(substr(NorwichUOF
 
 
 #exporting to clean data folder 
-write.csv(NorwichUOF,here("clean data","Norwich","norwich_UOF.csv"),row.names = FALSE)
+write.csv(NorwichUOF,"clean data/Norwich/norwich_UOF.csv",row.names = FALSE)

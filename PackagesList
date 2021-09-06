@@ -9,3 +9,4 @@ stringr
 gtools
 data.table
 fauxnaif
+readr

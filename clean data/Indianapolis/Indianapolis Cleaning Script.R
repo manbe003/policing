@@ -268,5 +268,5 @@ UOF$residentRace[UOF$residentRace=="Other"]<-(NA)
 
 
 #Save
-write.csv(OIS,"clean data/Indianapolis/OIStest.csv",row.names = FALSE)
-write.csv(UOF,"clean data/Indianapolis/UOFtest.csv",row.names = FALSE)
+write.csv(OIS,"clean data/Indianapolis/OIS.csv",row.names = FALSE)
+write.csv(UOF,"clean data/Indianapolis/UOF.csv",row.names = FALSE)

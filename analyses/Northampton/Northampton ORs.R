@@ -16,8 +16,8 @@ OR_Prep = function(dataset,column){
   
   #making a column binning level of force as Weapon vs No Weapon
   dataset['Weapon.vs.No Weapon'] <- column
-  dataset$`Weapon.vs.No Weapon`<- gsub('2|3', 'Weapon', dataset$`Weapon.vs.Weapon`)
-  dataset$`Weapon.vs.No Weapon`<- gsub('1', 'No Weapon', dataset$`Weapon.vs.Weapon`)
+  dataset$`Weapon.vs.No Weapon`<- gsub('2|3', 'Weapon', dataset$`Weapon.vs.No Weapon`)
+  dataset$`Weapon.vs.No Weapon`<- gsub('1', 'No Weapon', dataset$`Weapon.vs.No Weapon`)
   return(dataset)
 }
 
@@ -53,7 +53,7 @@ OR_Function = function(row,column1,column2){
   
 }
 
-OR_Function(UOF$Binning.Number.of.Officers,UOF$`Lethal.vs.Non-lethal.Weapon`,UOF$Weapon.vs.Weapon)
+OR_Function(UOF$Binning.Number.of.Officers,UOF$`Lethal.vs.Non-lethal.Weapon`,UOF$`Weapon.vs.No Weapon`)
 
 ggplot(UOF,
        aes(x = Binning.Number.of.Officers,
@@ -68,7 +68,7 @@ ggplot(UOF,
 
 ggplot(UOF,
        aes(x = Binning.Number.of.Officers,
-           fill = `Weapon.vs.Weapon`))+
+           fill = `Weapon.vs.No Weapon`))+
   geom_bar(position = "dodge")
 
 

@@ -1,8 +1,9 @@
 #####################
-
-#first I want to call libraries
-library(dplyr)
-library(tidyr)
+#load dependencies and set working directory
+setwd(here())
+source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
+PackageDependency()
 
 #turn off scientific notation
 options(scipen=999)

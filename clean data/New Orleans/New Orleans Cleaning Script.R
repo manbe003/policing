@@ -19,40 +19,18 @@ AllMetadata_UOF_NA[AllMetadata_UOF_NA=="Other | Other"]<-NA
 
 #making a column counting number of officers in a group based on a column and its separator
 OfficerBinning <- function (dataframe, dataframecol, separator){
-    dataframe['Number of Officers'] <- NA
-    dataframe['Binning Number of Officers'] <- NA
-    dataframe$`Number of Officers` <- str_count(dataframecol, coll(separator))+1
-    dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="1"]<- "1"
-    dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="2"]<- "2"
-    dataframe$`Binning Number of Officers`[dataframe$`Number of Officers` > "2"]<- "3+"
-    return(dataframe)
-    
+  dataframe['Number of Officers'] <- NA
+  dataframe['Binning Number of Officers'] <- NA
+  dataframe$`Number of Officers` <- str_count(dataframecol, coll(separator))+1
+  dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="1"]<- "1"
+  dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="2"]<- "2"
+  dataframe$`Binning Number of Officers`[dataframe$`Number of Officers` > "2"]<- "3+"
+  return(dataframe)
+  
 }
 
 UOF_Officers <- AllMetadata_UOF_NA
 UOF_Officers <- OfficerBinning(UOF_Officers, UOF_Officers$`Officer Gender`, "|")
 
 
-#binning force type according to paper notes - this needs to go 
-UOF_All_FixLevels <- UOF_Officers
-UOF_All_FixLevels <- UOF_All_FixLevels %>%
-    mutate(`Force Type` = case_when(
-    str_detect(`Force Type`, "Firearm") ~ "3",
-    str_detect(`Force Type`, "Rifle") ~ "3",
-    str_detect(`Force Type`, "Vehicle as Weapon") ~ "3",
-    str_detect(`Force Type`, "Shotgun") ~ "3",
-    str_detect(`Force Type`, "Escort Tech") ~ "2",
-    str_detect(`Force Type`, "CEW") ~ "2",
-    str_detect(`Force Type`, "Canine") ~ "2",
-    str_detect(`Force Type`, "Baton") ~ "2",
-    str_detect(`Force Type`, "NonTrad Impact Weapon") ~ "2",
-    str_detect(`Force Type`, "Hands") ~ "1",
-    str_detect(`Force Type`, "Take Down") ~ "1",
-    str_detect(`Force Type`, "Takedown") ~ "1",
-    str_detect(`Force Type`, "Head Strike") ~ "1",
-    str_detect(`Force Type`, "Force") ~ "1",
-    str_detect(`Force Type`, "Handcuffed Subject") ~ "1",
-    TRUE ~ `Force Type`
-    ))
-
-write.csv(UOF_All_FixLevels,"clean data/New Orleans/New Orleans UOF.csv",row.names = FALSE)
+write.csv(UOF_Officers,"clean data/New Orleans/New Orleans UOF.csv",row.names = FALSE)

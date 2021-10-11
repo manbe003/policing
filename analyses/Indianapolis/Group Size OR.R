@@ -103,3 +103,16 @@ OR_Function = function(row,column1,column2){
 
 OR_Function(UOF_OfficerForce$`Binning Number of Officers`,UOF_OfficerForce$`Lethal.vs.Non-lethal.Weapon`,UOF_OfficerForce$`Weapon.vs.No Weapon`)
 
+#graphs
+
+
+ggplot(UOF_OfficerForce,
+       aes(x = `Binning Number of Officers`,
+           fill = `Lethal.vs.Non-lethal.Weapon`))+
+  geom_bar(position = "dodge")
+
+ggplot(UOF_OfficerForce,
+       aes(x = `Binning Number of Officers`,
+           fill = `Weapon.vs.No Weapon`))+
+  geom_bar(position = "dodge")
+

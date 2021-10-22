@@ -195,8 +195,13 @@ All_UOF_FixRace <- unite(All_UOF_FixRace, "Suspect.Race", 16:23, sep = ", ", rem
 
 
 
+#trying to group them together
 
+All_UOF_Combine <- All_UOF_FixRace %>%
+  group_by(Suspect.Condition, Suspect.Age, Suspect.Gender, Suspect.Race, Suspect.Armed, Suspect.Injured) %>%
+  summarise_all(funs(paste0(unique(.[!is.na(.)]), collapse= ",")))
 
-
+All_UOF_Combine <- All_UOF_FixRace %>% 
+  distinct(Suspect.Condition, Suspect.Age, Suspect.Gender, Suspect.Race,  Suspect.Armed, Suspect.Injured, .keep_all = T)
 
 

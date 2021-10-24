@@ -1,0 +1,114 @@
+#load dependencies and set working directory
+setwd(here())
+source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
+PackageDependency()
+library(ggplot2)
+
+#loading Libraries
+Indi_UOF<-read.csv(file = 'clean data/Indianapolis/UOF.csv', stringsAsFactors = FALSE)
+NewORl_UOF<- read.csv(file = 'clean data/New Orleans/New Orleans UOF.csv', stringsAsFactors = FALSE)
+
+#Binning indianaoplis UOF type
+Indi_UOF$officerForceType<- gsub('Physical-Kick|Physical-Hands, Fist, Feet|Physical-Weight Leverage|Physical-Take Down|Physical-Palm Strike|Physical-Elbow Strike|Physical-Handcuffing|Physical-Leg Sweep|Physical-Knee Strike|Physical-Push|Physical-Other|Physical-Joint/Pressure|Physical-Fist Strike','1',Indi_UOF$officerForceType)
+Indi_UOF$officerForceType<- gsub('Less Lethal-Taser|Less Lethal-Personal CS/OC spray|Less Lethal-Baton|Less Lethal-Burning CS|Less Lethal-Flash Bang|Less Lethal-Pepperball|Less Lethal-Bps Gas|Less Lethal-CS Grenade|Less Lethal-Other|Less Lethal-CS/OC|Less Lethal-Clearout OC|Less Lethal-Bean Bag|Less Lethal-CS Fogger|Canine Bite','2',Indi_UOF$officerForceType)
+Indi_UOF$officerForceType<- gsub('Lethal-Handgun|Lethal-Vehicle','3',Indi_UOF$officerForceType)
+Indi_UOF$officerForceType<- gsub('N/A',NA,Indi_UOF$officerForceType)
+
+#indianapolis binning for justification for Less lethal force
+##Fleeing = 1
+##Non-compliant, Resisting Arrest = 2
+## Combative suspect = 3
+## Assaulting Citizens, Assaulting Officers = 4
+#canine Incident - K?
+
+#making a new dataframe for binning
+Indi_LessLethal<- Indi_UOF[,c("useOfForceReason","officerForceType")]
+Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Fleeing"]<- "1"
+Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Non-Compliant"]<- "2"
+Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Resisting Arrest"]<- "2"
+Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Combative Suspect"]<- "3"
+Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Assaulting Citizen(s)"]<- "4"
+Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Assaulting Officer(s)"]<- "4"
+Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Canine Incident"]<- "k"
+Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="N/A"]<- NA
+
+#graph and table of general justification and one graph comparing justification to force used
+Indi_LessLethTable <- table(Indi_LessLethal) 
+print(Indi_LessLethTable)
+
+ggplot(Indi_LessLethal, aes(useOfForceReason)) +
+  geom_bar()
+
+ggplot(Indi_LessLethal,
+       aes(x = officerForceType,
+           fill = useOfForceReason))+
+  geom_bar(position = "dodge")
+
+#Indianapolis binning for justification for Lethal force
+##Fleeing, non-compliant, Resisting Arrest, Combative Subject = 1
+## Assaulting Citizens, Assaulting Officers = 2 
+
+Indi_Lethal<- Indi_UOF[,c("useOfForceReason","officerForceType")]
+Indi_Lethal$useOfForceReason <- gsub('Fleeing|Non-Compliant|Resisting Arrest|Combative Suspect|Canine Incident', '1', Indi_Lethal$useOfForceReason)
+Indi_Lethal$useOfForceReason[Indi_Lethal$useOfForceReason=="Assaulting Officer(s)"]<- "2"
+Indi_Lethal$useOfForceReason[Indi_Lethal$useOfForceReason=="Assaulting Citizen(s)"]<- "2"
+Indi_Lethal$useOfForceReason[Indi_Lethal$useOfForceReason=="N/A"]<- NA
+
+
+#graph and table of general justification and one graph comparing justification to force used
+Indi_LethalTable <- table(Indi_Lethal) 
+print(Indi_LethalTable)
+
+ggplot(Indi_Lethal, aes(useOfForceReason)) +
+  geom_bar()
+
+ggplot(Indi_Lethal,
+       aes(x = officerForceType,
+           fill = useOfForceReason))+
+  geom_bar(position = "dodge")
+
+
+### Doing the same thing for New Orleans
+
+NewOrl_LessLethal<- NewORl_UOF[,c("UOF.Reason","Force.Type")]
+NewOrl_LessLethal$UOF.Reason<- gsub('Resisting Lawful Arrest|Room Clearing|Room CLearing|Building clearing|Room clearing|room clearing','1',NewOrl_LessLethal$UOF.Reason)
+NewOrl_LessLethal$UOF.Reason<- gsub('refuse verbal commands|Possibly armed subject|Flight from an Officer|Escape|Tactical Deployments|Felony Stop','2',NewOrl_LessLethal$UOF.Reason)
+NewOrl_LessLethal$UOF.Reason<- gsub('Weapon Exhibited|Weapon Discharged|Battery on Police Officer|Battery on Reporting Person|Resisting Officer w/Weapon','3',NewOrl_LessLethal$UOF.Reason)
+
+#graph and table of general justification and one graph comparing justification to force used
+NewOrl_LessLethaltable <- table(NewOrl_LessLethal) 
+print(NewOrl_LessLethaltable)
+
+ggplot(NewOrl_LessLethal, aes(UOF.Reason)) +
+  geom_bar()
+
+ggplot(NewOrl_LessLethal,
+       aes(x = Force.Type,
+           fill = UOF.Reason))+
+  geom_bar(position = "dodge")
+
+
+
+#new orleans lethal dataset
+
+NewOrl_Lethal<- NewORl_UOF[,c("UOF.Reason","Force.Type")]
+NewOrl_Lethal$UOF.Reason<- gsub('Resisting Lawful Arrest|Room Clearing|Room CLearing|Building clearing|Room clearing|room clearing|refuse verbal commands|Flight from an Officer|Escape|Tactical Deployments|Felony Stop','1',NewOrl_Lethal$UOF.Reason)
+NewOrl_Lethal$UOF.Reason<- gsub('Possibly armed subject|Battery on Police Officer|Battery on Police Officer|Battery on Reporting Person','2',NewOrl_Lethal$UOF.Reason)
+NewOrl_Lethal$UOF.Reason<- gsub('Weapon Exhibited|Weapon Discharged|Resisting Officer w/Weapon','3',NewOrl_Lethal$UOF.Reason)
+
+
+#graph and table of general justification and one graph comparing justification to force used
+NewOrl_Lethaltable <- table(NewOrl_Lethal) 
+print(NewOrl_Lethaltable)
+
+ggplot(NewOrl_Lethal, aes(UOF.Reason)) +
+  geom_bar()
+
+ggplot(NewOrl_Lethal,
+       aes(x = Force.Type,
+           fill = UOF.Reason))+
+  geom_bar(position = "dodge")
+
+
+

@@ -5,7 +5,10 @@ setwd(here())
 source("ProjectPackageManagement.R")
 PackageDependency()
 
-library(data.table)
+install.packages("hablar")
+library(hablar)
+install.packages("sqldf")
+library(sqldf)
 
 #load files
 BloomUOF2016First<-read.csv(file = 'dirty data/Bloomington/2016 First Quarter UOF.csv', stringsAsFactors = FALSE, header= TRUE)
@@ -167,6 +170,7 @@ All_UOF_ForceLevel <- All_UOF_ForceLevel %>%
     TRUE ~ Force.Level
   ))
 
+#Fixing empty columns to NAs
 All_UOF_ForceLevel$Force.Level[All_UOF_ForceLevel$Force.Level==", , , , , , "]<- NA
 All_UOF_ForceLevel$Force.Level[All_UOF_ForceLevel$Force.Level==""]<- NA
 
@@ -192,16 +196,7 @@ All_UOF_ForceLevel$Suspect.Race.Asian.Pacific.Islander..Hispanic[All_UOF_ForceLe
 All_UOF_FixRace <- All_UOF_ForceLevel
 All_UOF_FixRace <- unite(All_UOF_FixRace, "Suspect.Race", 16:23, sep = ", ", remove = T, na.rm = T)
 
-
-
-
-#trying to group them together
-
-All_UOF_Combine <- All_UOF_FixRace %>%
-  group_by(Suspect.Condition, Suspect.Age, Suspect.Gender, Suspect.Race, Suspect.Armed, Suspect.Injured) %>%
-  summarise_all(funs(paste0(unique(.[!is.na(.)]), collapse= ",")))
-
-All_UOF_Combine <- All_UOF_FixRace %>% 
-  distinct(Suspect.Condition, Suspect.Age, Suspect.Gender, Suspect.Race,  Suspect.Armed, Suspect.Injured, .keep_all = T)
+#writing a new CSV with cleaned data
+write.csv(All_UOF_FixRace,"clean data/Bloomington/UOF.csv",row.names = FALSE)
 
 

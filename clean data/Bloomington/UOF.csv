@@ -1,4 +1,4 @@
-"Event","District","Nature","How_Received","Date","Time","Force_Level","Suspect_Condition","Suspect_Armed","Suspect_Injured","Suspect_Role","Officer_Injured","Officer_Exposed_to_BBP","Suspect_Gender","Suspect_Age","Suspect_Race"
+"Event","District","Nature","How.Received","Date","Time","Force.Level","Suspect.Condition","Suspect.Armed","Suspect.Injured","Suspect.Role","Officer.Injured","Officer.Exposed.to.BBP","Suspect.Gender","Suspect.Age","Suspect.Race"
 "B16-00007","4.0","Drunk","Officer Report","2016-01-01T00:00:00","01:23:00","1","Intoxicated","NO","NO","Arrestee","NO","NO","Male","22","White"
 "B16-00250","5.0","Suspicious Activity","Officer Report","2016-01-03T00:00:00","00:26:00","1","Normal","NO","NO","Juv Reference","NO","NO","Male","15","Black"
 "B16-00256","1.0","Assault","911.0","2016-01-03T00:00:00","02:45:00","1","Intoxicated","NO","NO","Arrestee","NO","YES","Female","33","White"

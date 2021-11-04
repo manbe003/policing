@@ -4,6 +4,8 @@ source("ProjectPackageManagement.R")
 source("Data Cleaning Functions.R")
 PackageDependency()
 library(ggplot2)
+install.packages("sqldf")
+library(sqldf)
 
 #loading Libraries
 Indi_UOF<-read.csv(file = 'clean data/Indianapolis/UOF.csv', stringsAsFactors = FALSE)
@@ -15,23 +17,44 @@ Indi_UOF$officerForceType<- gsub('Less Lethal-Taser|Less Lethal-Personal CS/OC s
 Indi_UOF$officerForceType<- gsub('Lethal-Handgun|Lethal-Vehicle','3',Indi_UOF$officerForceType)
 Indi_UOF$officerForceType<- gsub('N/A',NA,Indi_UOF$officerForceType)
 
+
+#Counting the number of officers by counting the number of distinct Officer IDs with the same case ID and making a DF
+UOF_OfficerCount <-Indi_UOF
+UOF_OfficerCount <- sqldf("SELECT 
+      id, COUNT(DISTINCT officerIdentifier)
+      FROM Indi_UOF
+      GROUP BY id")
+colnames(UOF_OfficerCount)[2]<- "NumberofOfficers"
+
+#making a column binning number of officers
+UOF_OfficerCount[BinningNumbeofOfficers] <- NA
+UOF_OfficerCount$BinningNumbeofOfficers[UOF_OfficerCount$NumberofOfficers=="1+"]<- NA
+UOF_OfficerCount$BinningNumbeofOfficers[UOF_OfficerCount$NumberofOfficers=="1"]<- "1"
+UOF_OfficerCount$BinningNumbeofOfficers[UOF_OfficerCount$NumberofOfficers=="2"]<- "2"
+UOF_OfficerCount$BinningNumbeofOfficers[UOF_OfficerCount$NumberofOfficers > 2]<- "3+"
+
+
+#making a new dataframe for binning
+Indi_LessLethal<- sqldf("SELECT
+      A.id,A.useOfForceReason,A.officerForceType,BinningNumbeofOfficers
+      FROM Indi_UOF as A
+      JOIN UOF_OfficerCount as B
+      ON A.id = B.id")
 #indianapolis binning for justification for Less lethal force
 ##Fleeing = 1
 ##Non-compliant, Resisting Arrest = 2
-## Combative suspect = 3
+## Combative suspect,canine Incident  = 3
 ## Assaulting Citizens, Assaulting Officers = 4
-#canine Incident - K?
-
-#making a new dataframe for binning
-Indi_LessLethal<- Indi_UOF[,c("useOfForceReason","officerForceType")]
 Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Fleeing"]<- "1"
 Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Non-Compliant"]<- "2"
 Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Resisting Arrest"]<- "2"
 Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Combative Suspect"]<- "3"
 Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Assaulting Citizen(s)"]<- "4"
 Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Assaulting Officer(s)"]<- "4"
-Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Canine Incident"]<- "k"
+Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Canine Incident"]<- "3"
 Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="N/A"]<- NA
+
+Indi_LessLethal <- Indi_LessLethal[-c(1)]
 
 #graph and table of general justification and one graph comparing justification to force used
 Indi_LessLethTable <- table(Indi_LessLethal) 
@@ -45,16 +68,45 @@ ggplot(Indi_LessLethal,
            fill = useOfForceReason))+
   geom_bar(position = "dodge")
 
+ggplot(Indi_LessLethal,
+       aes(x = BinningNumbeofOfficers,
+           fill = useOfForceReason))+
+  geom_bar(position = "dodge")
+
 #Indianapolis binning for justification for Lethal force
+
+
+#Counting the number of officers by counting the number of distinct Officer IDs with the same case ID and making a DF
+UOF_OfficerCount2 <-Indi_UOF
+UOF_OfficerCount2 <- sqldf("SELECT 
+      id, COUNT(DISTINCT officerIdentifier)
+      FROM Indi_UOF
+      GROUP BY id")
+colnames(UOF_OfficerCount2)[2]<- "NumberofOfficers"
+
+#making a column binning number of officers
+UOF_OfficerCount2[BinningNumbeofOfficers] <- NA
+UOF_OfficerCount2$BinningNumbeofOfficers[UOF_OfficerCount2$NumberofOfficers=="1+"]<- NA
+UOF_OfficerCount2$BinningNumbeofOfficers[UOF_OfficerCount2$NumberofOfficers=="1"]<- "1"
+UOF_OfficerCount2$BinningNumbeofOfficers[UOF_OfficerCount2$NumberofOfficers=="2"]<- "2"
+UOF_OfficerCount2$BinningNumbeofOfficers[UOF_OfficerCount2$NumberofOfficers > 2]<- "3+"
+
+
+#making a new dataframe for binning
+Indi_Lethal<- sqldf("SELECT
+      A.id,A.useOfForceReason,A.officerForceType,BinningNumbeofOfficers
+      FROM Indi_UOF as A
+      JOIN UOF_OfficerCount2 as B
+      ON A.id = B.id")
+
 ##Fleeing, non-compliant, Resisting Arrest, Combative Subject = 1
 ## Assaulting Citizens, Assaulting Officers = 2 
-
-Indi_Lethal<- Indi_UOF[,c("useOfForceReason","officerForceType")]
 Indi_Lethal$useOfForceReason <- gsub('Fleeing|Non-Compliant|Resisting Arrest|Combative Suspect|Canine Incident', '1', Indi_Lethal$useOfForceReason)
 Indi_Lethal$useOfForceReason[Indi_Lethal$useOfForceReason=="Assaulting Officer(s)"]<- "2"
 Indi_Lethal$useOfForceReason[Indi_Lethal$useOfForceReason=="Assaulting Citizen(s)"]<- "2"
 Indi_Lethal$useOfForceReason[Indi_Lethal$useOfForceReason=="N/A"]<- NA
 
+Indi_Lethal <- Indi_Lethal[-c(1)]
 
 #graph and table of general justification and one graph comparing justification to force used
 Indi_LethalTable <- table(Indi_Lethal) 
@@ -65,6 +117,11 @@ ggplot(Indi_Lethal, aes(useOfForceReason)) +
 
 ggplot(Indi_Lethal,
        aes(x = officerForceType,
+           fill = useOfForceReason))+
+  geom_bar(position = "dodge")
+
+ggplot(Indi_Lethal,
+       aes(x = BinningNumbeofOfficers,
            fill = useOfForceReason))+
   geom_bar(position = "dodge")
 

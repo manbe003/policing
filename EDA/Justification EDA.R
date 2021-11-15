@@ -7,6 +7,7 @@ library(ggplot2)
 install.packages("sqldf")
 library(sqldf)
 
+
 #loading Libraries
 Indi_UOF<-read.csv(file = 'clean data/Indianapolis/UOF.csv', stringsAsFactors = FALSE)
 NewORl_UOF<- read.csv(file = 'clean data/New Orleans/New Orleans UOF.csv', stringsAsFactors = FALSE)
@@ -40,7 +41,9 @@ Indi_LessLethal<- sqldf("SELECT
       FROM Indi_UOF as A
       JOIN UOF_OfficerCount as B
       ON A.id = B.id")
-#indianapolis binning for justification for Less lethal force
+
+
+#Indianapolis binning for justification for Less lethal force
 ##Fleeing = 1
 ##Non-compliant, Resisting Arrest = 2
 ## Combative suspect,canine Incident  = 3
@@ -55,6 +58,8 @@ Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="Canine Incid
 Indi_LessLethal$useOfForceReason[Indi_LessLethal$useOfForceReason=="N/A"]<- NA
 
 Indi_LessLethal <- Indi_LessLethal[-c(1)]
+
+
 
 #graph and table of general justification and one graph comparing justification to force used
 Indi_LessLethTable <- table(Indi_LessLethal) 
@@ -73,7 +78,12 @@ ggplot(Indi_LessLethal,
            fill = useOfForceReason))+
   geom_bar(position = "dodge")
 
-#Indianapolis binning for justification for Lethal force
+
+
+
+
+
+##Indianapolis Lethal Force Binning
 
 
 #Counting the number of officers by counting the number of distinct Officer IDs with the same case ID and making a DF
@@ -108,6 +118,14 @@ Indi_Lethal$useOfForceReason[Indi_Lethal$useOfForceReason=="N/A"]<- NA
 
 Indi_Lethal <- Indi_Lethal[-c(1)]
 
+#making a column binning level of force as lethal vs non lethal
+
+Indi_Lethal$officerForceType<- gsub('1|2', 'Non-Lethal', Indi_Lethal$officerForceType)
+Indi_Lethal$officerForceType<- gsub('3', 'Lethal', Indi_Lethal$officerForceType)
+
+
+
+
 #graph and table of general justification and one graph comparing justification to force used
 Indi_LethalTable <- table(Indi_Lethal) 
 print(Indi_LethalTable)
@@ -126,12 +144,17 @@ ggplot(Indi_Lethal,
   geom_bar(position = "dodge")
 
 
+
+
+
 ### Doing the same thing for New Orleans
 
-NewOrl_LessLethal<- NewORl_UOF[,c("UOF.Reason","Force.Type")]
+#New Orleans Less lethal justification binning
+NewOrl_LessLethal<- NewORl_UOF[,c("UOF.Reason","Force.Type","Binning.Number.of.Officers")]
 NewOrl_LessLethal$UOF.Reason<- gsub('Resisting Lawful Arrest|Room Clearing|Room CLearing|Building clearing|Room clearing|room clearing','1',NewOrl_LessLethal$UOF.Reason)
 NewOrl_LessLethal$UOF.Reason<- gsub('refuse verbal commands|Possibly armed subject|Flight from an Officer|Escape|Tactical Deployments|Felony Stop','2',NewOrl_LessLethal$UOF.Reason)
 NewOrl_LessLethal$UOF.Reason<- gsub('Weapon Exhibited|Weapon Discharged|Battery on Police Officer|Battery on Reporting Person|Resisting Officer w/Weapon','3',NewOrl_LessLethal$UOF.Reason)
+
 
 #graph and table of general justification and one graph comparing justification to force used
 NewOrl_LessLethaltable <- table(NewOrl_LessLethal) 
@@ -145,17 +168,26 @@ ggplot(NewOrl_LessLethal,
            fill = UOF.Reason))+
   geom_bar(position = "dodge")
 
+ggplot(NewOrl_LessLethal,
+       aes(x = Binning.Number.of.Officers,
+           fill = UOF.Reason))+
+  geom_bar(position = "dodge")
 
 
 #new orleans lethal dataset
 
-NewOrl_Lethal<- NewORl_UOF[,c("UOF.Reason","Force.Type")]
+NewOrl_Lethal<- NewORl_UOF[,c("UOF.Reason","Force.Type","Binning.Number.of.Officers")]
 NewOrl_Lethal$UOF.Reason<- gsub('Resisting Lawful Arrest|Room Clearing|Room CLearing|Building clearing|Room clearing|room clearing|refuse verbal commands|Flight from an Officer|Escape|Tactical Deployments|Felony Stop','1',NewOrl_Lethal$UOF.Reason)
 NewOrl_Lethal$UOF.Reason<- gsub('Possibly armed subject|Battery on Police Officer|Battery on Police Officer|Battery on Reporting Person','2',NewOrl_Lethal$UOF.Reason)
 NewOrl_Lethal$UOF.Reason<- gsub('Weapon Exhibited|Weapon Discharged|Resisting Officer w/Weapon','3',NewOrl_Lethal$UOF.Reason)
 
+#making a column binning level of force as lethal vs non lethal
+NewOrl_Lethal$Force.Type<- gsub('1|2', 'Non-Lethal', NewOrl_Lethal$Force.Type)
+NewOrl_Lethal$Force.Type<- gsub('3', 'Lethal', NewOrl_Lethal$Force.Type)
 
-#graph and table of general justification and one graph comparing justification to force used
+
+
+###graph and table of general justification and one graph comparing justification to force used
 NewOrl_Lethaltable <- table(NewOrl_Lethal) 
 print(NewOrl_Lethaltable)
 
@@ -167,5 +199,8 @@ ggplot(NewOrl_Lethal,
            fill = UOF.Reason))+
   geom_bar(position = "dodge")
 
-
+ggplot(NewOrl_Lethal,
+       aes(x = Binning.Number.of.Officers,
+           fill = UOF.Reason))+
+  geom_bar(position = "dodge")
 

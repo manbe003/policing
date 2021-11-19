@@ -192,6 +192,8 @@ All_UOF_ForceLevel$Suspect.Race.Asian.Pacific.Islander..Hispanic[All_UOF_ForceLe
 All_UOF_FixRace <- All_UOF_ForceLevel
 All_UOF_FixRace <- unite(All_UOF_FixRace, "Suspect.Race", 16:23, sep = ", ", remove = T, na.rm = T)
 
+#save!
+write.csv(All_UOF_FixRace,here("clean data","Bloomington","Bloomington_UOF.csv"),row.names = FALSE)
 
 
 

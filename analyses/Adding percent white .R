@@ -21,7 +21,6 @@ OfficerGroupSize <- function(dataset, mergecol, together){
   return(dataset)
 }
     #example: LouisvilleShootings <- OfficerGroupSize(LouisvilleShootings, "PIU_number", LouisvilleShootings$PIU_number)
-
 OfficerRaceGroup <- dataset %>%  
   group_by(PIU_number, officer_race) %>% 
   summarise(Freq = n()) 
@@ -94,6 +93,14 @@ ggplot(data=subset(OrlandoUOF, !(OrlandoUOF$Offenders.Race!=c("White", "Black"))
            fill = Offenders.Race))+
   geom_bar(position = "fill")
 
+
+
+ggplot(data=subset(OrlandoUOF), 
+       aes(x = Binning.Percent.Bipoc,
+           fill = UOF.Level))+
+  geom_bar(position = "dodge")
+
+
 #Not enough multiple person officer groups to use shootings data
 ggplot(data=subset(OrlandoShootings), 
        aes(x = Binning.Percent.Bipoc,
@@ -104,6 +111,7 @@ ggplot(data=subset(OrlandoShootings),
 #odds ratio, which i did cause i was curious but someone should check this. 
 #making a table of Bipoc bins and UOF level
 Levels.Comp<-table(OrlandoUOF$UOF.Level,OrlandoUOF$Binning.Percent.Bipoc)
+Levels.Comp<-table(OrlandoUOF$Binning.Percent.Bipoc,OrlandoUOF$UOF.Level)
 print(Levels.Comp)
 
 #Odds Ratio of UOf level and bipoc bins

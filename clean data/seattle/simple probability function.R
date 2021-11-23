@@ -5,7 +5,7 @@ library(stringr)
 library(here)
 
 #call in UOF dataset
-UOF<-read.csv(file='UseOfForce_Seattle.csv', stringsAsFactors = FALSE)
+UOF<-read.csv(file=here('clean data/Seattle/UseOfForce_Seattle.csv'), stringsAsFactors = FALSE)
 
 #analyze probability that if there is 1 or 2 officers they will escalate vs if there are 3
 ##probability is simply # time it escalates/total times, split by group. 
@@ -70,3 +70,16 @@ UOF_FixLevels<-split(UOF_All_FixLevels, f=(UOF_All_FixLevels$`Binning Number of 
 probability(UOF_FixLevels$`1`,3)
 probability(UOF_FixLevels$`2`,3)
 probability(UOF_FixLevels$`3`,3)
+
+#now looking to do a chi-square test to assess difference
+#first make a table of number of officers by force type
+dt <- table(UOF_All_FixLevels$`Binning Number of Officers`,UOF_All_FixLevels$IncidentType)
+
+#Graph
+balloonplot(t(dt), main ="IncidentType", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+mosaicplot(dt, shade = TRUE, las=2, main = "IncidentType")
+
+#could do chi square of whole table! 
+chi<-chisq.test(dt)
+chi

@@ -3,9 +3,7 @@ setwd(here())
 source("ProjectPackageManagement.R")
 source("Data Cleaning Functions.R")
 PackageDependency()
-library(ggplot2)
-install.packages("sqldf")
-library(sqldf)
+
 
 
 #loading Libraries
@@ -28,11 +26,11 @@ UOF_OfficerCount <- sqldf("SELECT
 colnames(UOF_OfficerCount)[2]<- "NumberofOfficers"
 
 #making a column binning number of officers
-UOF_OfficerCount[BinningNumbeofOfficers] <- NA
-UOF_OfficerCount$BinningNumbeofOfficers[UOF_OfficerCount$NumberofOfficers=="1+"]<- NA
-UOF_OfficerCount$BinningNumbeofOfficers[UOF_OfficerCount$NumberofOfficers=="1"]<- "1"
-UOF_OfficerCount$BinningNumbeofOfficers[UOF_OfficerCount$NumberofOfficers=="2"]<- "2"
-UOF_OfficerCount$BinningNumbeofOfficers[UOF_OfficerCount$NumberofOfficers > 2]<- "3+"
+UOF_OfficerCount['BinningNumberofOfficers'] <- NA
+UOF_OfficerCount$BinningNumberofOfficers[UOF_OfficerCount$NumberofOfficers=="1+"]<- NA
+UOF_OfficerCount$BinningNumberofOfficers[UOF_OfficerCount$NumberofOfficers=="1"]<- "1"
+UOF_OfficerCount$BinningNumberofOfficers[UOF_OfficerCount$NumberofOfficers=="2"]<- "2"
+UOF_OfficerCount$BinningNumberofOfficers[UOF_OfficerCount$NumberofOfficers > 2]<- "3+"
 
 
 #making a new dataframe for binning
@@ -95,16 +93,16 @@ UOF_OfficerCount2 <- sqldf("SELECT
 colnames(UOF_OfficerCount2)[2]<- "NumberofOfficers"
 
 #making a column binning number of officers
-UOF_OfficerCount2[BinningNumbeofOfficers] <- NA
-UOF_OfficerCount2$BinningNumbeofOfficers[UOF_OfficerCount2$NumberofOfficers=="1+"]<- NA
-UOF_OfficerCount2$BinningNumbeofOfficers[UOF_OfficerCount2$NumberofOfficers=="1"]<- "1"
-UOF_OfficerCount2$BinningNumbeofOfficers[UOF_OfficerCount2$NumberofOfficers=="2"]<- "2"
-UOF_OfficerCount2$BinningNumbeofOfficers[UOF_OfficerCount2$NumberofOfficers > 2]<- "3+"
+UOF_OfficerCount2['BinningNumberofOfficers'] <- NA
+UOF_OfficerCount2$BinningNumberofOfficers[UOF_OfficerCount2$NumberofOfficers=="1+"]<- NA
+UOF_OfficerCount2$BinningNumberofOfficers[UOF_OfficerCount2$NumberofOfficers=="1"]<- "1"
+UOF_OfficerCount2$BinningNumberofOfficers[UOF_OfficerCount2$NumberofOfficers=="2"]<- "2"
+UOF_OfficerCount2$BinningNumberofOfficers[UOF_OfficerCount2$NumberofOfficers > 2]<- "3+"
 
 
 #making a new dataframe for binning
 Indi_Lethal<- sqldf("SELECT
-      A.id,A.useOfForceReason,A.officerForceType,BinningNumbeofOfficers
+      A.id,A.useOfForceReason,A.officerForceType,BinningNumberofOfficers
       FROM Indi_UOF as A
       JOIN UOF_OfficerCount2 as B
       ON A.id = B.id")
@@ -139,7 +137,7 @@ ggplot(Indi_Lethal,
   geom_bar(position = "dodge")
 
 ggplot(Indi_Lethal,
-       aes(x = BinningNumbeofOfficers,
+       aes(x = BinningNumberofOfficers,
            fill = useOfForceReason))+
   geom_bar(position = "dodge")
 

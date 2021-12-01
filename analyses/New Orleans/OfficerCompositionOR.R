@@ -3,8 +3,6 @@ source("ProjectPackageManagement.R")
 PackageDependency()
 setwd(here())
 
-library(epitools)
-library(ggplot2)
 
 #load datasets
 NewORL<- read.csv(file = 'clean data/New Orleans/New Orleans UOF.csv', stringsAsFactors = F)

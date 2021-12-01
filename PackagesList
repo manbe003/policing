@@ -10,3 +10,6 @@ gtools
 data.table
 fauxnaif
 readr
+ggplot2
+sqldf
+epitools

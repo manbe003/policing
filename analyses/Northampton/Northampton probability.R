@@ -2,7 +2,8 @@
 library(here)
 library(epitools)
 library(tidyverse)
-
+library(gplots)
+library(graphics)
 
 #loading datasets
 UOF<-read.csv(file=here('clean data/Northampton/Northampton UOF.csv'), stringsAsFactors = FALSE)
@@ -73,66 +74,35 @@ UOF_All_FixLevels <- UOF_All_FixLevels %>%
 
 
 
-
-OR_Prep = function(dataset,column){
-  #making a column binning level of force as lethal vs non lethal
-  dataset['Lethal.vs.Non-lethal.Weapon'] <- column
-  dataset$`Lethal.vs.Non-lethal.Weapon`<- gsub('1|2', 'Non-Lethal', dataset$`Lethal.vs.Non-lethal.Weapon`)
-  dataset$`Lethal.vs.Non-lethal.Weapon`<- gsub('3', 'Lethal', dataset$`Lethal.vs.Non-lethal.Weapon`)
+probability<-function(df, colnum){
+  x<-cbind(table(df[,colnum]))
   
-  #making a column binning level of force as Weapon vs No Weapon
-  dataset['Weapon.vs.No Weapon'] <- column
-  dataset$`Weapon.vs.No Weapon`<- gsub('2|3', 'Weapon', dataset$`Weapon.vs.No Weapon`)
-  dataset$`Weapon.vs.No Weapon`<- gsub('1', 'No Weapon', dataset$`Weapon.vs.No Weapon`)
-  return(dataset)
+  print("odds of escalating to force of 3")
+  print(x[3,1]/sum(x[,1]))
+  
+  print("odds of escalating past force of 1")
+  print(sum(x[2:3,1])/sum(x[,1]))
 }
 
-UOF_All_FixLevels <- OR_Prep(UOF_All_FixLevels,UOF_All_FixLevels$PD.Force.Type)
+probability(UOF_All_FixLevels, 10)
+
+UOF_FixLevels<-split(UOF_All_FixLevels, f=(UOF_All_FixLevels$Binning.Number.of.Officers))
+probability(UOF_FixLevels$`1`,10)
+probability(UOF_FixLevels$`2`,10)
+probability(UOF_FixLevels$`3`,10)
 
 
+#now looking to do a chi-square test to assess difference
+#first make a table of number of officers by force type
+dt <- table(UOF_All_FixLevels$Binning.Number.of.Officers,UOF_All_FixLevels$PD.Force.Type)
 
-##Function doesnt work because it creates an Error when it sees there is a 0 in the Lethality table so doing it step by step
-#making a table of Lethal vs non lethal used with each race
-OR_Table<-table(UOF_All_FixLevels$Binning.Number.of.Officers, UOF_All_FixLevels$`Lethal.vs.Non-lethal.Weapon`)
-OR_Table <- OR_Table[ c(3,1:2),]
-OR_Table <- OR_Table[- c(3),]
-print(OR_Table)
+#Graph
+balloonplot(t(dt), main ="PD.Force.Type", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+mosaicplot(dt, shade = TRUE, las=2,main = "PD.Force.Type")
 
-###Odds Ratio
-OR<-oddsratio(OR_Table)
-#printing the outcome so its easier to read
-print(OR$measure)
-print(OR$p.value)
-
-#making a table of Weapon vs No Weapon used with each race
-OR_Table2<-table(UOF_All_FixLevels$Binning.Number.of.Officers, UOF_All_FixLevels$`Weapon.vs.No Weapon`)
-OR_Table2 <- OR_Table2[c(3,1:2),]
-OR_Table2<- OR_Table2[,c(2,1)]
-print(OR_Table2)
-
-###Odds Ratio
-OR2<-oddsratio(OR_Table2)
-#printing the outcome so its easier to read
-print(OR2$measure)
-print(OR2$p.value)
-
-
-
-#graphs
-
-ggplot(UOF_All_FixLevels,
-       aes(x = Binning.Number.of.Officers,
-           fill = as.character(PD.Force.Type)))+
-  geom_bar(position = "dodge")
-
-ggplot(UOF_All_FixLevels,
-       aes(x = Binning.Number.of.Officers,
-           fill = `Lethal.vs.Non-lethal.Weapon`))+
-  geom_bar(position = "dodge")
-
-ggplot(UOF_All_FixLevels,
-       aes(x = Binning.Number.of.Officers,
-           fill = `Weapon.vs.No Weapon`))+
-  geom_bar(position = "dodge")
-
-
+#could do chi square of 1 vs 2 or 3 but can't do a 1 vs 3 chi square because table isn't populated enough. 
+dt<-dt[,1:2]
+mosaicplot(dt, shade = TRUE, las=2,main = "PD.Force.Type")
+chi<-chisq.test(dt)
+chi

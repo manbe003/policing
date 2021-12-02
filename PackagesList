@@ -8,3 +8,9 @@ stringi
 stringr
 gtools
 data.table
+fauxnaif
+readr
+ggplot2
+sqldf
+gplots
+graphics

@@ -1,17 +1,15 @@
 #####################
-
-#first I want to call libraries
-library(dplyr)
-library(tidyr)
-library(stringr)
-library(here)
+#load dependencies and set working directory
+setwd(here())
+source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
+PackageDependency()
 
 #turn off scientific notation
 options(scipen=999)
 
 # change these two lines!
 #I want to call in my datasets (use of force, shootings).
-library(readr)
 UOF <- read.csv(file=here('dirty data/orlando/OPD_Response_To_Resistance.csv'), stringsAsFactors = FALSE)
 shootings <- read.csv(file=here('dirty data/orlando/OPD_Officer-Involved_Shootings.csv'), stringsAsFactors = FALSE)
 

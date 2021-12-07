@@ -13,3 +13,5 @@ readr
 gplots
 graphics
 sqldf
+tidyverse
+epitools

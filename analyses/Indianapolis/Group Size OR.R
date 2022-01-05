@@ -3,7 +3,6 @@ library(epitools)
 library(tidyverse)
 library(dplyr)
 library(tidyr)
-install.packages("sqldf")
 library(sqldf)
 
 
@@ -15,8 +14,9 @@ UOF$ForceBinning = UOF$officerForceType
 UOF_FixLevels <- UOF
 UOF_FixLevels <- UOF_FixLevels %>%
   mutate(ForceBinning = case_when(
-    str_detect(ForceBinning, "Lethal") ~ "3",
-    str_detect(ForceBinning, "Less Lethal") ~ "3",
+    str_detect(ForceBinning, "Lethal-Vehicle") ~ "3",
+    str_detect(ForceBinning, "Lethal-Handgun") ~ "3",
+    str_detect(ForceBinning, "Less Lethal") ~ "2",
     str_detect(ForceBinning, "Canine") ~ "2",
     str_detect(ForceBinning, "Physical") ~ "1",
     TRUE ~ ForceBinning

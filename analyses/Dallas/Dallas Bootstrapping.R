@@ -46,7 +46,23 @@ View(DS_group_freqs)
 
 #The bootstrapping 
 
+add_zero_row <- function(race1, race2, dataset){
+  Var1 <- race1
+  Var2 <- race2
+  Freq <- 0
+  zerorow <- data.frame(Var1, Var2, Freq)
+  validation = subset.data.frame(dataset,Var1 == race1 & Var2 == race2)
+  if (nrow(validation) == 0){
+    dataset <- rbind(dataset, zerorow)
+  } else {
+    dataset <- dataset
+  }
+}
+
 DS_race<-subset(DallasR2R, select = "officer_race")
+DS_race[DS_race == "Other"] <- NA
+DS_race <- na.omit(DS_race)
+
 Var1 <- "stop"
 Var2 <- "stop"
 Freq <- "stop"
@@ -58,6 +74,14 @@ for (i in 1:1000) {
   colnames(DS_bootstrap) <- c("off1", "off2")
   DS_bootstrap <- as.data.frame(DS_bootstrap)
   DS_bootstrap_freqs <- data.frame(table(DS_bootstrap$off1, DS_bootstrap$off2))
+  DS_bootstrap_freqs <- add_zero_row("White", "Black", DS_bootstrap_freqs)
+  DS_bootstrap_freqs <- add_zero_row("Black", "White", DS_bootstrap_freqs)
+  DS_bootstrap_freqs <- add_zero_row("Hispanic", "White", DS_bootstrap_freqs)
+  DS_bootstrap_freqs <- add_zero_row("White", "Hispanic", DS_bootstrap_freqs)
+  DS_bootstrap_freqs <- add_zero_row("Black", "Hispanic", DS_bootstrap_freqs)
+  DS_bootstrap_freqs <- add_zero_row("Hispanic", "Black", DS_bootstrap_freqs)
+  DS_bootstrap_freqs <- add_zero_row("White", "Asian", DS_bootstrap_freqs)
+  DS_bootstrap_freqs <- add_zero_row("Asian", "White", DS_bootstrap_freqs)
   validation = subset.data.frame(DS_bootstrap_freqs,Var1=='Black' & Var2=='White')
   if (nrow(validation) != 0){
     add = subset.data.frame(DS_bootstrap_freqs,Var1=='Black' & Var2=='White')
@@ -82,6 +106,24 @@ for (i in 1:1000) {
     total = DS_bootstrap_freqs[!(DS_bootstrap_freqs$Var1=="Hispanic" & DS_bootstrap_freqs$Var2=='Asian'),]
     total[(total$Var1=='Asian' & total$Var2=='Hispanic'),]$Freq = total[(total$Var1=='Asian' & total$Var2=='Hispanic'),]$Freq + add$Freq
     DS_bootstrap_freqs=total
+  }
+  
+  #for blackhispanic
+  validation = subset.data.frame(IS_bootstrap_freqs,Var1=='Hispanic' & Var2=='Black')
+  if (nrow(validation) != 0){
+    add = subset.data.frame(IS_bootstrap_freqs,Var1=='Hispanic' & Var2=='Black')
+    total = IS_bootstrap_freqs[!(IS_bootstrap_freqs$Var1=="Hispanic" & IS_bootstrap_freqs$Var2=='Black'),]
+    total[(total$Var1=='Black' & total$Var2=='Hispanic'),]$Freq = total[(total$Var1=='Black' & total$Var2=='Hispanic'),]$Freq + add$Freq
+    IS_bootstrap_freqs=total
+  }
+  
+  #for asianwhite
+  validation = subset.data.frame(IS_bootstrap_freqs,Var1=='White' & Var2=='Asian')
+  if (nrow(validation) != 0){
+    add = subset.data.frame(IS_bootstrap_freqs,Var1=='White' & Var2=='Asian')
+    total = IS_bootstrap_freqs[!(IS_bootstrap_freqs$Var1=="White" & IS_bootstrap_freqs$Var2=='Asian'),]
+    total[(total$Var1=='Asian' & total$Var2=='White'),]$Freq = total[(total$Var1=='Asian' & total$Var2=='White'),]$Freq + add$Freq
+    IS_bootstrap_freqs=total
   }
   
   y <- rbind(y, DS_bootstrap_freqs, stop)
@@ -121,6 +163,15 @@ hispanicasian <- subset(y, y$off1 == "Asian")
 hispanicasian <- subset(hispanicasian, hispanicasian$off2 == "Hispanic")
 hispanicasian$freq <- as.numeric(hispanicasian$freq)
 
+#blackhispanic
+blackhispanic <- subset(y, y$off1 == "Black")
+blackhispanic <- subset(blackhispanic, blackhispanic$off2 == "Hispanic")
+blackhispanic$freq <- as.numeric(blackhispanic$freq)
+
+#asianwhite
+asianwhite <- subset(y, y$off1 == "Asian")
+asianwhite <- subset(asianwhite, asianwhite$off2 == "White")
+asianwhite$freq <- as.numeric(asianwhite$freq)
 
 
 View(whitewhite)
@@ -133,14 +184,16 @@ hist(whiteblack$freq)
 
 median(whitewhite$freq) #actual = 20, bootstrap = 15
 median(blackblack$freq) #actual = 3, bootstrap = 1
-median(blackwhite$freq) #actual = 5, bootstrap = 2
+median(whiteblack$freq) #actual = 5, bootstrap = 7
 median(hispanicwhite$freq) #actual = 11, bootstrap = 15
 median(hispanichispanic$freq) #actual = 2, bootstrap = 2
 median(hispanicasian$freq) #actual = 1, bootstrap = 0
+median(blackhispanic$freq) #actual = 0, bootstrap = 1
+median(asianwhite$freq) #actual = 0, bootstrap = 1
 
-#Does not add to 43 because we are not counting the categories that are 0 in real life
-#for instance, whiteasian, hispanicblack, and anything with indigenous or other all show up in our bootstrapping but not in the actual data.
-#I can maybe delete other but idk what to do about the rest. 
+#From this we know that groups of whitewhite people are move involved in shootings then they would be if it was random
+#Is this statistically significant?? 
+
 
 
 

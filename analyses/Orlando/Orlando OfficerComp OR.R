@@ -45,6 +45,7 @@ UOF2 <- OR_Prep(UOF2,UOF2$UOF.Level)
 #only doing weapon/no weapon OR bc lethal/non lethal has to many 0s to compute
 OR_Table<-table(UOF2$Binning.Percent.White, UOF2$`Weapon.vs.No Weapon`)
 OR_Table <- OR_Table[c(3,1:2),]
+OR_Table <- OR_Table[, c(2,1)]
 print(OR_Table)
 
 ###Odds Ratio
@@ -54,7 +55,18 @@ print(OR$measure)
 print(OR$p.value)
 
 
+#graphs
 
+ggplot(UOF2,
+       aes(x = Binning.Percent.White,
+           fill = as.character(UOF.Level)))+
+  geom_bar(position = "dodge")
+
+
+ggplot(dataset3,
+       aes(x = Binning.Percent.White,
+           fill = `Weapon.vs.No Weapon`))+
+  geom_bar(position = "dodge")
 
 
 

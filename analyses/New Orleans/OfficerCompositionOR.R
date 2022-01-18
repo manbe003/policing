@@ -76,6 +76,7 @@ dataset1 <- OR_Prep(dataset1,dataset1$Force.Type)
 #only doing weapon/no weapon OR bc lethal/non lethal has to many 0s to compute
 OR_Table<-table(dataset1$Binning.Percent.White, dataset1$`Weapon.vs.No Weapon`)
 OR_Table <- OR_Table[c(3,1:2,4:7),]
+OR_Table <- OR_Table[, c(2,1)]
 print(OR_Table)
 
 ###Odds Ratio
@@ -139,6 +140,8 @@ dataset3 <- OR_Prep(dataset3,dataset3$Force.Type)
   
 #making a table of Lethal vs non lethal used with each race
 OR_Table<-table(dataset3$Binning.Percent.White, dataset3$`Weapon.vs.No Weapon`)
+OR_Table <- OR_Table[c(3,1:2),]
+OR_Table <- OR_Table[, c(2,1)]
 print(OR_Table)
   
 ###Odds Ratio

@@ -104,6 +104,7 @@ OR_Function = function(row,column1,column2){
   #making a table of Weapon vs No Weapon used with each race
   OR_Table2<-table(row, column2)
   OR_Table2 <- OR_Table2[c(3,1:2),]
+  OR_Table2 <- OR_Table2[, c(2,1)]
   print(OR_Table2)
   
   ###Odds Ratio
@@ -117,5 +118,20 @@ OR_Function = function(row,column1,column2){
 
 OR_Function(UOF_OfficerForce$Binning.Percent.White,UOF_OfficerForce$`Lethal.vs.Non-lethal.Weapon`,UOF_OfficerForce$`Weapon.vs.No Weapon`)
 
+#graphs
+ggplot(UOF_OfficerForce,
+       aes(x = Binning.Percent.White,
+           fill = as.character(MaxForce)))+
+  geom_bar(position = "dodge")
 
+
+ggplot(UOF_OfficerForce,
+       aes(x = Binning.Percent.White,
+           fill = `Weapon.vs.No Weapon`))+
+  geom_bar(position = "dodge")
+
+ggplot(UOF_OfficerForce,
+       aes(x = Binning.Percent.White,
+           fill = `Lethal.vs.Non-lethal.Weapon`))+
+  geom_bar(position = "dodge")
 

@@ -35,7 +35,7 @@ UOF_OfficerCount$BinningNumberofOfficers[UOF_OfficerCount$NumberofOfficers > 2]<
 
 #making a new dataframe for binning
 Indi_LessLethal<- sqldf("SELECT
-      A.id,A.useOfForceReason,A.officerForceType,BinningNumbeofOfficers
+      A.id,A.useOfForceReason,A.officerForceType,BinningNumberofOfficers
       FROM Indi_UOF as A
       JOIN UOF_OfficerCount as B
       ON A.id = B.id")
@@ -72,7 +72,7 @@ ggplot(Indi_LessLethal,
   geom_bar(position = "dodge")
 
 ggplot(Indi_LessLethal,
-       aes(x = BinningNumbeofOfficers,
+       aes(x = BinningNumberofOfficers,
            fill = useOfForceReason))+
   geom_bar(position = "dodge")
 

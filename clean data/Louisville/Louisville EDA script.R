@@ -10,7 +10,7 @@ LouisvilleShootings<-read.csv(file = here('clean data/Louisville/LouisvilleShoot
 setwd("~/Desktop/policing/clean data/Louisville")
 LouisvilleCitations <- read.csv(unz('LouisvilleCitations.csv.zip', 'LouisvilleCitations.csv'), stringsAsFactors = TRUE)
 
-View(LouisvilleCitations)
+View(LouisvilleShootings)
 summary(LouisvilleShootings)
 levels(LouisvilleShootings)
 

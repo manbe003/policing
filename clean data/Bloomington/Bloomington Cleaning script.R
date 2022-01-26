@@ -5,7 +5,10 @@ setwd(here())
 source("ProjectPackageManagement.R")
 PackageDependency()
 
-library(data.table)
+install.packages("hablar")
+library(hablar)
+install.packages("sqldf")
+library(sqldf)
 
 #load files
 BloomUOF2016First<-read.csv(file = 'dirty data/Bloomington/2016 First Quarter UOF.csv', stringsAsFactors = FALSE, header= TRUE)
@@ -167,6 +170,7 @@ All_UOF_ForceLevel <- All_UOF_ForceLevel %>%
     TRUE ~ Force.Level
   ))
 
+#Fixing empty columns to NAs
 All_UOF_ForceLevel$Force.Level[All_UOF_ForceLevel$Force.Level==", , , , , , "]<- NA
 All_UOF_ForceLevel$Force.Level[All_UOF_ForceLevel$Force.Level==""]<- NA
 
@@ -192,11 +196,4 @@ All_UOF_ForceLevel$Suspect.Race.Asian.Pacific.Islander..Hispanic[All_UOF_ForceLe
 All_UOF_FixRace <- All_UOF_ForceLevel
 All_UOF_FixRace <- unite(All_UOF_FixRace, "Suspect.Race", 16:23, sep = ", ", remove = T, na.rm = T)
 
-
-
-
-
-
-
-
-
+write.csv(All_UOF_FixRace,here("clean data","Bloomington","Bloomington_UOF.csv"),row.names = FALSE)

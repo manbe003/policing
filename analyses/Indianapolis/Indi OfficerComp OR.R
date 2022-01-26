@@ -1,12 +1,10 @@
-library(here)
-library(epitools)
-library(tidyverse)
-library(dplyr)
-library(tidyr)
-library(sqldf)
+#load dependencies and set working directory
+source("ProjectPackageManagement.R")
+PackageDependency()
+setwd(here())
 
-
-UOF<- read.csv(file=here('clean data/Indianapolis/UOF.csv'), stringsAsFactors = FALSE)
+#Load in dataset
+UOF<- read.csv(file = 'clean data/Indianapolis/UOF.csv', stringsAsFactors = FALSE)
 
 #Making a Force Binning column and binning the force type used
 UOF$ForceBinning = UOF$officerForceType
@@ -27,7 +25,7 @@ UOF_FixLevels$ForceBinning[UOF_FixLevels$ForceBinning=="N/A"]<-NA
 
 #Counting the numbe of officers by counting the number of distinct Officer IDs with the same case ID and making a DF
 UOF_OfficerCount <- sqldf("SELECT 
-      id, COUNT(DISTINCT officerIdentifier)
+      id, COUNT(DISTINCT officerIdentifier), officerRace
       FROM UOF_FixLevels
       GROUP BY id")
 colnames(UOF_OfficerCount)[2]<- "NumberofOfficers"
@@ -42,10 +40,12 @@ colnames(UOF_MaxForce)[2]<- "MaxForce"
 
 #Combing the two DFs to make one with all the needed data
 UOF_OfficerForce<- sqldf("SELECT
-      A.id,A.MaxForce, NumberofOfficers
+      A.id,A.MaxForce, B.NumberofOfficers, B. officerRace
       FROM UOF_MaxForce as A
       JOIN UOF_OfficerCount as B
       ON A.id = B.id")
+
+
 
 #making a column binning number of officers
 UOF_OfficerForce['Binning Number of Officers'] <- NA
@@ -55,7 +55,23 @@ UOF_OfficerForce$`Binning Number of Officers`[UOF_OfficerForce$NumberofOfficers=
 UOF_OfficerForce$`Binning Number of Officers`[UOF_OfficerForce$NumberofOfficers > 2]<- "3+"
 
 
-#function to prep dataset for the OR
+
+#using Zoe's code to find percent white of officer groups
+UOF_OfficerForce$officerRace <- trimws(UOF_OfficerForce$officerRace)
+UOF_OfficerForce$officerRace <- stri_trans_totitle(UOF_OfficerForce$officerRace)
+UOF_OfficerForce$white.officers <- str_count(UOF_OfficerForce$officerRace, 'White')
+UOF_OfficerForce$percent.white <- UOF_OfficerForce$white.officers / UOF_OfficerForce$NumberofOfficers
+UOF_OfficerForce$percent.white <- UOF_OfficerForce$percent.white * 100
+UOF_OfficerForce$percent.white <- round(UOF_OfficerForce$percent.white, digits = 0)
+
+#deleting single officer cases
+UOF_OfficerForce$percent.white[UOF_OfficerForce$Number.of.Officers == 1] <- NA
+
+##Binning it as 0%,1-99%, and 100% white groups
+UOF_OfficerForce$Binning.Percent.White[UOF_OfficerForce$percent.white >=1 & UOF_OfficerForce$percent.white <=99 ] <- "1-99%"
+UOF_OfficerForce$Binning.Percent.White[UOF_OfficerForce$percent.white == 0] <- "0%"
+UOF_OfficerForce$Binning.Percent.White[UOF_OfficerForce$percent.white == 100] <- "100%"
+
 OR_Prep = function(dataset,column){
   #making a column binning level of force as lethal vs non lethal
   dataset['Lethal.vs.Non-lethal.Weapon'] <- column
@@ -70,7 +86,6 @@ OR_Prep = function(dataset,column){
 }
 
 UOF_OfficerForce <- OR_Prep(UOF_OfficerForce,UOF_OfficerForce$MaxForce)
-
 
 #2nd function (referring to which variable you want to be the rows and columns of the odds ratio)
 OR_Function = function(row,column1,column2){
@@ -89,7 +104,7 @@ OR_Function = function(row,column1,column2){
   #making a table of Weapon vs No Weapon used with each race
   OR_Table2<-table(row, column2)
   OR_Table2 <- OR_Table2[c(3,1:2),]
-  OR_Table2<- OR_Table2[,c(2,1)]
+  OR_Table2 <- OR_Table2[, c(2,1)]
   print(OR_Table2)
   
   ###Odds Ratio
@@ -101,18 +116,22 @@ OR_Function = function(row,column1,column2){
   
 }
 
-OR_Function(UOF_OfficerForce$`Binning Number of Officers`,UOF_OfficerForce$`Lethal.vs.Non-lethal.Weapon`,UOF_OfficerForce$`Weapon.vs.No Weapon`)
+OR_Function(UOF_OfficerForce$Binning.Percent.White,UOF_OfficerForce$`Lethal.vs.Non-lethal.Weapon`,UOF_OfficerForce$`Weapon.vs.No Weapon`)
 
 #graphs
+ggplot(UOF_OfficerForce,
+       aes(x = Binning.Percent.White,
+           fill = as.character(MaxForce)))+
+  geom_bar(position = "dodge")
 
 
 ggplot(UOF_OfficerForce,
-       aes(x = `Binning Number of Officers`,
-           fill = `Lethal.vs.Non-lethal.Weapon`))+
+       aes(x = Binning.Percent.White,
+           fill = `Weapon.vs.No Weapon`))+
   geom_bar(position = "dodge")
 
 ggplot(UOF_OfficerForce,
-       aes(x = `Binning Number of Officers`,
-           fill = `Weapon.vs.No Weapon`))+
+       aes(x = Binning.Percent.White,
+           fill = `Lethal.vs.Non-lethal.Weapon`))+
   geom_bar(position = "dodge")
 

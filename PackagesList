@@ -12,5 +12,6 @@ fauxnaif
 readr
 ggplot2
 sqldf
+epitools
 gplots
 graphics

@@ -82,6 +82,8 @@ for (i in 1:1000) {
   DS_bootstrap_freqs <- add_zero_row("Hispanic", "Black", DS_bootstrap_freqs)
   DS_bootstrap_freqs <- add_zero_row("White", "Asian", DS_bootstrap_freqs)
   DS_bootstrap_freqs <- add_zero_row("Asian", "White", DS_bootstrap_freqs)
+  DS_bootstrap_freqs <- add_zero_row("Black", "Black", DS_bootstrap_freqs)
+  DS_bootstrap_freqs <- add_zero_row("Asian", "Hispanic", DS_bootstrap_freqs)
   validation = subset.data.frame(DS_bootstrap_freqs,Var1=='Black' & Var2=='White')
   if (nrow(validation) != 0){
     add = subset.data.frame(DS_bootstrap_freqs,Var1=='Black' & Var2=='White')
@@ -109,74 +111,79 @@ for (i in 1:1000) {
   }
   
   #for blackhispanic
-  validation = subset.data.frame(IS_bootstrap_freqs,Var1=='Hispanic' & Var2=='Black')
+  validation = subset.data.frame(DS_bootstrap_freqs,Var1=='Hispanic' & Var2=='Black')
   if (nrow(validation) != 0){
-    add = subset.data.frame(IS_bootstrap_freqs,Var1=='Hispanic' & Var2=='Black')
-    total = IS_bootstrap_freqs[!(IS_bootstrap_freqs$Var1=="Hispanic" & IS_bootstrap_freqs$Var2=='Black'),]
+    add = subset.data.frame(DS_bootstrap_freqs,Var1=='Hispanic' & Var2=='Black')
+    total = DS_bootstrap_freqs[!(DS_bootstrap_freqs$Var1=="Hispanic" & DS_bootstrap_freqs$Var2=='Black'),]
     total[(total$Var1=='Black' & total$Var2=='Hispanic'),]$Freq = total[(total$Var1=='Black' & total$Var2=='Hispanic'),]$Freq + add$Freq
-    IS_bootstrap_freqs=total
+    DS_bootstrap_freqs=total
   }
   
   #for asianwhite
-  validation = subset.data.frame(IS_bootstrap_freqs,Var1=='White' & Var2=='Asian')
+  validation = subset.data.frame(DS_bootstrap_freqs,Var1=='White' & Var2=='Asian')
   if (nrow(validation) != 0){
-    add = subset.data.frame(IS_bootstrap_freqs,Var1=='White' & Var2=='Asian')
-    total = IS_bootstrap_freqs[!(IS_bootstrap_freqs$Var1=="White" & IS_bootstrap_freqs$Var2=='Asian'),]
+    add = subset.data.frame(DS_bootstrap_freqs,Var1=='White' & Var2=='Asian')
+    total = DS_bootstrap_freqs[!(DS_bootstrap_freqs$Var1=="White" & DS_bootstrap_freqs$Var2=='Asian'),]
     total[(total$Var1=='Asian' & total$Var2=='White'),]$Freq = total[(total$Var1=='Asian' & total$Var2=='White'),]$Freq + add$Freq
-    IS_bootstrap_freqs=total
+    DS_bootstrap_freqs=total
   }
   
   y <- rbind(y, DS_bootstrap_freqs, stop)
  
 }
 colnames(y) <- c("off1", "off2", "freq")
-View(y)
+
+DallasBootstrap <- y 
 
 #making individual frequency datasets for all of the race combinations
 #whitewhite
-whitewhite <- subset(y, y$off1 == "White")
+whitewhite <- subset(DallasBootstrap, DallasBootstrap$off1 == "White")
 whitewhite <- subset(whitewhite, whitewhite$off2 == "White")
 whitewhite$freq <- as.numeric(whitewhite$freq)
 
 #whiteblack
-whiteblack <- subset(y, y$off1 == "White")
+whiteblack <- subset(DallasBootstrap, DallasBootstrap$off1 == "White")
 whiteblack <- subset(whiteblack, whiteblack$off2 == "Black")
 whiteblack$freq <- as.numeric(whiteblack$freq)
 
 #blackblack
-blackblack <- subset(y, y$off1 == "Black")
+blackblack <- subset(DallasBootstrap, DallasBootstrap$off1 == "Black")
 blackblack <- subset(blackblack, blackblack$off2 == "Black")
 blackblack$freq <- as.numeric(blackblack$freq)
 
 #hispanichispanic
-hispanichispanic <- subset(y, y$off1 == "Hispanic")
+hispanichispanic <- subset(DallasBootstrap, DallasBootstrap$off1 == "Hispanic")
 hispanichispanic <- subset(hispanichispanic, hispanichispanic$off2 == "Hispanic")
 hispanichispanic$freq <- as.numeric(hispanichispanic$freq)
 
 #hispanicwhite 
-hispanicwhite <- subset(y, y$off1 == "White")
-hispanicwhite <- subset(hispanicwhite, hispanicwhite$off2 == "White")
+hispanicwhite <- subset(DallasBootstrap, DallasBootstrap$off1 == "White")
+hispanicwhite <- subset(hispanicwhite, hispanicwhite$off2 == "Hispanic")
 hispanicwhite$freq <- as.numeric(hispanicwhite$freq)
 
 #hispanicasian
-hispanicasian <- subset(y, y$off1 == "Asian")
+hispanicasian <- subset(DallasBootstrap, DallasBootstrap$off1 == "Asian")
 hispanicasian <- subset(hispanicasian, hispanicasian$off2 == "Hispanic")
 hispanicasian$freq <- as.numeric(hispanicasian$freq)
 
 #blackhispanic
-blackhispanic <- subset(y, y$off1 == "Black")
+blackhispanic <- subset(DallasBootstrap, DallasBootstrap$off1 == "Black")
 blackhispanic <- subset(blackhispanic, blackhispanic$off2 == "Hispanic")
 blackhispanic$freq <- as.numeric(blackhispanic$freq)
 
 #asianwhite
-asianwhite <- subset(y, y$off1 == "Asian")
+asianwhite <- subset(DallasBootstrap, DallasBootstrap$off1 == "Asian")
 asianwhite <- subset(asianwhite, asianwhite$off2 == "White")
 asianwhite$freq <- as.numeric(asianwhite$freq)
 
 
 View(whitewhite)
+View(blackblack)
+View(hispanichispanic)
+
 hist(whitewhite$freq)
 hist(blackblack$freq)
+hist(hispanichispanic$freq)
 hist(whiteblack$freq)
 
 
@@ -192,7 +199,36 @@ median(blackhispanic$freq) #actual = 0, bootstrap = 1
 median(asianwhite$freq) #actual = 0, bootstrap = 1
 
 #From this we know that groups of whitewhite people are move involved in shootings then they would be if it was random
-#Is this statistically significant?? 
+#according to my AP stats level calculations, assuming that this can be considered an approximately normal sampling distribution, 
+#the is a 7.5% we could have gotten 20 or more whitewhite officers randomly. 
+
+#for calculations
+hist(whitewhite$freq)
+mean(whitewhite$freq)
+sd(whitewhite$freq)
+
+#Racially diverse vs. homologous 
+homologousgroups <- NULL
+homologousgroups <- whitewhite$freq + hispanichispanic$freq + blackblack$freq
+homologousgroups <- as.data.frame(homologousgroups)
+colnames(homologousgroups) <- "freq"
+median(homologousgroups$freq)
+View(homologousgroups)
+
+diversegroups <- NULL
+diversegroups <- hispanicwhite$freq + whiteblack$freq + hispanicasian$freq + blackhispanic$freq + asianwhite$freq
+diversegroups <- as.data.frame(diversegroups)
+colnames(diversegroups) <- "freq"
+median(diversegroups$freq)
+
+#Actual amount: diverse:17 homologous:25
+#Bootstrap amounts: diverse:23 homologous:19
+#The bootstrap adds up to 42 instead of 43 but I think it is just rounding issues. 
+
+hist(homologousgroups$freq)
+hist(diversegroups$freq)
+
+#both of these are pretty unlikely, but it would take me more time to figure out if this is statistically significant or not. 
 
 
 

@@ -56,7 +56,9 @@ Justif3Graph <- ggplot(Justif3,
 
 
 #easily comparing graphs & tables w/ same y-axis marks
-##pairs respond the most across all justification levels with 3+ groups a close 2nd, even in lethal force justification encounters
+#at Justification 1 & 2 lvl 3 force is used most in each no matter the group size
+#at Justification lvl 2 lvl 1 force trended to be used most across officer group sizes
+##at Justification 3 more single and pairs of officers responded
 print(Justif1Graph)
 table(Justif1)
 print(Justif2Graph)

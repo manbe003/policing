@@ -43,18 +43,19 @@ Justif2Graph <- ggplot(Justif2,
                        aes(x = Binning.Number.of.Officers,
                            fill =  as.factor(PD.Force.Type),))+
   geom_bar(position = "dodge")+
-  ggtitle("Justification Lvl 2")+
+  ggtitle("Justification Lvl 2")
 
 
 Justif3Graph <- ggplot(Justif3,
                        aes(x = Binning.Number.of.Officers,
                            fill =  as.factor(PD.Force.Type),))+
   geom_bar(position = "dodge")+
-  ggtitle("Justification Lvl 3")+
+  ggtitle("Justification Lvl 3")
 
 
 #easily comparing graphs & tables w/ same y-axis marks
 ##pairs respond the most across all justification levels with 3+ groups a close 2nd, even in lethal force justification encounters
+## not enough data to be solid, justfi1 gives preliminary idea that in justif1 the "appropriate" amount of force is used
 print(Justif1Graph)
 table(Justif1)
 print(Justif2Graph)

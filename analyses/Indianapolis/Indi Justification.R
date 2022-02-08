@@ -97,7 +97,7 @@ Justif3Graph <- ggplot(Justif3,
 
 
 #easily comparing graphs & tables w/ same y-axis marks
-##this is showing that the general distribution is the same across Justification levels
+##this is showing that the general pattern is the same across Justification levels
 ##pairs respond the most across all justification levels with 3+ groups a close 2nd, even in lethal force justification encounters
 print(Justif1Graph)
 table(Justif1)

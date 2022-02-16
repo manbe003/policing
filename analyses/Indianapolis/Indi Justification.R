@@ -121,17 +121,20 @@ Just3_Prob <- cbind(Just3_Prob, prop.table(Just3_Prob$Freq))
 names(Just3_Prob) <- c("NumberofOfficers","Freq", "Probability")
 
 
-#Chi square signif testing and mosaic plots
-Chi1<-table(Justif1)
-names(Chi1)<- NULL
-chisq <- chisq.test(as.numeric(na.omit(Chi1)))
-chisq
+#Making a function for Chi square significance testing and mosaic plots
+ChiFunction = function(Justif, Chi, Chisq){ 
+  Chi<-na.omit(table(Justif$BinningNumberofOfficers,Justif$officerForceType))
+  chisq <- chisq.test(as.numeric(Chi))
+  print(chisq)
+  
+  mosaicplot(Chi, shade = TRUE, las=2, main = "officerForceType")
+}
+  
+ChiFunction(Justif1, Chi1, Chisq1)
+ChiFunction(Justif2, Chi2, Chisq2)
+ChiFunction(Justif3, Chi3, Chisq3)
 
-mosaicplot(Justif1)
 
-mosaic_examp <- ggplot(data = flights) +
-  geom_mosaic(aes(x = product(do_you_recline, rude_to_recline), fill = do_you_recline)) +   
-  labs(y="Do you recline?", x="Is it rude to recline?", title = "Mosaic Plot (2 variables)")
 
 
 

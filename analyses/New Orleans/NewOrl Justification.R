@@ -8,9 +8,32 @@ PackageDependency()
 #loading Libraries
 NewORl_UOF<- read.csv(file = 'clean data/New Orleans/New Orleans UOF.csv', stringsAsFactors = FALSE)
 
+#This will be moved into the cleaning script during code review but has to live here for now
+NewOrl_UOF2 <- NewORl_UOF
+NewOrl_UOF2 <- NewOrl_UOF2 %>%
+  mutate(Force.Type = case_when(
+    str_detect(Force.Type, "Discharged") ~ "3",
+    str_detect(Force.Type, "Vehicle as Weapon") ~ "3",
+    str_detect(Force.Type, "Escort Tech") ~ "2",
+    str_detect(Force.Type, "CEW") ~ "2",
+    str_detect(Force.Type, "Canine") ~ "2",
+    str_detect(Force.Type, "Baton") ~ "2",
+    str_detect(Force.Type, "NonTrad Impact Weapon") ~ "2",
+    str_detect(Force.Type, "Pointed") ~ "1",
+    str_detect(Force.Type, "Exhibited") ~ "1",
+    str_detect(Force.Type, "Canine (No Bite)") ~ "1",
+    str_detect(Force.Type, "Hands") ~ "1",
+    str_detect(Force.Type, "Take Down") ~ "1",
+    str_detect(Force.Type, "Takedown") ~ "1",
+    str_detect(Force.Type, "Head Strike") ~ "1",
+    str_detect(Force.Type, "Force") ~ "1",
+    str_detect(Force.Type, "Handcuffed Subject") ~ "1",
+    TRUE ~ Force.Type
+  ))
+
 #New Orleans justification binning, 
 #1 = justified to use lvl 1 force, 2 = justified to use lvl 2 force, 3 = justified using lvl 3 force
-NewOrl2<- NewORl_UOF[,c("Force.Type","Binning.Number.of.Officers","UOF.Reason")]
+NewOrl2<- NewOrl_UOF2[,c("Force.Type","Binning.Number.of.Officers","UOF.Reason")]
 names(NewOrl2)[names(NewOrl2) == 'UOF.Reason'] <- 'Justification'
 NewOrl2$Justification<- gsub('Flight from an Officer|Escape|refuse verbal commands|Room Clearing|Room CLearing|Building clearing|Room clearing|room clearing','1',NewOrl2$Justification)
 NewOrl2$Justification<- gsub('Resisting Lawful Arrest|Possibly armed subject|Tactical Deployments|Felony Stop','2',NewOrl2$Justification)
@@ -80,8 +103,18 @@ Just3_Prob <- cbind(Just3_Prob, prop.table(Just3_Prob$Freq))
 names(Just3_Prob) <- c("NumberofOfficers","Freq", "Probability")
 
 
+#Function for chi square significance testing
+ChiFunction = function(Justif, Chi, Chisq){ 
+  Chi<-na.omit(table(Justif$Binning.Number.of.Officers,Justif$Force.Type))
+  chisq <- chisq.test(as.numeric(Chi))
+  print(chisq)
+  
+  mosaicplot(Chi, shade = TRUE, las=2, main = "Force.Type")
+}
 
-
+ChiFunction(Justif1, Chi1, Chisq1)
+ChiFunction(Justif2, Chi2, Chisq2)
+ChiFunction(Justif3, Chi3, Chisq3)
 
 
 

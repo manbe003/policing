@@ -44,6 +44,43 @@ OR_Prep = function(dataset,column){
 
 UOF_All_FixLevels <- OR_Prep(UOF_All_FixLevels,UOF_All_FixLevels$Force.Type)
 
+OfficerBinning <- function (dataframe, dataframecol, separator){
+  dataframe['Number of Officers'] <- NA
+  dataframe['Binning Number of Officers'] <- NA
+  dataframe$`Number of Officers` <- str_count(dataframecol, coll(separator))+1
+  dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="1"]<- "1"
+  dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="2"]<- "2"
+  dataframe$`Binning Number of Officers`[dataframe$`Number of Officers` > "2"]<- "3+"
+  return(dataframe)
+  
+}
+
+UOF_All_FixLevels<-OfficerBinning(UOF_All_FixLevels,UOF_All_FixLevels$Officer.Race, "|")
+UOF_All_FixLevels <- UOF_All_FixLevels %>%
+  mutate(`Subject.Race` = case_when(
+    str_detect(`Subject.Race`, "Black") ~ "Black",
+    str_detect(`Subject.Race`, "Indian") ~ "Native",
+    str_detect(`Subject.Race`, "Hispanic") ~ "Hispanic",
+    str_detect(`Subject.Race`, "Asian") ~ "Asian",
+    str_detect(`Subject.Race`, "Hawaiian") ~ "Pacific Islander",
+    str_detect(`Subject.Race`, "White") ~ "White",
+    str_detect(`Subject.Race`, "W") ~ "White",
+    TRUE ~ `Subject.Race`
+  ))
+
+UOF_All_FixLevels$Subject.Race=gsub(".*Unknown.*", NA, UOF_All_FixLevels$Subject.Race)
+
+UOF_All_FixLevels$wnw<-UOF_All_FixLevels$Subject.Race
+UOF_All_FixLevels <- UOF_All_FixLevels %>%
+  mutate(`wnw` = case_when(
+    str_detect(`wnw`, "Black") ~ "Nonwhite",
+    str_detect(`wnw`, "White") ~ "White",
+    str_detect(`wnw`, "Native") ~ "Nonwhite",
+    str_detect(`wnw`, "Hispanic") ~ "Nonwhite",
+    str_detect(`wnw`, "Asian") ~ "Nonwhite",
+    str_detect(`wnw`, "Pacific") ~ "Nonwhite",
+    TRUE ~ `wnw`
+  ))
 
 #2nd function (referring to which variable you want to be the rows and columns of the odds ratio)
 OR_Function = function(row,column1,column2){
@@ -74,7 +111,9 @@ OR_Function = function(row,column1,column2){
   
 }
 
-OR_Function(UOF_All_FixLevels$Binning.Number.of.Officers,UOF_All_FixLevels$`Lethal.vs.Non-lethal.Weapon`,UOF_All_FixLevels$`Weapon.vs.No Weapon`)
+UOF_split<-split(UOF_All_FixLevels,UOF_All_FixLevels$wnw)
+OR_Function(UOF_split$Nonwhite$Binning.Number.of.Officers,UOF_split$Nonwhite$`Lethal.vs.Non-lethal.Weapon`,UOF_split$Nonwhite$`Weapon.vs.No Weapon`)
+OR_Function(UOF_split$White$Binning.Number.of.Officers,UOF_split$White$`Weapon.vs.No Weapon`, UOF_split$White$Force.Type)
 
 
 ggplot(UOF_All_FixLevels,

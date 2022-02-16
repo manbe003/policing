@@ -1,5 +1,9 @@
-#load libraries
-library(here)
+#load dependencies and set working directory
+source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
+PackageDependency()
+setwd(here())
+
 
 #load in data
 Citations<-read.csv(file=here("clean data/Austin/Citations_Austin.csv"))
@@ -8,6 +12,8 @@ UOF<-read.csv(file=here("clean data/Austin/UseOfForce_Austin.csv"))
 Demodata_Citations<-read.csv(file=here("clean data/Austin/Austin_City_DemoData.csv"))
 DemoData_UOF<-read.csv(file=here("clean data/Austin/Austin_City_DemoData_UOF.csv"))
 DemoData_Shootings<-read.csv(file=here("clean data/Austin/Austin_City_DemoData_Shootings.csv"))
+
+###Testing each part of the function separately
 
 #get list of races
 listrace = unique(Citations$Subject.Race)

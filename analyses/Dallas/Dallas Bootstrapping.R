@@ -223,13 +223,13 @@ median(diversegroups$freq)
 
 #Actual amount: diverse:17 homologous:25
 #Bootstrap amounts: diverse:23 homologous:19
-#The bootstrap adds up to 42 instead of 43 but I think it is just rounding issues. 
+#The bootstrap adds up to 42 instead of 43 but I think it is just rounding issues.
+# Do this for other cities 
 
 hist(homologousgroups$freq)
 hist(diversegroups$freq)
 
 #both of these are pretty unlikely, but it would take me more time to figure out if this is statistically significant or not. 
-
 
 
 

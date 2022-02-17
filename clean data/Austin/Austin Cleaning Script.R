@@ -84,7 +84,7 @@ ALLMetadata_UOF_NA[ALLMetadata_UOF=="88"]<-NA
 ALLMetadata_UOF_NA[ALLMetadata_UOF=="-2"]<-NA
 ALLMetadata_UOF_NA[ALLMetadata_UOF=="-"]<-NA
 
-#changing race to be words instead of single letters & to match Citations data
+#changing race to be words instead of single letters to be more clear
 AllMetadata_UOF_FixRace<-ALLMetadata_UOF_NA
 AllMetadata_UOF_FixRace$`subject race`[AllMetadata_UOF_FixRace$`subject race`=="W"]<-("White")
 AllMetadata_UOF_FixRace$`subject race`[AllMetadata_UOF_FixRace$`subject race`=="B"]<-("Black")

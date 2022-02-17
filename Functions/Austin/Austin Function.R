@@ -58,8 +58,8 @@ FunctionAustin = function(demodata, racecol){
   }
 }
 
-FunctionAustin(demodata = Demodata_Citations, racecol = Citations$Subject.Race)
-FunctionAustin(demodata = DemoData_UOF, racecol = UOF$subject.race)
+FunctionAustin(demodata = na.omit (Demodata_Citations), racecol = na.omit(Citations$Subject.Race))
+FunctionAustin(demodata = na.omit(DemoData_UOF), racecol = na.omit(UOF$subject.race))
 FunctionAustin(demodata = DemoData_Shootings, racecol = Shootings$Subject.Race )
 
 

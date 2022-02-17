@@ -12,6 +12,7 @@ Citations_EDA<-read.csv(file=here('clean data/Austin/Citations_Austin.csv'), str
 
 ###Descriptive data###
 
+#summaries
 summary(UOF_EDA)
 summary(Shootings_EDA)
 summary(Citations_EDA)
@@ -26,7 +27,7 @@ sd(UOF_EDA$officer.Yrs.of.service, na.rm=TRUE)
 var(Shootings_EDA$Officer.Age)
 var(UOF_EDA$officer.Yrs.of.service, na.rm=TRUE)
 
-##graphs
+#graphs
 hist(as.numeric(Shootings_EDA$Officer.Age), breaks = 50)
 hist(as.numeric(UOF_EDA$officer.Yrs.of.service), breaks = 50)
 

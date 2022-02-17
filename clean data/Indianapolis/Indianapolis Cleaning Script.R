@@ -8,6 +8,8 @@ PackageDependency()
 OIS<-read.csv(file = 'dirty data/Indianapolis/Indianapolis Officer Involved Shootings.csv', stringsAsFactors = FALSE)
 UOF<-read.csv(file = 'dirty data/Indianapolis/Indianapolis Use of Force Incidents.csv', stringsAsFactors = FALSE)
 
+## OIS Cleaning ##
+
 #Make all null values = N/A for OIS
 OIS = ReplwNull(OIS)
 
@@ -16,8 +18,9 @@ OIS$officerWeaponUsed[OIS$officerWeaponUsed=="IMPD - Duty Handgun"]<-("Duty Hand
 OIS$officerWeaponUsed[OIS$officerWeaponUsed=="IMPD - Shotgun"]<-("Shotgun")
 OIS$officerWeaponUsed[OIS$officerWeaponUsed=="IMPD - Patrol Rifle"]<-("Patrol Rifle")
 
-#Match and replace for UOF
-UOF$officerForceType[UOF$officerForceType=="Less Lethal-BPS Gas"]<-("Less Lethal-Bps Gas")
+## UOF Cleaning ###
+
+#Match and replace for UOF resident condition to make it uniform
 UOF$residentCondition[UOF$residentCondition=="abraisons"]<-("Abrasions")
 UOF$residentCondition[UOF$residentCondition=="abrasion"]<-("Abrasions")
 UOF$residentCondition[UOF$residentCondition=="Abrasion"]<-("Abrasions")
@@ -156,6 +159,7 @@ UOF$residentCondition[UOF$residentCondition=="two braids pulled out"]<-("Two bra
 UOF$residentCondition[UOF$residentCondition=="Where female was grabbed"]<-("Grabbed")
 UOF$residentCondition[UOF$residentCondition=="Where Taser Prong entered"]<-("Puncture wound/Taser probe")
 
+#Find and replace for Officer Condition
 UOF$officerCondition[UOF$officerCondition=="(kicked) sudden short pain"]<-("Kicked")
 UOF$officerCondition[UOF$officerCondition=="Abrasion to forehead"]<-("Abrasions")
 UOF$officerCondition[UOF$officerCondition=="ABRASION-RIGHT INDEX FINGER"]<-("Abrasions")
@@ -253,20 +257,39 @@ UOF$officerCondition[UOF$officerCondition=="Struck but not injured"]<-("Hit")
 UOF$officerCondition[UOF$officerCondition=="Susp spit in Officer's face"]<-("Spit on/at")
 UOF$officerCondition[UOF$officerCondition=="TASER PROBE STICK"]<-("Puncture wound/Taser probe")
 UOF$officerCondition[UOF$officerCondition=="torn rotator cuff"]<-("Torn rotator cuff")
+
+#Find and replace misc.
 UOF$shift[UOF$shift=="Swat Section"]<-("SWAT Section")
 UOF$beat[UOF$beat=="Swat Unit"]<-("SWAT Unit")
 UOF$residentRace[UOF$residentRace=="Blace"]<-("Black")
 UOF$residentRace[UOF$residentRace=="Native Amer"]<-("Native American")
+UOF$officerForceType[UOF$officerForceType=="Less Lethal-BPS Gas"]<-("Less Lethal-Bps Gas")
 
 
 #Make all null values = N/A for UOF
 UOF = ReplwNull(UOF)
-
 UOF$residentCondition[UOF$residentCondition=="Possible minor bleeding"]<-(NA)
 UOF$residentCondition[UOF$residentCondition=="none; possible minor bleedin"]<-(NA)
 UOF$residentRace[UOF$residentRace=="Other"]<-(NA)
 
+#Making a Force Binning column and binning the force type used
+UOF$ForceBinning = UOF$officerForceType
+
+UOF_FixLevels <- UOF
+UOF_FixLevels <- UOF_FixLevels %>%
+  mutate(ForceBinning = case_when(
+    str_detect(ForceBinning, "Lethal-Vehicle") ~ "3",
+    str_detect(ForceBinning, "Lethal-Handgun") ~ "3",
+    str_detect(ForceBinning, "Less Lethal") ~ "2",
+    str_detect(ForceBinning, "Canine") ~ "2",
+    str_detect(ForceBinning, "Physical") ~ "1",
+    TRUE ~ ForceBinning
+  ))
+
+#making N/As in the column regular NAs
+UOF_FixLevels$ForceBinning[UOF_FixLevels$ForceBinning=="N/A"]<-NA
+
 
 #Save
 write.csv(OIS,"clean data/Indianapolis/OIS.csv",row.names = FALSE)
-write.csv(UOF,"clean data/Indianapolis/UOF.csv",row.names = FALSE)
+write.csv(UOF_FixLevels,"clean data/Indianapolis/UOF.csv",row.names = FALSE)

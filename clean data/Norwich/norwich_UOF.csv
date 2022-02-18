@@ -1,207 +1,207 @@
-"call_type","time","subject_weapon","subject_age","subject_gender","subject_race","subject_ethnicity","alcohol_drugs","PD_force_type","number_of_officers","arrest_or_protective_custody","subject_injured","officer_injured","year","subject_injury_description","officer_injury_description"
-"Mental Health","12:31 AM","No","25","Female","White","Hispanic",NA,"Forced to Ground","1","PC","No","No",2017,NA,NA
-"Domestic Dispute","1:11 PM","No","23","Male","Black","Non-Hisp.",NA,"Firearm Displayed","2","Arrest","No","No",2017,NA,NA
-"Robbery In Progress","9:02 PM","Yes","29","Male","White","Non-Hisp.","Heroin","Firearm Discharged","1","Arrest","No","No",2017,NA,NA
-"Mental Helath","12:32 PM","No","25","Male","Black","Non-Hisp.",NA,"Taser Displayed","5","PC","No","No",2017,NA,NA
-"Domestic Dispute/Resisting Arrest","10:38 PM","No","43","Male","White","Non-Hisp.",NA,"Forced to Ground","6","Arrest","Yes","No",2017,"Non-visible (shoulder)",NA
-"Traffic Stop/Resisting Arrest","2:33 AM","No","25","Female","White","Hispanic","Alcohol","Non-Compliant Escort Position, Rear Wrist Lock","2","Arrest","No","No",2017,NA,NA
-"Domestic Dispute","10:57 AM","No","32","Male","Black","Non-Hisp.",NA,"Firearm Displayed","2","Arrest","No","No",2017,NA,NA
-"Domestic Dispute","10:30 AM","No","26","Male","White","Non-Hisp.",NA,"Non-Compliant Escort Position, Rear Wrist Lock","2","Arrest","No","No",2017,NA,NA
-"Domestic Dispute","6:35 PM","No","44","Male","White","Non-Hisp.","Alcohol","Forced to Ground","2","Arrest","No","No",2017,NA,NA
-"Road Rage Incident","2:27 PM","Yes","21","Male","White","Non-Hisp.",NA,"Firearms Displayed","4","Arrest","No","No",2017,NA,NA
-"Burglary In Progress","12:12 PM","No","23","Male","White","Non-Hisp.",NA,"Firearm Displayed","2",NA,"No","No",2017,NA,NA
-"Disturbance/Intoxicated Person","9:58 PM","No","41","Male","White","Non-Hisp.","Alcohol","Forced to Ground","3","Arrest","Yes","No",2017,"Visible (facial)",NA
-"Traffic Stop/Resisting Arrest","1:50 AM","No","39","Female","White","Non-Hisp.","Alcohol","Forced to Ground","3","Arrest","Yes","No",2017,"Non-visible (shoulder)",NA
-"Domestic Dispute","7:16 PM","No","20","Male","Black","Non-Hisp.",NA,"Non-Compliant Escort Position, Rear Wrist Lock","3","Arrest","No","Yes",2017,NA,"Laceration to hand and elbow"
-"Disturbance","4:30 AM","Yes","56","Male","White","Non-Hisp.","Alcohol","Firearms Displayed","6","Arrest","No","No",2017,NA,NA
-"Suspicious subject","3:36 PM","No","30","Male","White","Non-Hisp.","Alcohol","Taser Displayed","2","Arrest","No","No",2017,NA,NA
-"Traffic Stop/Resisting Arrest","7:31 PM","No","56","Male","White","Non-Hisp.","Alcohol","O.C. Spray/ Rear wrist lock","2","Arrest","Yes","No",2017,"Non-visible (wrist)",NA
-"Mental Health","12:47 PM","Yes","45","Male","White","Non-Hisp.","Alcohol","Taser Deployment/Escort Position","3","PC","Yes","No",2017,"Self inflicted laceration",NA
-"Traffic Stop/Resisting Arrest","2:05 AM","No","40","Male","Black","Non-Hisp.","Alcohol","Forced to Ground","5","Arrest","Yes","No",2017,"Abrasions",NA
-"Domestic Dispute","7:00 PM","No","31","Male","White","Non-Hisp.",NA,"Taser Displayed/Forced to Ground","3","Arrest","Yes","No",2017,"Swollen eye, scratch on forehead",NA
-"Domestic Dispute","5:45 PM","No","22","Male","Black","Non-Hisp.",NA,"Forced to Ground","2","Arrest","No","Yes",2017,NA,"Right index finger"
-"Narcotics Investigation","7:15 PM","No","45","Male","Black","Non-Hisp.","Alcohol","Taser Deployment/Forced to ground","4","Arrest","No","Yes",2017,NA,"Facial"
-"Narcotics Investigation","7:00 PM","No","21","Male","Black","Non-Hisp.",NA,"Taser Deployment/Forced to ground","2","Arrest","Yes","Yes",2017,"Scratch on face/neck","Right knee"
-"Disturbance","8:05 PM","No","20","Male","Black","Non-Hisp.","Alcohol","Forced to Ground/Elbow & Knee strike","3","Arrest","Yes","Yes",2017,"Scratch on face/elbow","Jaw and neck pain"
-"Domestic Dispute","10:45 PM","No","36","Male","White","Non-Hisp.","Alcohol","Forced to Ground/Escort Position","3","Arrest","Yes","No",2017,"Non-visible (arm)",NA
-"Disturbance","8:49 PM","No","45","Male","Black","Non-Hisp.","Cocaine","Taser Deployment","3","Arrest","Yes","No",2017,"Left wrist and laceration to eye",NA
-"Mental Health","10:39 PM","No","30","Male","White","Non-Hisp.",NA,"Taser Deployment","5","PC","Yes","No",2017,"Non-visible (head and neck)",NA
-"Fight in Progress","2:00 PM","No","36","Male","Black","Non-Hisp.",NA,"Forced to Ground","2","Arrest","No","Yes",2017,NA,"Knee"
-"Traffic Stop/Resisting Arrest","2:00 AM","No","24","Male","Black","Non-Hisp.","Cociane","Forced to Ground/Closed hand strike","2","Arrest","No","Yes",2017,NA,"Elbow, knees"
-"Suspicious subject","11:45 AM","No","30","Male","Black","Non-Hisp.","Heroin","Forced to Ground","2","Arrest","Yes","Yes",2017,"Non-visible (foot)","Leg"
-"Disturbance/Barricaded Suspect","5:50 PM","Yes","26","Male","White","Hispanic",NA,"Firearms Displayed","8","Arrest","No","No",2017,NA,NA
-"Suspicious Subject","5:00 AM","Yes","18","Male","White","Non-Hisp.",NA,"Firearms Displayed","6","Arrest","No","No",2017,NA,NA
-"Domestic Dispute/Mental Health","2:49 AM","No","35","Male","White","Hispanic",NA,"Closed Hand Strike/Rear Wrist Lock","3","PC","No","Yes",2017,NA,"Right thigh"
-"Domestic Dispute","12:51 AM","No","22","Male","Black","Non-Hisp.","Alcohol","Forced to Ground","2","Arrest","Yes","No",2017,"Self inflicted laceration",NA
-"Domestic Dispute","1:44 PM","No","30","Male","Black","Non-Hisp.","Alcohol","OC Spray Deployment","2","Arrest","No","No",2017,NA,NA
-"Domestic Dispute","5:00 AM","No","62","Female","Black","Non-Hisp.","Alcohol","Firearms Displayed","2","Arrest","No","No",2017,NA,NA
-"Disturbance","2:30 AM","No","31","Male","Black","Non-Hisp.","Alcohol","Forced to Ground","3","Arrest","No","No",2017,NA,NA
-"Domestic Dispute","12:23 AM","No","25","Male","White","Hispanic","Alcohol","Forced to Ground/Wrist lock ","2","Arrest","No","No",2017,NA,NA
-"Wanted Person/Resisting Arrest","6:30 PM","Yes","25","Male","White","Non-Hisp.","Alcohol","Firearm Discharged","1","Arrest","Yes","No",2017,"Self inflicted gunshot",NA
-"Mental Health","6:39 PM","No","42","Male","White","Non-Hisp.","Alcohol","Taser Displayed","4","PC","No","No",2017,NA,NA
-"Domestic Dispute","8:13 PM","No","36","Male","Black","Non-Hisp.","Alcohol","Taser Displayed/Forced to Ground/Wrist lock","3","Arrest","No","No",2017,NA,NA
-"Domestic Dispute/Mental Health","12:48 AM","No","47","Male","White","Non-Hisp.","Alcohol","Taser/Firearm Displayed","4","PC","No","No",2017,NA,NA
-"Wanted Person/Resisting Arrest","4:38 PM","No","35","Male","White","Hispanic",NA,"Forced to Ground","2","Arrest","Yes","No",2017,"Laceration (facial), left wrist",NA
-"Wanted Person/Resisting Arrest","9:30 PM","No","34","Male","White","Hispanic",NA,"Taser/Firearm Displayed","3","Arrest","No","No",2017,NA,NA
-"Traffic Stop/Resisting Arrest","7:15 PM","No","15","Male","Black","Non-Hisp.",NA,"Forced to Ground","3","Arrest","Yes","No",2017,"Laceration to chin and hands",NA
-"Intoxicated Subject","6:30 PM","No","31","Male","White","Hispanic","Alcohol/Drugs","Forced to Ground","2","Arrest","Yes","No",2018,"Complained of injured wrist",NA
-"Domestic/Assault","09:00AM","Yes","23","Male","White","Hispanic",NA,"OC Spray Deployment","3","Arrest","No","Yes",2018,NA,"Knee pain"
-"Mental Health","06:00PM","No","13","Male","White","Non-Hisp.",NA,"Non-Compliant Escort Position, Rear Wrist Lock","2","PC","No","No",2018,NA,NA
-"Mental Health","07:00AM","No","67","Male","White","Non-Hisp.",NA,"Non-Compliant Escort Position, Rear Wrist Lock","3","PC","Yes","No",2018,"Laceration to top of hand",NA
-"Domestic Dispute","10:35PM","No","47","Male","White","Non-Hisp.","Drugs","Forced to Ground","2","Arrest","No","No",2018,NA,NA
-"Suspicious Activity","08:37PM","No","43","Female","White","Non-Hisp.","Alcohol","Forced to Ground","2","Arrest","No","Yes",2018,NA,"Right side of face"
-"Disturbance","02:00AM","No","29","Male","Black","Non-Hisp.",NA,"Forced to Ground","1","PC","No","No",2018,NA,NA
-"Domestic Dispute","06:50PM","No","27","Male","White","Non-Hisp.","Alcohol","Non-Compliant Escort Position, Rear Wrist Lock","3","Arrest","Yes","No",2018,"Laceration to face",NA
-"Intoxicated Subject","11:00PM","No","23","Male","Black","Non-Hisp.","Alcohol","Forced to Ground","2","PC","No","No",2018,NA,NA
-"Robbery/Assault","05:15PM","Yes","34","Male","Black","Non-Hisp.",NA,"Firearms Displayed","1","Arrest","No","No",2018,NA,NA
-"Traffic Stop/Resisting Arrest","06:40PM","No","34","Male","White","Non-Hisp.",NA,"Non-Compliant Escort Position, K9 displayed","1","Arrest","No","No",2018,NA,NA
-"Fight in Progress","11:38AM","No","22","Male","White","Non-Hisp.",NA,"Taser Deployment","2","Arrest","No","No",2018,NA,NA
-"Disturbance","12:20PM","No","67","Male","White","Non-Hisp.",NA,"K9 bite, firearm displayed","8","Arrest","Yes","No",2018,"K9 bite marks",NA
-"Domestic Dispute","11:15PM","No","48","Male","Black","Non-Hisp.","Alcohol","Firearm Displayed","3","Arrest","No","No",2018,NA,NA
-"Trespassing","06:00PM","No","20","Male","White","Hispanic","Alcohol","Forced to Ground/Closed Hand Strike","2","Arrest","Yes","Yes",2018,"Shoulder pain, mouth laceration","Both officers, wrist and knee pain"
-"Suspicious subject","01:15PM","No","19","Male","Black","Non-Hisp.","Alcohol","Forced to Ground","3","Arrest","No","Yes",2018,NA,"Knee bruising/swelling"
-"Animal Complaint","02:40PM","No","42","Male","Black","Non-Hisp.","Alcohol","Taser Deployment/Escort Position","4","Arrest","No","Yes",2018,NA,"Wrist"
-"Disturbance","04:01AM","No","18","Male","White","Hispanic","Alcohol/Drugs","Taser Deployment/Escort Position","1","Arrest","No","No",2018,NA,NA
-"Subject with warrant","05:35PM","No","23","Male","Black","Non-Hisp.",NA,"Forced to Ground/Closed Hand Strike","4","Arrest","Yes","Yes",2018,"Abrasions","Abrasions"
-"Armed Person","11:30PM","Yes","24","Male","Black","Non-Hisp.",NA,"Firearms Displayed","2","Arrest","No","No",2018,NA,NA
-"Domestic Dispute","5:45 PM","No","22","Male","Black","Non-Hisp.",NA,"Forced to Ground","2","Arrest","No","Yes",2018,NA,"Right index finger"
-"Intoxicated Subject","07:30PM","No","37","Male","White","Hispanic","Alcohol","Open hand strike/Escort Position","1","PC","Yes","No",2018,"Abrasions",NA
-"Disturbance","04:26AM","No","28","Male","Black","Non-Hisp.","Drugs","Forced to Ground","4","PC","Yes","No",2018,"Right wrist",NA
-"Domestic Dispute","01:02AM","No","37","Female","Black","Non-Hisp.",NA,"Physical Force used to handcuff","4","Arrest","No","No",2018,NA,NA
-"Domestic Dispute","01:02AM","No","41","Male","White","Hispanic",NA,"Physical Force used to handcuff","4","Arrest","No","No",2018,NA,NA
-"Domestic Dispute/EDP","08:20PM","No","23","Male","Black","Non-Hisp.","Alcohol","Firearm Displayed/Forced to ground","3","Arrest","Yes","No",2018,"Face and left elbow",NA
-"MV stop/Foot pursuit","09:22PM","No","26","Male","White","Non-Hisp.",NA,"Forced to Ground","4","Arrest","No","No",2018,NA,NA
-"MV stop/DUI","12:31AM","No","49","Male","Black","Non-Hisp.","Alcohol","Physical Force used to handcuff","2","Arrest","No","No",2018,NA,NA
-"Suspicious subject","02:59AM","Yes","26","Male","White","Hispanic",NA,"Firearms Displayed","5","Arrest","No","No",2018,NA,NA
-"Suspicious subject","01:55AM","No","23","Male","Black","Non-Hisp.",NA,"Forced to ground/Non-compliant escort ","2","Arrest","No","No",2018,NA,NA
-"Disturbance","12:08AM","No","15","Male","White","Non-Hisp.",NA,"Physical Force used to handcuff","2","Arrest","Yes","No",2018,"Wrist",NA
-"Disturbance","12:08AM","No","57","Female","White","Non-Hisp.",NA,"Physical Force used to handcuff","2","Arrest","No","No",2018,NA,NA
-"Disturbance","12:08AM","No","25","Female","White","Non-Hisp.",NA,"Physical Force used to handcuff","2","Arrest","No","No",2018,NA,NA
-"Disturbance","04:00PM","No","16","Male","Black","Non-Hisp.",NA,"Forced to ground/Non-compliant escort ","1","Arrest","No","No",2018,NA,NA
-"Domestic Dispute","12:30AM","No","24","Female","White","Non-Hisp.",NA,"Non-compliant escort position","3","Arrest","No","No",2018,NA,NA
-"Domestic Dispute","09:53PM","No","28","Male","Black","Non-Hisp.","Alcohol","Taser Deployment","4","Arrest","No","No",2018,NA,NA
-"Subject with warrant","11:15AM","No","30","Male","Black","Non-Hisp.",NA,"Physical Force used to handcuff","3","Arrest","No","No",2018,NA,NA
-"Domestic Dispute","12:30PM","No","36","Male","Black","Non-Hisp.","Alcohol","Taser Displayed","4","Arrest","No","No",2018,NA,NA
-"Breach of Peace","11:00AM","No","17","Female","White","Non-Hisp.",NA,"Non-compliant escort position","2","Arrest","No","No",2018,NA,NA
-"Disturbance","11:34PM","No","30","Male","Black","Non-Hisp.","Cocaine","Forced to Ground","5","PC","No","No",2018,NA,NA
-"Suspicious Activity","07:07PM","No","33","Male","White","Non-Hisp.",NA,"Firearms Displayed","4","PC","No","No",2018,NA,NA
-"MV stop","11:20PM","No","50","Male","Black","Non-Hisp.",NA,"Firearms Displayed","5","Arrest","No","No",2018,NA,NA
-"Mental Health","01:15AM","No","46","Male","Black","Hispanic",NA,"Firearms Displayed","3","PC","No","No",2018,NA,NA
-"Domestic Dispute","10:00PM","Yes","25","Male","White","Non-Hisp.","Alcohol","Firearms Displayed","2","Arrest","No","No",2018,NA,NA
-"Mental Health","09:03PM","No","50","Male","White","Non-Hisp.","Alcohol","Firearms Displayed/Taser Deployment","2","PC","No","No",2018,NA,NA
-"Disturbance","03:12PM","No","21","Male","White","Hispanic",NA,"Forced to Ground/Taser Deployment","2","Arrest","No","Yes",2018,NA,"Broken nose"
-"Disturbance","07:26PM","No","61","Male","White","Non-Hisp.","Alcohol","Physical Force used to handcuff","2","Arrest","No","No",2018,NA,NA
-"Disturbance","05:15PM","No","63","Male","White","Non-Hisp.",NA,"Physical Force used to handcuff","2","Arrest","Yes","No",2018,"Wrist",NA
-"Burglary","10:15PM","No","19","Male","Black","Non-Hisp.","Unknown","Firearms displayed/Forced to ground","4","Arrest","No","No",2018,NA,NA
-"Dispute","05:47PM","No","37","Male","Black","Non-Hisp.","Alcohol","Non-compliant escort position","1","Arrest","No","No",2018,NA,NA
-"Intoxicated Subject","10:32PM","No","38","Female","White","Non-Hisp.","Alcohol","Physical Force used to handcuff","4","Arrest","No","No",2018,NA,NA
-"Domestic Dispute","01:00PM","No","56","Female","White","Non-Hisp.","Alcohol","Forced to ground","1","Arrest","No","No",2018,NA,NA
-"Armed Subject","04:23PM","No","27","Male","White","Non-Hisp.",NA,"Physical Force used to handcuff","4","Arrest","No","No",2018,NA,NA
-"Disturbance","02:45AM","No","37","Male","White","Non-Hisp.","Alcohol","Forced to ground","2","PC","Yes","Yes",2018,"Complaint of pain in head","Injured left hand middle finger"
-"Disturbance","02:32AM","No","42","Male","Black","Non-Hisp.",NA,"Firearms Displayed","5","Arrest","No","No",2018,NA,NA
-"Intoxicated Person","01:45AM","No","21","Male","White","Non-Hisp.","Alcohol","Non-compliant escort position","2","PC","No","No",2018,NA,NA
-"Domestic Dispute","03:10AM","No","31","Male","White","Hispanic",NA,"Physical Force used to handcuff","3","Arrest","No","No",2018,NA,NA
-"Disturbance","01:02AM","No","62","Male","Black","Non-Hisp.",NA,"Firearms Displayed","2","Arrest","No","No",2018,NA,NA
-"Robbery/Armed suspect","01:00AM","Yes","35","Male","Black","Non-Hisp.","Alcohol","Firearms Displayed","5","Arrest","No","No",2018,NA,NA
-"Domestic Dispute","03:58AM","No","22","Male","White","Hispanic",NA,"Non-compliant escort position/Forced to ground","3","Arrest","Yes","No",2018,"Abrasion on right hand",NA
-"Mental Health","12:40PM","No","52","Male","White","Non-Hisp.",NA,"Firearms Displayed","2","PC","No","No",2018,NA,NA
-"Domestic Dispute","07:57Am","No","57","Male","White","Hispanic",NA,"Firearms Displayed","3","Arrest","No","No",2018,NA,NA
-"Larceny","05:40PM","No","37","Male","White","Non-Hisp.",NA,"Forced to ground","1","Arrest","Yes","No",2018,"Laceration above right eye, finger",NA
-"Disturbance","06:53AM","Yes","59","Male","White","Non-Hisp.",NA,"Forced to ground/Non-compliant escort ","4","Arrest","No","No",2018,NA,NA
-"Subject with warrant","07:00PM","No","32","Male","White","Non-Hisp.",NA,"Firearms Displayed/K9 displayed","8","Arrest","No","No",2018,NA,NA
-"Domestic Dispute","08:52PM","No","39","Male","White","Non-Hisp.","Alcohol","Taser Displayed","3","Arrest","No","No",2018,NA,NA
-"Domestic Dispute","07:54PM","No","39","Male","Black","Non-Hisp.",NA,"Taser Displayed","1","Arrest","No","No",2018,NA,NA
-"MV crash/evading","09:21PM","No","20","Female","White","Hispanic",NA,"Forced to ground","2","Arrest","Yes","Yes",2018,"Laceration to forehead","Laceration to knee"
-"Disturbance","02:19AM","No","23","Female","White","Non-Hisp.","Alcohol","Forced to ground","1","Arrest","No","No",2018,NA,NA
-"Disturbance","10:20PM","No","27","Female","White","Hispanic","Alcohol","Forced to ground","1","Arrest","Yes","Yes",2018,"Laceration to left arm and left leg","Pain in right shoulder"
-"Subject with warrant","07:11PM","No","44","Male","Black","Non-Hisp.",NA,"Firearms displayed","8","Arrest","No","No",2018,NA,NA
-"Domestic Dispute","03:00PM","No","17","Female","White","Non-Hisp.",NA,"Forced to ground/elbow-knee strike","7","Arrest","No","No",2018,NA,NA
-"Domestic Dispute","03:00PM","No","17","Male","Black","Non-Hisp.",NA,"Firearm displayed","7","Arrest","No","No",2018,NA,NA
-"Disturbance","11:45PM","No","26","Male","Black","Non-Hisp.",NA,"Forced to ground","2","Arrest","No","Yes",2018,NA,"Pulled muscle (left calf)"
-"Mental Health","06:50PM","No","19","Male","White","Non-Hisp.",NA,"Firearms displayed","4","PC","No","No",2018,NA,NA
-"MV stop","10:45PM","Yes","32","Male","Black","Non-Hisp.","Alcohol","Firearms Displayed","2","Arrest","No","No",2018,NA,NA
-"Fight in Progress","01:25PM","Yes","23","Male","Black","Non-Hisp.",NA,"Firearms Displayed","2","Arrest","No","No",2018,NA,NA
-"MV stop","12:46AM","No","53","Male","Black","Non-Hisp.","Alcohol","Firearms Displayed","2","Arrest","No","No",2018,NA,NA
-"Car Accident","11:30PM","No","21","Male","White","Non-Hisp.","Alc/Drugs","Forced to ground","3","Arrest","No","No",2018,NA,NA
-"Disturbance","04:10PM","No","16","Male","Black","Non-Hisp.",NA,"Physical Force used to handcuff","1","Arrest","No","No",2018,NA,NA
-"MV stop","05:45PM","No","42","Male","White","Non-Hisp.","Alcohol","Non-compliant escort position","1","Arrest","No","No",2018,NA,NA
-"Domestic Dispute","07:16AM","No","36","Male","Black","Non-Hisp.","Alcohol","Closed hand strike","4","Arrest","No","No",2018,NA,NA
-"Subject with warrant","08:00PM","No","23","Male","White","Hispanic",NA,"Open/Closed hand strike, OC spray, Taser disp","1","Arrest","No","Yes",2018,NA,"Right hand and right cheek"
-"Mental Health","01:00AM","No","24","Male","White","Non-Hisp.",NA,"Forced to ground/Non-compliant escort ","4","PC","No","No",2018,NA,NA
-"Interfering with Officer","04:35PM","No","16","Male","White","Hispanic",NA,"Forced to ground/Firearm displayed","1","Arrest","No","No",2018,NA,NA
-"Disturbance","4:30AM","No","25","Female","White","Non-Hisp.",NA,"Forced to Ground","2","Arrest","Yes","No",2019,"Prior to police contact",NA
-"MV accident","12:00PM","No","25","Male","White","Hispanic",NA,"Forced to Ground, Closed hand strike","3","Arrest","No","Yes",2019,NA,"Right side of face"
-"Wanted Person","4:39PM","No","34","Male","Black","Non-Hisp.","Yes/Drugs","Forced to ground","1","Arrest","No","No",2019,NA,NA
-"DUI","12:20AM","No","28","Female","Black","Hispanic","Yes/Alcohol","Physical Force used to handcuff","2","Arrest","No","No",2019,NA,NA
-"Domestic Dispute","10:50AM","No","38","Male","White","Non-Hisp.",NA,"Taser Displayed","2","Arrest","No","No",2019,NA,NA
-"Suspicious Activity","06:22PM","No","26","Male","White","Non-Hisp.",NA,"Forced to Ground, Closed hand strike","1","Arrest","Yes","Yes",2019,"Laceration to face","Abdomen, right hand"
-"Fight in progress","04:05PM","No","17","Male","Black","Non-Hisp.",NA,"Forced to Ground","2","Arrest","No","Yes",2019,NA,NA
-"Mental Health","10:07PM","No","49","Female","White","Non-Hisp.","Alcohol","Forced to Ground","2","Arrest","No","No",2019,NA,NA
-"Disturbance","08:14PM","No","43","Male","Black","Non-Hisp.","Alcohol","Forced to Ground","2","Arrest","No","Yes",2019,NA,"Lower back"
-"Domestic dispute","08:37AM","No","47","Female","White","Non-Hisp.","Alcohol","Escort position","1","Arrest","No","No",2019,NA,NA
-"Burglary In Progress","01:57AM","No","28","Male","White","Non-Hisp.",NA,"K9 and Firearms displayed","6",NA,"No","No",2019,NA,NA
-"Intoxicated Subject","09:48PM","No","35","Male","White","Non-Hisp.",NA,"Forced to the gorund, escort position","2","Arrest","No","No",2019,NA,NA
-"Disturbance","7:05PM","No","23","Male","White","Hispanic","Alcohol","Physical Force used to handcuff","2","Arrest","No","Yes",2019,NA,"Skinned knuckles"
-"Domestic dispute","11:00PM","No","34","Male","White","Non-Hisp.",NA,"Forced to ground, escort position","2","Arrest","No","No",2019,NA,NA
-"Disturbance","5:54PM","No","20","Female","White","Non-Hisp.",NA,"Forced to ground","2","Arrest","No","No",2019,NA,NA
-"Suspicious subject","5:09PM","No","41","Female","White","Non-Hisp.","Alcohol","Physical force used to transport","3","Arrest","No","No",2019,NA,NA
-"Domestic Dispute","3:41PM","No","36","Male","Black","Non-Hisp.","Alcohol","Firearm Displayed ","2","Arrest","No","No",2019,NA,NA
-"Threatening","10:16PM","No","49","Male","White","Non-Hisp.","Alcohol/Drugs","Forced to ground","2","Arrest","No","No",2019,NA,NA
-"Domestic Disturbance","02:35AM","No","36","Female","White","Non-Hisp.",NA,"Escort Position","3","Arrest","Yes","No",2019,"Wrist pain",NA
-"Intoxicated Person","10:32PM","No","33","Female","White","Non-Hisp.","Alcohol","Forced to ground, strikes, escort position","1","Arrest","No","Yes",2019,NA,"Head, knee, ear"
-"Armed Subject","2:52PM","No","17","Male","Black","Non-Hisp.",NA,"Firearms Displayed","4","Arrest","No","No",2019,NA,NA
-"Intoxicated Subject","3:34AM","No","30","Female","White","Non-Hisp.","Alcohol","Forced to ground, escort position","2","Arrest","No","No",2019,NA,NA
-"Intoxicated Subject","3:34AM","No","45","Male","Black","Non-Hisp.","Alcohol","Physical Force to restrain","2","Arrest","No","No",2019,NA,NA
-"Subject with warrant","5:45AM","No","48","Female","White","Non-Hisp.",NA,"Forced to Ground","2","Arrest","No","No",2019,NA,NA
-"Intoxicated Male ","6:45PM","No","41","Male","White","Non-Hisp.","Alcohol","Forced to ground","3","Arrest","No","No",2019,NA,NA
-"Subject with warrant","9:09AM","No","39","Male","White","Non-Hisp.",NA,"Taser Deploymet, escort position","3","Arrest","Yes","No",2019,"Abrasion",NA
-"Criminal Trespass","10:55AM","No","27","Female","Black","Non-Hisp.",NA,"Escort Position","4","Arrest","No","No",2019,NA,NA
-"Mental Health","5:39PM","Yes","44","Female","White","Non-Hisp.",NA,"Taser Deplyment, escort position","3","PC","Yes","No",2019,"Taser probes",NA
-"MV accident","1:05AM","No","18","Male","White","Hispanic","Alcohol","Taser Deployment","3","Arrest","No","No",2019,NA,NA
-"Domestic Dispute","11:00PM","No","32","Female","White","Hispanic",NA,"Taser Displayed","2","Arrest","No","No",2019,NA,NA
-"Domestic Dispute","4:58AM","No","18","Male","Black","Non-Hisp.","Alcohol","Forced to Ground","2","Arrest","No","No",2019,NA,NA
-"Mental Health","10:09PM","No","28","Male","Black","Non-Hisp.","Drugs","Taser Displayed","5","PC","No","No",2019,NA,NA
-"Assist Citizen","3:30PM","No","30","Female","White","Non-Hisp.",NA,"Knee Strike","2","Arrest","No","Yes",2019,NA,"Right wrist"
-"Disturbance","04:00PM","No","16","Male","Black","Non-Hisp.",NA,"Forced to ground/Non-compliant escort ","1","Arrest","No","No",2019,NA,NA
-"MV accident","9:40PM","No","18","Female","White","Non-Hisp.","Alcohol","Forced to ground, escort position","3","Arrest","No","No",2019,NA,NA
-"Mental Health","2:15AM","No","46","Male","White","Non-Hisp.","Alcohol","Forced to ground","3","Arrest","Yes","Yes",2019,"Abrasions","Left hand left wrist"
-"Disturbance","3:37PM","No","60","Female","Black","Non-Hisp.","Alcohol","Forced to ground, escort position","2","Arrest","Yes","Yes",2019,"Cut to mouth","Cut to forhead"
-"Subject with warrant","2:05PM","No","58","m","White","Non-Hisp.",NA,"Escort position","2","Arrest","No","NO",2019,NA,NA
-"Suspicious Activity","10:55PM","No","18","Male","Black","Non-Hisp.",NA,"Forced to ground, knee strike","1","Arrest","No","No",2019,NA,NA
-"Domestic Dispute","10:24PM","No","39","Male","White","Non-Hisp.",NA,"Forced to ground","3","Arrest","No","No",2019,NA,NA
-"Suspicious Activity","7:40PM","No","20","Male","Black","Non-Hisp.","Alcohol","Forced to ground","2","Arrest","No","No",2019,NA,NA
-"Distrubance","11:50AM","No","25","Female","White","Hispanic",NA,"Physical forced used to handcuff","2","Arrest","No","No",2019,NA,NA
-"Structure Fire","01:15AM","No","26","Male","White","Hispanic",NA,"Grapple/Wrestle","3","Arrest","No","No",2019,NA,NA
-"Mental Health","6:35PM","No","30","Male","White","Non-Hisp.","Alc/Drugs","Forced to ground, escort position, taser","4","Arrest","Yes","Yes",2019,"Laceration to face","Elbow, hand, finger"
-"Disturbance","3:30AM","No","19","Female","White","Hispanic","Alc/Drugs","Forced to ground, escort position","4","Arrest","No","Yes",2019,NA,"Unknown"
-"Domestic Dispute","12:30PM","No","49","Female","White","Non-Hisp.",NA,"Forced to Ground","2","Arrest","No","No",2019,NA,NA
-"Well Being Check","2:30PM","No","23","Male","White","Non-Hisp.",NA,"Forced to ground, taser displayed","2","Arrest","No","Yes",2019,NA,"Soreness to neck and arm"
-"Disturbance","8:00PM","No","42","Male","Black","Non-Hisp.",NA,"Firearms displayed","6",NA,"No","No",2019,NA,NA
-"Larceny","2:30PM","No","37","Male","White","Non-Hisp.",NA,"Forced to ground","1","Arrest","Yes","Yes",2019,"Abrasion right elbow","Right ankle foot"
-"Domestic Dispute","9:45PM","No","22","Male","White","Non-Hisp.","Alcohol","Taser Deployment","1","Arrest","No","No",2019,NA,NA
-"Domestic Dispute","9:28PM","No","25","Male","Black","Non-Hisp.","Alcohol","Open hand strike, Force used to handcuff","3","Arrest","Yes","No",2019,"Left eye and eyebrow",NA
-"Suspicious Activity","6:52AM","No","34","Male","Black","Non-Hisp.",NA,"Forced to ground, escort position","3","Arrest","No","No",2019,NA,NA
-"Domestic Dispute","10:15PM","No","36","Male","Black","Non-Hisp.",NA,"Taser Displayed, elbow and knee strike","3","Arrest","Yes","No",2019,"Cut on cheek and forehead",NA
-"Disturbance","11:24AM","No","34","Male","Black","Non-Hisp.",NA,"Taser Deployment","2","Arrest","No","No",2019,NA,NA
-"Mental Health","9:30PM","No","30","Male","White","Hispanic",NA,"Forced to ground","2","PC","No","No",2019,NA,NA
-"Traffic Stop","10:00PM","No","25","Male","Black","Non-Hisp.","Alcohol","Forced to ground, escort position","2","Arrest","No","No",2019,NA,NA
-"Domestic Dispute","9:45PM","No","61","Male","White","Non-Hisp.","Alc/Drugs","Physical Force used to handcuff","2","Arrest","Yes","No",2019,"Self inflicted head wound",NA
-"Burglary In Progress","9:30PM","No","39","Male","White","Non-Hisp.","Alc/Drugs","Forced to ground, escort position","5","Arrest","No","No",2019,NA,NA
-"Domestic Dispute","10:06AM","No","17","Female","White","Hispanic",NA,"Forced to ground, escort position","2","Arrest","No","No",2019,NA,NA
-"Disturbance","01:45AM","No","38","Male","Black","Non-Hisp.","Alcohol","Forced to ground, escort postion","2","Arrest","No","No",2019,NA,NA
-"Fight in Progress","11:53AM","No","28","Male","Black","Non-Hisp.",NA,"Taser Deployment","1","Arrest","No","No",2019,NA,NA
-"Well Being Check","3:03PM","No","61","Female","White","Non-Hisp.","Alcohol","Forced used to handcuff, escort position","2","Arrest","No","No",2019,NA,NA
-"Traffic Stop","6:45PM","No","46","Male","Black","Non-Hisp.","Alcohol","Taser Deplyment, escort position","4","Arrest","No","No",2019,NA,NA
-"Disturbance","09:50AM","No","51","Female","Black","Non-Hisp.","Alcohol","Forced to ground/Non-compliant escort ","2","Arrest","No","No",2019,NA,NA
-"Larceny","5:00PM","No","50","Female","White","Non-Hisp.",NA,"Forced to ground","1","Arrest","No","No",2019,NA,NA
-"Disturbance","12:55AM","No","61","Male","White","Non-Hisp.",NA,"Forced to Ground","2","Arrest","No","No",2019,NA,NA
-"Domestic Dispute","8:00PM","No","22","Male","White","Non-Hisp.",NA,"Taser Deplyment, escort position","2","Arrest","Yes","Yes",2019,"Abrasions to hands and back","Laceration to arm"
-"Traffic Stop","4:00AM","No","27","Male","White","Hispanic","Alc/Drugs","Forced to ground, escort position","3","Arrest","No","No",2019,NA,NA
-"Mental Health","3:45AM","Yes","54","m","White","Non-Hisp.","Alcohol","Firearms, Less Lethal, Taser displayed, Escort ","9","PC","No","No",2019,NA,NA
-"Disturbance","7:57PM","No","74","Male","Black","Non-Hisp.",NA,"Firearms Displayed","7","PC","No","No",2019,NA,NA
-"Mental Health","4:44PM","No","44","Male","Black","Non-Hisp.",NA,"Firearms displayed","8","Arrest","No","No",2019,NA,NA
-"Larceny","7:00PM","No","24","Male","White","Non-Hisp.",NA,"Forced to ground/Closed hand strike","3","Arrest","No","Yes",2019,NA,"Strain of shoulder"
-"Subject with warrant","12:05PM","No","47","Male","Black","Non-Hisp.",NA,"Forced to ground","1","Arrest","No","No",2019,NA,NA
-"Disturbance","9:00PM","No","40","Female","White","Hispanic","Alcohol","Forced to ground, knee strike","2","Arrest","Yes","Yes",2019,"Scrapes to forehead","Left leg left ring finger"
-"Mental Health","06:50PM","No","19","Male","White","Non-Hisp.",NA,"Firearms displayed","4","PC","No","No",2019,NA,NA
-"Domestic Dispute","3:40PM","No","30","Male","Black","Non-Hisp.",NA,"K-9 Displayed","2","Arrest","No","No",2019,NA,NA
+"call_type","time","subject_weapon","subject_age","subject_gender","subject_race","subject_ethnicity","alcohol_drugs","PD_force_type","number_of_officers","arrest_or_protective_custody","subject_injured","officer_injured","year","subject_injury_description","officer_injury_description","ForceBinning","Binning Number of Officers"
+"Mental Health","12:31 AM","No","25","Female","White","Hispanic",NA,"Forced to Ground","1","PC","No","No",2017,NA,NA,"1","1"
+"Domestic Dispute","1:11 PM","No","23","Male","Black","Non-Hisp.",NA,"Firearm Displayed","2","Arrest","No","No",2017,NA,NA,"1","2"
+"Robbery In Progress","9:02 PM","Yes","29","Male","White","Non-Hisp.","Heroin","Firearm Discharged","1","Arrest","No","No",2017,NA,NA,"3","1"
+"Mental Helath","12:32 PM","No","25","Male","Black","Non-Hisp.",NA,"Taser Displayed","5","PC","No","No",2017,NA,NA,"1","3+"
+"Domestic Dispute/Resisting Arrest","10:38 PM","No","43","Male","White","Non-Hisp.",NA,"Forced to Ground","6","Arrest","Yes","No",2017,"Non-visible (shoulder)",NA,"1","3+"
+"Traffic Stop/Resisting Arrest","2:33 AM","No","25","Female","White","Hispanic","Alcohol","Non-Compliant Escort Position, Rear Wrist Lock","2","Arrest","No","No",2017,NA,NA,"1","2"
+"Domestic Dispute","10:57 AM","No","32","Male","Black","Non-Hisp.",NA,"Firearm Displayed","2","Arrest","No","No",2017,NA,NA,"1","2"
+"Domestic Dispute","10:30 AM","No","26","Male","White","Non-Hisp.",NA,"Non-Compliant Escort Position, Rear Wrist Lock","2","Arrest","No","No",2017,NA,NA,"1","2"
+"Domestic Dispute","6:35 PM","No","44","Male","White","Non-Hisp.","Alcohol","Forced to Ground","2","Arrest","No","No",2017,NA,NA,"1","2"
+"Road Rage Incident","2:27 PM","Yes","21","Male","White","Non-Hisp.",NA,"Firearms Displayed","4","Arrest","No","No",2017,NA,NA,"1","3+"
+"Burglary In Progress","12:12 PM","No","23","Male","White","Non-Hisp.",NA,"Firearm Displayed","2",NA,"No","No",2017,NA,NA,"1","2"
+"Disturbance/Intoxicated Person","9:58 PM","No","41","Male","White","Non-Hisp.","Alcohol","Forced to Ground","3","Arrest","Yes","No",2017,"Visible (facial)",NA,"1","3+"
+"Traffic Stop/Resisting Arrest","1:50 AM","No","39","Female","White","Non-Hisp.","Alcohol","Forced to Ground","3","Arrest","Yes","No",2017,"Non-visible (shoulder)",NA,"1","3+"
+"Domestic Dispute","7:16 PM","No","20","Male","Black","Non-Hisp.",NA,"Non-Compliant Escort Position, Rear Wrist Lock","3","Arrest","No","Yes",2017,NA,"Laceration to hand and elbow","1","3+"
+"Disturbance","4:30 AM","Yes","56","Male","White","Non-Hisp.","Alcohol","Firearms Displayed","6","Arrest","No","No",2017,NA,NA,"1","3+"
+"Suspicious subject","3:36 PM","No","30","Male","White","Non-Hisp.","Alcohol","Taser Displayed","2","Arrest","No","No",2017,NA,NA,"1","2"
+"Traffic Stop/Resisting Arrest","7:31 PM","No","56","Male","White","Non-Hisp.","Alcohol","O.C. Spray/ Rear wrist lock","2","Arrest","Yes","No",2017,"Non-visible (wrist)",NA,"2","2"
+"Mental Health","12:47 PM","Yes","45","Male","White","Non-Hisp.","Alcohol","Taser Deployment/Escort Position","3","PC","Yes","No",2017,"Self inflicted laceration",NA,"2","3+"
+"Traffic Stop/Resisting Arrest","2:05 AM","No","40","Male","Black","Non-Hisp.","Alcohol","Forced to Ground","5","Arrest","Yes","No",2017,"Abrasions",NA,"1","3+"
+"Domestic Dispute","7:00 PM","No","31","Male","White","Non-Hisp.",NA,"Taser Displayed/Forced to Ground","3","Arrest","Yes","No",2017,"Swollen eye, scratch on forehead",NA,"1","3+"
+"Domestic Dispute","5:45 PM","No","22","Male","Black","Non-Hisp.",NA,"Forced to Ground","2","Arrest","No","Yes",2017,NA,"Right index finger","1","2"
+"Narcotics Investigation","7:15 PM","No","45","Male","Black","Non-Hisp.","Alcohol","Taser Deployment/Forced to ground","4","Arrest","No","Yes",2017,NA,"Facial","2","3+"
+"Narcotics Investigation","7:00 PM","No","21","Male","Black","Non-Hisp.",NA,"Taser Deployment/Forced to ground","2","Arrest","Yes","Yes",2017,"Scratch on face/neck","Right knee","2","2"
+"Disturbance","8:05 PM","No","20","Male","Black","Non-Hisp.","Alcohol","Forced to Ground/Elbow & Knee strike","3","Arrest","Yes","Yes",2017,"Scratch on face/elbow","Jaw and neck pain","1","3+"
+"Domestic Dispute","10:45 PM","No","36","Male","White","Non-Hisp.","Alcohol","Forced to Ground/Escort Position","3","Arrest","Yes","No",2017,"Non-visible (arm)",NA,"1","3+"
+"Disturbance","8:49 PM","No","45","Male","Black","Non-Hisp.","Cocaine","Taser Deployment","3","Arrest","Yes","No",2017,"Left wrist and laceration to eye",NA,"2","3+"
+"Mental Health","10:39 PM","No","30","Male","White","Non-Hisp.",NA,"Taser Deployment","5","PC","Yes","No",2017,"Non-visible (head and neck)",NA,"2","3+"
+"Fight in Progress","2:00 PM","No","36","Male","Black","Non-Hisp.",NA,"Forced to Ground","2","Arrest","No","Yes",2017,NA,"Knee","1","2"
+"Traffic Stop/Resisting Arrest","2:00 AM","No","24","Male","Black","Non-Hisp.","Cociane","Forced to Ground/Closed hand strike","2","Arrest","No","Yes",2017,NA,"Elbow, knees","1","2"
+"Suspicious subject","11:45 AM","No","30","Male","Black","Non-Hisp.","Heroin","Forced to Ground","2","Arrest","Yes","Yes",2017,"Non-visible (foot)","Leg","1","2"
+"Disturbance/Barricaded Suspect","5:50 PM","Yes","26","Male","White","Hispanic",NA,"Firearms Displayed","8","Arrest","No","No",2017,NA,NA,"1","3+"
+"Suspicious Subject","5:00 AM","Yes","18","Male","White","Non-Hisp.",NA,"Firearms Displayed","6","Arrest","No","No",2017,NA,NA,"1","3+"
+"Domestic Dispute/Mental Health","2:49 AM","No","35","Male","White","Hispanic",NA,"Closed Hand Strike/Rear Wrist Lock","3","PC","No","Yes",2017,NA,"Right thigh","1","3+"
+"Domestic Dispute","12:51 AM","No","22","Male","Black","Non-Hisp.","Alcohol","Forced to Ground","2","Arrest","Yes","No",2017,"Self inflicted laceration",NA,"1","2"
+"Domestic Dispute","1:44 PM","No","30","Male","Black","Non-Hisp.","Alcohol","OC Spray Deployment","2","Arrest","No","No",2017,NA,NA,"2","2"
+"Domestic Dispute","5:00 AM","No","62","Female","Black","Non-Hisp.","Alcohol","Firearms Displayed","2","Arrest","No","No",2017,NA,NA,"1","2"
+"Disturbance","2:30 AM","No","31","Male","Black","Non-Hisp.","Alcohol","Forced to Ground","3","Arrest","No","No",2017,NA,NA,"1","3+"
+"Domestic Dispute","12:23 AM","No","25","Male","White","Hispanic","Alcohol","Forced to Ground/Wrist lock ","2","Arrest","No","No",2017,NA,NA,"1","2"
+"Wanted Person/Resisting Arrest","6:30 PM","Yes","25","Male","White","Non-Hisp.","Alcohol","Firearm Discharged","1","Arrest","Yes","No",2017,"Self inflicted gunshot",NA,"3","1"
+"Mental Health","6:39 PM","No","42","Male","White","Non-Hisp.","Alcohol","Taser Displayed","4","PC","No","No",2017,NA,NA,"1","3+"
+"Domestic Dispute","8:13 PM","No","36","Male","Black","Non-Hisp.","Alcohol","Taser Displayed/Forced to Ground/Wrist lock","3","Arrest","No","No",2017,NA,NA,"1","3+"
+"Domestic Dispute/Mental Health","12:48 AM","No","47","Male","White","Non-Hisp.","Alcohol","Taser/Firearm Displayed","4","PC","No","No",2017,NA,NA,"1","3+"
+"Wanted Person/Resisting Arrest","4:38 PM","No","35","Male","White","Hispanic",NA,"Forced to Ground","2","Arrest","Yes","No",2017,"Laceration (facial), left wrist",NA,"1","2"
+"Wanted Person/Resisting Arrest","9:30 PM","No","34","Male","White","Hispanic",NA,"Taser/Firearm Displayed","3","Arrest","No","No",2017,NA,NA,"1","3+"
+"Traffic Stop/Resisting Arrest","7:15 PM","No","15","Male","Black","Non-Hisp.",NA,"Forced to Ground","3","Arrest","Yes","No",2017,"Laceration to chin and hands",NA,"1","3+"
+"Intoxicated Subject","6:30 PM","No","31","Male","White","Hispanic","Alcohol/Drugs","Forced to Ground","2","Arrest","Yes","No",2018,"Complained of injured wrist",NA,"1","2"
+"Domestic/Assault","09:00AM","Yes","23","Male","White","Hispanic",NA,"OC Spray Deployment","3","Arrest","No","Yes",2018,NA,"Knee pain","2","3+"
+"Mental Health","06:00PM","No","13","Male","White","Non-Hisp.",NA,"Non-Compliant Escort Position, Rear Wrist Lock","2","PC","No","No",2018,NA,NA,"1","2"
+"Mental Health","07:00AM","No","67","Male","White","Non-Hisp.",NA,"Non-Compliant Escort Position, Rear Wrist Lock","3","PC","Yes","No",2018,"Laceration to top of hand",NA,"1","3+"
+"Domestic Dispute","10:35PM","No","47","Male","White","Non-Hisp.","Drugs","Forced to Ground","2","Arrest","No","No",2018,NA,NA,"1","2"
+"Suspicious Activity","08:37PM","No","43","Female","White","Non-Hisp.","Alcohol","Forced to Ground","2","Arrest","No","Yes",2018,NA,"Right side of face","1","2"
+"Disturbance","02:00AM","No","29","Male","Black","Non-Hisp.",NA,"Forced to Ground","1","PC","No","No",2018,NA,NA,"1","1"
+"Domestic Dispute","06:50PM","No","27","Male","White","Non-Hisp.","Alcohol","Non-Compliant Escort Position, Rear Wrist Lock","3","Arrest","Yes","No",2018,"Laceration to face",NA,"1","3+"
+"Intoxicated Subject","11:00PM","No","23","Male","Black","Non-Hisp.","Alcohol","Forced to Ground","2","PC","No","No",2018,NA,NA,"1","2"
+"Robbery/Assault","05:15PM","Yes","34","Male","Black","Non-Hisp.",NA,"Firearms Displayed","1","Arrest","No","No",2018,NA,NA,"1","1"
+"Traffic Stop/Resisting Arrest","06:40PM","No","34","Male","White","Non-Hisp.",NA,"Non-Compliant Escort Position, K9 displayed","1","Arrest","No","No",2018,NA,NA,"1","1"
+"Fight in Progress","11:38AM","No","22","Male","White","Non-Hisp.",NA,"Taser Deployment","2","Arrest","No","No",2018,NA,NA,"2","2"
+"Disturbance","12:20PM","No","67","Male","White","Non-Hisp.",NA,"K9 bite, firearm displayed","8","Arrest","Yes","No",2018,"K9 bite marks",NA,"2","3+"
+"Domestic Dispute","11:15PM","No","48","Male","Black","Non-Hisp.","Alcohol","Firearm Displayed","3","Arrest","No","No",2018,NA,NA,"1","3+"
+"Trespassing","06:00PM","No","20","Male","White","Hispanic","Alcohol","Forced to Ground/Closed Hand Strike","2","Arrest","Yes","Yes",2018,"Shoulder pain, mouth laceration","Both officers, wrist and knee pain","1","2"
+"Suspicious subject","01:15PM","No","19","Male","Black","Non-Hisp.","Alcohol","Forced to Ground","3","Arrest","No","Yes",2018,NA,"Knee bruising/swelling","1","3+"
+"Animal Complaint","02:40PM","No","42","Male","Black","Non-Hisp.","Alcohol","Taser Deployment/Escort Position","4","Arrest","No","Yes",2018,NA,"Wrist","2","3+"
+"Disturbance","04:01AM","No","18","Male","White","Hispanic","Alcohol/Drugs","Taser Deployment/Escort Position","1","Arrest","No","No",2018,NA,NA,"2","1"
+"Subject with warrant","05:35PM","No","23","Male","Black","Non-Hisp.",NA,"Forced to Ground/Closed Hand Strike","4","Arrest","Yes","Yes",2018,"Abrasions","Abrasions","1","3+"
+"Armed Person","11:30PM","Yes","24","Male","Black","Non-Hisp.",NA,"Firearms Displayed","2","Arrest","No","No",2018,NA,NA,"1","2"
+"Domestic Dispute","5:45 PM","No","22","Male","Black","Non-Hisp.",NA,"Forced to Ground","2","Arrest","No","Yes",2018,NA,"Right index finger","1","2"
+"Intoxicated Subject","07:30PM","No","37","Male","White","Hispanic","Alcohol","Open hand strike/Escort Position","1","PC","Yes","No",2018,"Abrasions",NA,"1","1"
+"Disturbance","04:26AM","No","28","Male","Black","Non-Hisp.","Drugs","Forced to Ground","4","PC","Yes","No",2018,"Right wrist",NA,"1","3+"
+"Domestic Dispute","01:02AM","No","37","Female","Black","Non-Hisp.",NA,"Physical Force used to handcuff","4","Arrest","No","No",2018,NA,NA,"1","3+"
+"Domestic Dispute","01:02AM","No","41","Male","White","Hispanic",NA,"Physical Force used to handcuff","4","Arrest","No","No",2018,NA,NA,"1","3+"
+"Domestic Dispute/EDP","08:20PM","No","23","Male","Black","Non-Hisp.","Alcohol","Firearm Displayed/Forced to ground","3","Arrest","Yes","No",2018,"Face and left elbow",NA,"1","3+"
+"MV stop/Foot pursuit","09:22PM","No","26","Male","White","Non-Hisp.",NA,"Forced to Ground","4","Arrest","No","No",2018,NA,NA,"1","3+"
+"MV stop/DUI","12:31AM","No","49","Male","Black","Non-Hisp.","Alcohol","Physical Force used to handcuff","2","Arrest","No","No",2018,NA,NA,"1","2"
+"Suspicious subject","02:59AM","Yes","26","Male","White","Hispanic",NA,"Firearms Displayed","5","Arrest","No","No",2018,NA,NA,"1","3+"
+"Suspicious subject","01:55AM","No","23","Male","Black","Non-Hisp.",NA,"Forced to ground/Non-compliant escort ","2","Arrest","No","No",2018,NA,NA,"1","2"
+"Disturbance","12:08AM","No","15","Male","White","Non-Hisp.",NA,"Physical Force used to handcuff","2","Arrest","Yes","No",2018,"Wrist",NA,"1","2"
+"Disturbance","12:08AM","No","57","Female","White","Non-Hisp.",NA,"Physical Force used to handcuff","2","Arrest","No","No",2018,NA,NA,"1","2"
+"Disturbance","12:08AM","No","25","Female","White","Non-Hisp.",NA,"Physical Force used to handcuff","2","Arrest","No","No",2018,NA,NA,"1","2"
+"Disturbance","04:00PM","No","16","Male","Black","Non-Hisp.",NA,"Forced to ground/Non-compliant escort ","1","Arrest","No","No",2018,NA,NA,"1","1"
+"Domestic Dispute","12:30AM","No","24","Female","White","Non-Hisp.",NA,"Non-compliant escort position","3","Arrest","No","No",2018,NA,NA,"1","3+"
+"Domestic Dispute","09:53PM","No","28","Male","Black","Non-Hisp.","Alcohol","Taser Deployment","4","Arrest","No","No",2018,NA,NA,"2","3+"
+"Subject with warrant","11:15AM","No","30","Male","Black","Non-Hisp.",NA,"Physical Force used to handcuff","3","Arrest","No","No",2018,NA,NA,"1","3+"
+"Domestic Dispute","12:30PM","No","36","Male","Black","Non-Hisp.","Alcohol","Taser Displayed","4","Arrest","No","No",2018,NA,NA,"1","3+"
+"Breach of Peace","11:00AM","No","17","Female","White","Non-Hisp.",NA,"Non-compliant escort position","2","Arrest","No","No",2018,NA,NA,"1","2"
+"Disturbance","11:34PM","No","30","Male","Black","Non-Hisp.","Cocaine","Forced to Ground","5","PC","No","No",2018,NA,NA,"1","3+"
+"Suspicious Activity","07:07PM","No","33","Male","White","Non-Hisp.",NA,"Firearms Displayed","4","PC","No","No",2018,NA,NA,"1","3+"
+"MV stop","11:20PM","No","50","Male","Black","Non-Hisp.",NA,"Firearms Displayed","5","Arrest","No","No",2018,NA,NA,"1","3+"
+"Mental Health","01:15AM","No","46","Male","Black","Hispanic",NA,"Firearms Displayed","3","PC","No","No",2018,NA,NA,"1","3+"
+"Domestic Dispute","10:00PM","Yes","25","Male","White","Non-Hisp.","Alcohol","Firearms Displayed","2","Arrest","No","No",2018,NA,NA,"1","2"
+"Mental Health","09:03PM","No","50","Male","White","Non-Hisp.","Alcohol","Firearms Displayed/Taser Deployment","2","PC","No","No",2018,NA,NA,"2","2"
+"Disturbance","03:12PM","No","21","Male","White","Hispanic",NA,"Forced to Ground/Taser Deployment","2","Arrest","No","Yes",2018,NA,"Broken nose","2","2"
+"Disturbance","07:26PM","No","61","Male","White","Non-Hisp.","Alcohol","Physical Force used to handcuff","2","Arrest","No","No",2018,NA,NA,"1","2"
+"Disturbance","05:15PM","No","63","Male","White","Non-Hisp.",NA,"Physical Force used to handcuff","2","Arrest","Yes","No",2018,"Wrist",NA,"1","2"
+"Burglary","10:15PM","No","19","Male","Black","Non-Hisp.","Unknown","Firearms displayed/Forced to ground","4","Arrest","No","No",2018,NA,NA,"1","3+"
+"Dispute","05:47PM","No","37","Male","Black","Non-Hisp.","Alcohol","Non-compliant escort position","1","Arrest","No","No",2018,NA,NA,"1","1"
+"Intoxicated Subject","10:32PM","No","38","Female","White","Non-Hisp.","Alcohol","Physical Force used to handcuff","4","Arrest","No","No",2018,NA,NA,"1","3+"
+"Domestic Dispute","01:00PM","No","56","Female","White","Non-Hisp.","Alcohol","Forced to ground","1","Arrest","No","No",2018,NA,NA,"1","1"
+"Armed Subject","04:23PM","No","27","Male","White","Non-Hisp.",NA,"Physical Force used to handcuff","4","Arrest","No","No",2018,NA,NA,"1","3+"
+"Disturbance","02:45AM","No","37","Male","White","Non-Hisp.","Alcohol","Forced to ground","2","PC","Yes","Yes",2018,"Complaint of pain in head","Injured left hand middle finger","1","2"
+"Disturbance","02:32AM","No","42","Male","Black","Non-Hisp.",NA,"Firearms Displayed","5","Arrest","No","No",2018,NA,NA,"1","3+"
+"Intoxicated Person","01:45AM","No","21","Male","White","Non-Hisp.","Alcohol","Non-compliant escort position","2","PC","No","No",2018,NA,NA,"1","2"
+"Domestic Dispute","03:10AM","No","31","Male","White","Hispanic",NA,"Physical Force used to handcuff","3","Arrest","No","No",2018,NA,NA,"1","3+"
+"Disturbance","01:02AM","No","62","Male","Black","Non-Hisp.",NA,"Firearms Displayed","2","Arrest","No","No",2018,NA,NA,"1","2"
+"Robbery/Armed suspect","01:00AM","Yes","35","Male","Black","Non-Hisp.","Alcohol","Firearms Displayed","5","Arrest","No","No",2018,NA,NA,"1","3+"
+"Domestic Dispute","03:58AM","No","22","Male","White","Hispanic",NA,"Non-compliant escort position/Forced to ground","3","Arrest","Yes","No",2018,"Abrasion on right hand",NA,"1","3+"
+"Mental Health","12:40PM","No","52","Male","White","Non-Hisp.",NA,"Firearms Displayed","2","PC","No","No",2018,NA,NA,"1","2"
+"Domestic Dispute","07:57Am","No","57","Male","White","Hispanic",NA,"Firearms Displayed","3","Arrest","No","No",2018,NA,NA,"1","3+"
+"Larceny","05:40PM","No","37","Male","White","Non-Hisp.",NA,"Forced to ground","1","Arrest","Yes","No",2018,"Laceration above right eye, finger",NA,"1","1"
+"Disturbance","06:53AM","Yes","59","Male","White","Non-Hisp.",NA,"Forced to ground/Non-compliant escort ","4","Arrest","No","No",2018,NA,NA,"1","3+"
+"Subject with warrant","07:00PM","No","32","Male","White","Non-Hisp.",NA,"Firearms Displayed/K9 displayed","8","Arrest","No","No",2018,NA,NA,"1","3+"
+"Domestic Dispute","08:52PM","No","39","Male","White","Non-Hisp.","Alcohol","Taser Displayed","3","Arrest","No","No",2018,NA,NA,"1","3+"
+"Domestic Dispute","07:54PM","No","39","Male","Black","Non-Hisp.",NA,"Taser Displayed","1","Arrest","No","No",2018,NA,NA,"1","1"
+"MV crash/evading","09:21PM","No","20","Female","White","Hispanic",NA,"Forced to ground","2","Arrest","Yes","Yes",2018,"Laceration to forehead","Laceration to knee","1","2"
+"Disturbance","02:19AM","No","23","Female","White","Non-Hisp.","Alcohol","Forced to ground","1","Arrest","No","No",2018,NA,NA,"1","1"
+"Disturbance","10:20PM","No","27","Female","White","Hispanic","Alcohol","Forced to ground","1","Arrest","Yes","Yes",2018,"Laceration to left arm and left leg","Pain in right shoulder","1","1"
+"Subject with warrant","07:11PM","No","44","Male","Black","Non-Hisp.",NA,"Firearms displayed","8","Arrest","No","No",2018,NA,NA,"1","3+"
+"Domestic Dispute","03:00PM","No","17","Female","White","Non-Hisp.",NA,"Forced to ground/elbow-knee strike","7","Arrest","No","No",2018,NA,NA,"1","3+"
+"Domestic Dispute","03:00PM","No","17","Male","Black","Non-Hisp.",NA,"Firearm displayed","7","Arrest","No","No",2018,NA,NA,"1","3+"
+"Disturbance","11:45PM","No","26","Male","Black","Non-Hisp.",NA,"Forced to ground","2","Arrest","No","Yes",2018,NA,"Pulled muscle (left calf)","1","2"
+"Mental Health","06:50PM","No","19","Male","White","Non-Hisp.",NA,"Firearms displayed","4","PC","No","No",2018,NA,NA,"1","3+"
+"MV stop","10:45PM","Yes","32","Male","Black","Non-Hisp.","Alcohol","Firearms Displayed","2","Arrest","No","No",2018,NA,NA,"1","2"
+"Fight in Progress","01:25PM","Yes","23","Male","Black","Non-Hisp.",NA,"Firearms Displayed","2","Arrest","No","No",2018,NA,NA,"1","2"
+"MV stop","12:46AM","No","53","Male","Black","Non-Hisp.","Alcohol","Firearms Displayed","2","Arrest","No","No",2018,NA,NA,"1","2"
+"Car Accident","11:30PM","No","21","Male","White","Non-Hisp.","Alc/Drugs","Forced to ground","3","Arrest","No","No",2018,NA,NA,"1","3+"
+"Disturbance","04:10PM","No","16","Male","Black","Non-Hisp.",NA,"Physical Force used to handcuff","1","Arrest","No","No",2018,NA,NA,"1","1"
+"MV stop","05:45PM","No","42","Male","White","Non-Hisp.","Alcohol","Non-compliant escort position","1","Arrest","No","No",2018,NA,NA,"1","1"
+"Domestic Dispute","07:16AM","No","36","Male","Black","Non-Hisp.","Alcohol","Closed hand strike","4","Arrest","No","No",2018,NA,NA,"1","3+"
+"Subject with warrant","08:00PM","No","23","Male","White","Hispanic",NA,"Open/Closed hand strike, OC spray, Taser disp","1","Arrest","No","Yes",2018,NA,"Right hand and right cheek","1","1"
+"Mental Health","01:00AM","No","24","Male","White","Non-Hisp.",NA,"Forced to ground/Non-compliant escort ","4","PC","No","No",2018,NA,NA,"1","3+"
+"Interfering with Officer","04:35PM","No","16","Male","White","Hispanic",NA,"Forced to ground/Firearm displayed","1","Arrest","No","No",2018,NA,NA,"1","1"
+"Disturbance","4:30AM","No","25","Female","White","Non-Hisp.",NA,"Forced to Ground","2","Arrest","Yes","No",2019,"Prior to police contact",NA,"1","2"
+"MV accident","12:00PM","No","25","Male","White","Hispanic",NA,"Forced to Ground, Closed hand strike","3","Arrest","No","Yes",2019,NA,"Right side of face","1","3+"
+"Wanted Person","4:39PM","No","34","Male","Black","Non-Hisp.","Yes/Drugs","Forced to ground","1","Arrest","No","No",2019,NA,NA,"1","1"
+"DUI","12:20AM","No","28","Female","Black","Hispanic","Yes/Alcohol","Physical Force used to handcuff","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Domestic Dispute","10:50AM","No","38","Male","White","Non-Hisp.",NA,"Taser Displayed","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Suspicious Activity","06:22PM","No","26","Male","White","Non-Hisp.",NA,"Forced to Ground, Closed hand strike","1","Arrest","Yes","Yes",2019,"Laceration to face","Abdomen, right hand","1","1"
+"Fight in progress","04:05PM","No","17","Male","Black","Non-Hisp.",NA,"Forced to Ground","2","Arrest","No","Yes",2019,NA,NA,"1","2"
+"Mental Health","10:07PM","No","49","Female","White","Non-Hisp.","Alcohol","Forced to Ground","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Disturbance","08:14PM","No","43","Male","Black","Non-Hisp.","Alcohol","Forced to Ground","2","Arrest","No","Yes",2019,NA,"Lower back","1","2"
+"Domestic dispute","08:37AM","No","47","Female","White","Non-Hisp.","Alcohol","Escort position","1","Arrest","No","No",2019,NA,NA,"1","1"
+"Burglary In Progress","01:57AM","No","28","Male","White","Non-Hisp.",NA,"K9 and Firearms displayed","6",NA,"No","No",2019,NA,NA,"1","3+"
+"Intoxicated Subject","09:48PM","No","35","Male","White","Non-Hisp.",NA,"Forced to the gorund, escort position","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Disturbance","7:05PM","No","23","Male","White","Hispanic","Alcohol","Physical Force used to handcuff","2","Arrest","No","Yes",2019,NA,"Skinned knuckles","1","2"
+"Domestic dispute","11:00PM","No","34","Male","White","Non-Hisp.",NA,"Forced to ground, escort position","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Disturbance","5:54PM","No","20","Female","White","Non-Hisp.",NA,"Forced to ground","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Suspicious subject","5:09PM","No","41","Female","White","Non-Hisp.","Alcohol","Physical force used to transport","3","Arrest","No","No",2019,NA,NA,"1","3+"
+"Domestic Dispute","3:41PM","No","36","Male","Black","Non-Hisp.","Alcohol","Firearm Displayed ","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Threatening","10:16PM","No","49","Male","White","Non-Hisp.","Alcohol/Drugs","Forced to ground","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Domestic Disturbance","02:35AM","No","36","Female","White","Non-Hisp.",NA,"Escort Position","3","Arrest","Yes","No",2019,"Wrist pain",NA,"1","3+"
+"Intoxicated Person","10:32PM","No","33","Female","White","Non-Hisp.","Alcohol","Forced to ground, strikes, escort position","1","Arrest","No","Yes",2019,NA,"Head, knee, ear","1","1"
+"Armed Subject","2:52PM","No","17","Male","Black","Non-Hisp.",NA,"Firearms Displayed","4","Arrest","No","No",2019,NA,NA,"1","3+"
+"Intoxicated Subject","3:34AM","No","30","Female","White","Non-Hisp.","Alcohol","Forced to ground, escort position","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Intoxicated Subject","3:34AM","No","45","Male","Black","Non-Hisp.","Alcohol","Physical Force to restrain","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Subject with warrant","5:45AM","No","48","Female","White","Non-Hisp.",NA,"Forced to Ground","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Intoxicated Male ","6:45PM","No","41","Male","White","Non-Hisp.","Alcohol","Forced to ground","3","Arrest","No","No",2019,NA,NA,"1","3+"
+"Subject with warrant","9:09AM","No","39","Male","White","Non-Hisp.",NA,"Taser Deploymet, escort position","3","Arrest","Yes","No",2019,"Abrasion",NA,"1","3+"
+"Criminal Trespass","10:55AM","No","27","Female","Black","Non-Hisp.",NA,"Escort Position","4","Arrest","No","No",2019,NA,NA,"1","3+"
+"Mental Health","5:39PM","Yes","44","Female","White","Non-Hisp.",NA,"Taser Deplyment, escort position","3","PC","Yes","No",2019,"Taser probes",NA,"1","3+"
+"MV accident","1:05AM","No","18","Male","White","Hispanic","Alcohol","Taser Deployment","3","Arrest","No","No",2019,NA,NA,"2","3+"
+"Domestic Dispute","11:00PM","No","32","Female","White","Hispanic",NA,"Taser Displayed","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Domestic Dispute","4:58AM","No","18","Male","Black","Non-Hisp.","Alcohol","Forced to Ground","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Mental Health","10:09PM","No","28","Male","Black","Non-Hisp.","Drugs","Taser Displayed","5","PC","No","No",2019,NA,NA,"1","3+"
+"Assist Citizen","3:30PM","No","30","Female","White","Non-Hisp.",NA,"Knee Strike","2","Arrest","No","Yes",2019,NA,"Right wrist","1","2"
+"Disturbance","04:00PM","No","16","Male","Black","Non-Hisp.",NA,"Forced to ground/Non-compliant escort ","1","Arrest","No","No",2019,NA,NA,"1","1"
+"MV accident","9:40PM","No","18","Female","White","Non-Hisp.","Alcohol","Forced to ground, escort position","3","Arrest","No","No",2019,NA,NA,"1","3+"
+"Mental Health","2:15AM","No","46","Male","White","Non-Hisp.","Alcohol","Forced to ground","3","Arrest","Yes","Yes",2019,"Abrasions","Left hand left wrist","1","3+"
+"Disturbance","3:37PM","No","60","Female","Black","Non-Hisp.","Alcohol","Forced to ground, escort position","2","Arrest","Yes","Yes",2019,"Cut to mouth","Cut to forhead","1","2"
+"Subject with warrant","2:05PM","No","58","m","White","Non-Hisp.",NA,"Escort position","2","Arrest","No","NO",2019,NA,NA,"1","2"
+"Suspicious Activity","10:55PM","No","18","Male","Black","Non-Hisp.",NA,"Forced to ground, knee strike","1","Arrest","No","No",2019,NA,NA,"1","1"
+"Domestic Dispute","10:24PM","No","39","Male","White","Non-Hisp.",NA,"Forced to ground","3","Arrest","No","No",2019,NA,NA,"1","3+"
+"Suspicious Activity","7:40PM","No","20","Male","Black","Non-Hisp.","Alcohol","Forced to ground","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Distrubance","11:50AM","No","25","Female","White","Hispanic",NA,"Physical forced used to handcuff","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Structure Fire","01:15AM","No","26","Male","White","Hispanic",NA,"Grapple/Wrestle","3","Arrest","No","No",2019,NA,NA,"1","3+"
+"Mental Health","6:35PM","No","30","Male","White","Non-Hisp.","Alc/Drugs","Forced to ground, escort position, taser","4","Arrest","Yes","Yes",2019,"Laceration to face","Elbow, hand, finger","1","3+"
+"Disturbance","3:30AM","No","19","Female","White","Hispanic","Alc/Drugs","Forced to ground, escort position","4","Arrest","No","Yes",2019,NA,"Unknown","1","3+"
+"Domestic Dispute","12:30PM","No","49","Female","White","Non-Hisp.",NA,"Forced to Ground","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Well Being Check","2:30PM","No","23","Male","White","Non-Hisp.",NA,"Forced to ground, taser displayed","2","Arrest","No","Yes",2019,NA,"Soreness to neck and arm","1","2"
+"Disturbance","8:00PM","No","42","Male","Black","Non-Hisp.",NA,"Firearms displayed","6",NA,"No","No",2019,NA,NA,"1","3+"
+"Larceny","2:30PM","No","37","Male","White","Non-Hisp.",NA,"Forced to ground","1","Arrest","Yes","Yes",2019,"Abrasion right elbow","Right ankle foot","1","1"
+"Domestic Dispute","9:45PM","No","22","Male","White","Non-Hisp.","Alcohol","Taser Deployment","1","Arrest","No","No",2019,NA,NA,"2","1"
+"Domestic Dispute","9:28PM","No","25","Male","Black","Non-Hisp.","Alcohol","Open hand strike, Force used to handcuff","3","Arrest","Yes","No",2019,"Left eye and eyebrow",NA,"1","3+"
+"Suspicious Activity","6:52AM","No","34","Male","Black","Non-Hisp.",NA,"Forced to ground, escort position","3","Arrest","No","No",2019,NA,NA,"1","3+"
+"Domestic Dispute","10:15PM","No","36","Male","Black","Non-Hisp.",NA,"Taser Displayed, elbow and knee strike","3","Arrest","Yes","No",2019,"Cut on cheek and forehead",NA,"1","3+"
+"Disturbance","11:24AM","No","34","Male","Black","Non-Hisp.",NA,"Taser Deployment","2","Arrest","No","No",2019,NA,NA,"2","2"
+"Mental Health","9:30PM","No","30","Male","White","Hispanic",NA,"Forced to ground","2","PC","No","No",2019,NA,NA,"1","2"
+"Traffic Stop","10:00PM","No","25","Male","Black","Non-Hisp.","Alcohol","Forced to ground, escort position","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Domestic Dispute","9:45PM","No","61","Male","White","Non-Hisp.","Alc/Drugs","Physical Force used to handcuff","2","Arrest","Yes","No",2019,"Self inflicted head wound",NA,"1","2"
+"Burglary In Progress","9:30PM","No","39","Male","White","Non-Hisp.","Alc/Drugs","Forced to ground, escort position","5","Arrest","No","No",2019,NA,NA,"1","3+"
+"Domestic Dispute","10:06AM","No","17","Female","White","Hispanic",NA,"Forced to ground, escort position","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Disturbance","01:45AM","No","38","Male","Black","Non-Hisp.","Alcohol","Forced to ground, escort postion","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Fight in Progress","11:53AM","No","28","Male","Black","Non-Hisp.",NA,"Taser Deployment","1","Arrest","No","No",2019,NA,NA,"2","1"
+"Well Being Check","3:03PM","No","61","Female","White","Non-Hisp.","Alcohol","Forced used to handcuff, escort position","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Traffic Stop","6:45PM","No","46","Male","Black","Non-Hisp.","Alcohol","Taser Deplyment, escort position","4","Arrest","No","No",2019,NA,NA,"1","3+"
+"Disturbance","09:50AM","No","51","Female","Black","Non-Hisp.","Alcohol","Forced to ground/Non-compliant escort ","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Larceny","5:00PM","No","50","Female","White","Non-Hisp.",NA,"Forced to ground","1","Arrest","No","No",2019,NA,NA,"1","1"
+"Disturbance","12:55AM","No","61","Male","White","Non-Hisp.",NA,"Forced to Ground","2","Arrest","No","No",2019,NA,NA,"1","2"
+"Domestic Dispute","8:00PM","No","22","Male","White","Non-Hisp.",NA,"Taser Deplyment, escort position","2","Arrest","Yes","Yes",2019,"Abrasions to hands and back","Laceration to arm","1","2"
+"Traffic Stop","4:00AM","No","27","Male","White","Hispanic","Alc/Drugs","Forced to ground, escort position","3","Arrest","No","No",2019,NA,NA,"1","3+"
+"Mental Health","3:45AM","Yes","54","m","White","Non-Hisp.","Alcohol","Firearms, Less Lethal, Taser displayed, Escort ","9","PC","No","No",2019,NA,NA,"1","3+"
+"Disturbance","7:57PM","No","74","Male","Black","Non-Hisp.",NA,"Firearms Displayed","7","PC","No","No",2019,NA,NA,"1","3+"
+"Mental Health","4:44PM","No","44","Male","Black","Non-Hisp.",NA,"Firearms displayed","8","Arrest","No","No",2019,NA,NA,"1","3+"
+"Larceny","7:00PM","No","24","Male","White","Non-Hisp.",NA,"Forced to ground/Closed hand strike","3","Arrest","No","Yes",2019,NA,"Strain of shoulder","1","3+"
+"Subject with warrant","12:05PM","No","47","Male","Black","Non-Hisp.",NA,"Forced to ground","1","Arrest","No","No",2019,NA,NA,"1","1"
+"Disturbance","9:00PM","No","40","Female","White","Hispanic","Alcohol","Forced to ground, knee strike","2","Arrest","Yes","Yes",2019,"Scrapes to forehead","Left leg left ring finger","1","2"
+"Mental Health","06:50PM","No","19","Male","White","Non-Hisp.",NA,"Firearms displayed","4","PC","No","No",2019,NA,NA,"1","3+"
+"Domestic Dispute","3:40PM","No","30","Male","Black","Non-Hisp.",NA,"K-9 Displayed","2","Arrest","No","No",2019,NA,NA,"1","2"

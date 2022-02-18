@@ -1,10 +1,8 @@
-#Norwich Cleaning script
-
 #load dependencies and set working directory
 setwd(here())
 source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
 PackageDependency()
-
 
 #I want to call in my datasets
 NorwichUOF2017<-read.csv(file = 'dirty data/Norwich/NorwichUOF2017.csv', stringsAsFactors = FALSE, header= TRUE)
@@ -75,6 +73,40 @@ NorwichUOF$officer_injury_description[NorwichUOF$officer_injury_description == "
 NorwichUOF$officer_injury_description <- trimws(NorwichUOF$officer_injury_description)
 NorwichUOF$officer_injury_description <- tolower(NorwichUOF$officer_injury_description)
 substr(NorwichUOF$officer_injury_description, 1, 1) <- toupper(substr(NorwichUOF$officer_injury_description, 1, 1))
+
+#Binning Force Type (1- no weapon, 2- non lethal weapon, 3- lethal force) 
+##binning displaying a weapon as 1 (rather than 3 or 2)
+NorwichUOF$ForceBinning <- NorwichUOF$PD_force_type
+NorwichUOF <- NorwichUOF %>%
+  mutate(`ForceBinning` = case_when(
+    str_detect(`ForceBinning`, "Discharged") ~ "3",
+    str_detect(`ForceBinning`, "Taser Deployment") ~ "2",
+    str_detect(`ForceBinning`, "OC Spray") ~ "2",
+    str_detect(`ForceBinning`, "O.C. Spray") ~ "2",
+    str_detect(`ForceBinning`, "K9 bite") ~ "2",
+    str_detect(`ForceBinning`, "Displayed") ~ "1",
+    str_detect(`ForceBinning`, "displayed") ~ "1",
+    str_detect(`ForceBinning`, "Forced to Ground") ~ "1",
+    str_detect(`ForceBinning`, "Forced to ground") ~ "1",
+    str_detect(`ForceBinning`, "Strike") ~ "1",
+    str_detect(`ForceBinning`, "Escort position") ~ "1",
+    str_detect(`ForceBinning`, "escort position") ~ "1",
+    str_detect(`ForceBinning`, "Escort Position") ~ "1",
+    str_detect(`ForceBinning`, "strike") ~ "1",
+    str_detect(`ForceBinning`, "Physical Force") ~ "1",
+    str_detect(`ForceBinning`, "Physical force") ~ "1",
+    str_detect(`ForceBinning`, "Grapple/Wrestle") ~ "1",
+    TRUE ~ `ForceBinning`
+  ))
+
+
+
+#Binning Number of Officers
+NorwichUOF['Binning Number of Officers'] <- NA
+NorwichUOF$`Binning Number of Officers`[NorwichUOF$number_of_officers=="1"]<- "1"
+NorwichUOF$`Binning Number of Officers`[NorwichUOF$number_of_officers=="2"]<- "2"
+NorwichUOF$`Binning Number of Officers`[NorwichUOF$number_of_officers > "2"]<- "3+"
+
 
 
 #exporting to clean data folder 

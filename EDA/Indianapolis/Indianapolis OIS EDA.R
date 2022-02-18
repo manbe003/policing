@@ -1,22 +1,22 @@
-#First I want to call libraries
-library(dplyr)
-library(tidyr)
-library(tidyverse)
+#load dependencies and set working directory
+setwd(here())
+source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
+PackageDependency()
 
-#Set working directory
-setwd("~/Desktop/GitAndR/Policing/clean data/Indianapolis")
 
 #Call in my datasets (OIS)
-OIS<-read.csv(file='OIS.csv', stringsAsFactors = TRUE)
+OIS<-read.csv(file= 'clean data/Indianapolis/OIS.csv', stringsAsFactors = TRUE)
 
-##Descriptive data
+## Descriptive data ##
+
 #Summary
 summary(OIS)
 
 #Standard deviations
-sd(UOF$residentAge, na.rm = TRUE)
-sd(UOF$officerAge, na.rm = TRUE)
-sd(UOF$officerYearsOfService, na.rm = TRUE)
+sd(OIS$residentAge, na.rm = TRUE)
+sd(OIS$officerAge, na.rm = TRUE)
+sd(OIS$officerYearsOfService, na.rm = TRUE)
 
 #Variation
 var(OIS$residentAge, na.rm = TRUE)
@@ -37,7 +37,8 @@ ggplot(OIS, aes(sample = officerYearsOfService)) + geom_qq() + geom_qq_line()
 #Correlations
 cor.test(OIS$officerAge, OIS$residentAge)
 
-##Categorical data analysis
+## Categorical data analysis ##
+
 #Levels
 levels(OIS$residentSex)
 levels(OIS$residentRace)
@@ -50,22 +51,39 @@ levels(OIS$residentCondition)
 levels(OIS$officerCondition)
 
 #Graphs
-ggplot(OIS, aes(residentSex)) + geom_bar()
-ggplot(OIS, aes(residentRace)) + geom_bar()
-ggplot(OIS, aes(officerSex)) + geom_bar()
-ggplot(OIS, aes(officerRace)) + geom_bar()
-ggplot(OIS, aes(division)) + geom_bar()
-ggplot(OIS, aes(residentWeaponUsed)) + geom_bar()
-ggplot(OIS, aes(officerWeaponUsed)) + geom_bar()
-ggplot(OIS, aes(residentCondition)) + geom_bar()
-ggplot(OIS, aes(officerCondition)) + geom_bar()
+ggplot(OIS, aes(residentSex)) + 
+  geom_bar()
+ggplot(OIS, aes(residentRace)) + 
+  geom_bar()
+ggplot(OIS, aes(officerSex)) + 
+  geom_bar()
+ggplot(OIS, aes(officerRace)) +
+  geom_bar()
+ggplot(OIS, aes(division)) + 
+  geom_bar()
+ggplot(OIS, aes(residentWeaponUsed)) +
+  geom_bar()
+ggplot(OIS, aes(officerWeaponUsed)) +
+  geom_bar()
+ggplot(OIS, aes(residentCondition)) + 
+  geom_bar()
+ggplot(OIS, aes(officerCondition)) + 
+  geom_bar()
 
 #Comparison
-ggplot(OIS, aes(x = residentRace, fill = residentCondition)) + geom_bar(position = "dodge")
-ggplot(OIS, aes(x = residentRace, fill = officerRace)) + geom_bar(position = "dodge")
-ggplot(OIS, aes(x = residentRace, fill = division)) + geom_bar(position = "dodge")
-ggplot(OIS, aes(x = residentRace, fill = officerSex)) + geom_bar(position = "dodge")
-ggplot(OIS, aes(x = residentRace, fill = residentSex)) + geom_bar(position = "dodge")
-ggplot(OIS, aes(x = officerWeaponUsed, fill = residentRace)) + geom_bar(position = "dodge")
-ggplot(OIS, aes(x = officerWeaponUsed, fill = officerSex)) + geom_bar(position = "dodge")
-ggplot(OIS, aes(x = officerWeaponUsed, fill = officerRace)) + geom_bar(position = "dodge")
+ggplot(OIS, aes(x = residentRace, fill = residentCondition)) +
+  geom_bar(position = "dodge")
+ggplot(OIS, aes(x = residentRace, fill = officerRace)) +
+  geom_bar(position = "dodge")
+ggplot(OIS, aes(x = residentRace, fill = division)) + 
+  geom_bar(position = "dodge")
+ggplot(OIS, aes(x = residentRace, fill = officerSex)) + 
+  geom_bar(position = "dodge")
+ggplot(OIS, aes(x = residentRace, fill = residentSex)) +
+  geom_bar(position = "dodge")
+ggplot(OIS, aes(x = officerWeaponUsed, fill = residentRace)) +
+  geom_bar(position = "dodge")
+ggplot(OIS, aes(x = officerWeaponUsed, fill = officerSex)) + 
+  geom_bar(position = "dodge")
+ggplot(OIS, aes(x = officerWeaponUsed, fill = officerRace)) + 
+  geom_bar(position = "dodge")

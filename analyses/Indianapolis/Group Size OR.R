@@ -25,7 +25,7 @@ UOF_FixLevels <- UOF_FixLevels %>%
 #making N/As in the column regular NAs
 UOF_FixLevels$ForceBinning[UOF_FixLevels$ForceBinning=="N/A"]<-NA
 
-#Counting the numbe of officers by counting the number of distinct Officer IDs with the same case ID and making a DF
+#Counting the number of officers by counting the number of distinct Officer IDs with the same case ID and making a DF
 UOF_OfficerCount <- sqldf("SELECT 
       id, COUNT(DISTINCT officerIdentifier)
       FROM UOF_FixLevels

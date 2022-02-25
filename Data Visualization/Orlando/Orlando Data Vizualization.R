@@ -1,9 +1,8 @@
-#libraries
-library(ggplot2)
-library(here)
-library(dplyr)
-library(tidyr)
-library(tidyverse)
+#load dependencies and set working directory
+source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
+PackageDependency()
+setwd(here())
 
 #loading files
 DemoData_UOF<-read.csv(file=here('clean data/orlando/Orlando City DemoData UOF.csv'), stringsAsFactors = FALSE)

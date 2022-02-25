@@ -1,6 +1,9 @@
 #Libraries
-library(here)
-library(tidyverse)
+#load dependencies and set working directory
+source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
+PackageDependency()
+setwd(here())
 
 #loading in datasets
 UOF <- read.csv(file = here("clean data/Orlando/UOF (cleaned).csv"), stringsAsFactors = FALSE)
@@ -13,9 +16,9 @@ OR_Prep = function(dataset,column){
   dataset$`Lethal.vs.Non-lethal.Weapon`<- gsub('3', 'Lethal', dataset$`Lethal.vs.Non-lethal.Weapon`)
   
   #making a column binning level of force as Weapon vs No Weapon
-  dataset['Weapon.vs.Weapon'] <- column
-  dataset$`Weapon.vs.Weapon`<- gsub('2|3', 'Weapon', dataset$`Weapon.vs.Weapon`)
-  dataset$`Weapon.vs.Weapon`<- gsub('1', 'No Weapon', dataset$`Weapon.vs.Weapon`)
+  dataset['Weapon.vs.No.Weapon'] <- column
+  dataset$`Weapon.vs.No.Weapon`<- gsub('2|3', 'Weapon', dataset$`Weapon.vs.No.Weapon`)
+  dataset$`Weapon.vs.No.Weapon`<- gsub('1', 'No Weapon', dataset$`Weapon.vs.No.Weapon`)
   return(dataset)
 }
 

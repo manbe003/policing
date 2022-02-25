@@ -1,14 +1,11 @@
 #####################
 #load dependencies and set working directory
-setwd(here())
 source("ProjectPackageManagement.R")
 source("Data Cleaning Functions.R")
 PackageDependency()
+setwd(here())
 
-#turn off scientific notation
-options(scipen=999)
 
-# change these two lines!
 #I want to call in my datasets (use of force, shootings).
 UOF <- read.csv(file=here('dirty data/orlando/OPD_Response_To_Resistance.csv'), stringsAsFactors = FALSE)
 shootings <- read.csv(file=here('dirty data/orlando/OPD_Officer-Involved_Shootings.csv'), stringsAsFactors = FALSE)
@@ -101,8 +98,6 @@ UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Officers Involve
 
 #####################
 
-#numericize the data (SHOOTINGS)
-#NoTitle_shootings <- shootings[shootings$Date != "", ]
 
 #making a table with all relevant metadata for shootings
 AllMetadata_shootings<-cbind.data.frame(shootings$ï..Case..,shootings$Date,shootings$Number.of.Officers.Involved,shootings$Officer.Name,shootings$Officer.Race,shootings$Ethnicity,shootings$Officer.Gender,shootings$Suspect.Race,shootings$Suspect.Gender,shootings$Suspect.Hit,shootings$Fatal, stringsAsFactors=FALSE)
@@ -144,6 +139,7 @@ AllMetadata_shootings_Fix$Suspect.Gender <- gsub('Unk', NA, AllMetadata_shooting
 
 AllMetadata_shootings_Fix$Suspect.Hit <- gsub(' Yes', 'Yes', AllMetadata_shootings_Fix$Suspect.Hit)
 AllMetadata_shootings_Fix$Suspect.Hit <- gsub(' No', 'No', AllMetadata_shootings_Fix$Suspect.Hit)
+
 AllMetadata_shootings_Fix$Suspect.Hit <- gsub('Unknown', NA, AllMetadata_shootings_Fix$Suspect.Hit)
 
 AllMetadata_shootings_Fix$Fatal <- gsub(' Yes', 'Yes', AllMetadata_shootings_Fix$Fatal)

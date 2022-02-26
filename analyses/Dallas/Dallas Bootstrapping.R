@@ -15,6 +15,7 @@ DallasR2R <- read.csv(here("clean data", "Dallas", "Dallas_R2R.csv"), stringsAsF
 
 View(DallasR2R)
 
+
 OfficerGroupSize <- function(dataset, mergecol, together){
   matching <- table(together)
   matching <- as.data.frame(matching)
@@ -44,6 +45,8 @@ View(DS_group_freqs)
 #This is 20 whitewhite, 11 whitelatinx, 5 whiteblack, 3 blackblack, 2 latinxlatinx, and 1 latinxasian
 
 
+
+
 #The bootstrapping 
 
 add_zero_row <- function(race1, race2, dataset){
@@ -59,6 +62,9 @@ add_zero_row <- function(race1, race2, dataset){
   }
 }
 
+View(DS_race)
+DS_race<-subset(DallasR2R, select = c("officer_race","officer_name" ))
+DS_race <- unique(DS_race)
 DS_race<-subset(DallasR2R, select = "officer_race")
 DS_race[DS_race == "Other"] <- NA
 DS_race <- na.omit(DS_race)
@@ -133,7 +139,53 @@ for (i in 1:1000) {
 }
 colnames(y) <- c("off1", "off2", "freq")
 
+DallasBootstrapUnique <- y 
 DallasBootstrap <- y 
+
+#With Unique data 
+whitewhite <- subset(DallasBootstrapUnique, DallasBootstrapUnique$off1 == "White")
+whitewhite <- subset(whitewhite, whitewhite$off2 == "White")
+whitewhite$freq <- as.numeric(whitewhite$freq)
+
+#whiteblack
+whiteblack <- subset(DallasBootstrapUnique, DallasBootstrapUnique$off1 == "White")
+whiteblack <- subset(whiteblack, whiteblack$off2 == "Black")
+whiteblack$freq <- as.numeric(whiteblack$freq)
+
+#blackblack
+blackblack <- subset(DallasBootstrapUnique, DallasBootstrapUnique$off1 == "Black")
+blackblack <- subset(blackblack, blackblack$off2 == "Black")
+blackblack$freq <- as.numeric(blackblack$freq)
+
+#hispanichispanic
+hispanichispanic <- subset(DallasBootstrapUnique, DallasBootstrapUnique$off1 == "Hispanic")
+hispanichispanic <- subset(hispanichispanic, hispanichispanic$off2 == "Hispanic")
+hispanichispanic$freq <- as.numeric(hispanichispanic$freq)
+
+#hispanicwhite 
+hispanicwhite <- subset(DallasBootstrapUnique, DallasBootstrapUnique$off1 == "White")
+hispanicwhite <- subset(hispanicwhite, hispanicwhite$off2 == "Hispanic")
+hispanicwhite$freq <- as.numeric(hispanicwhite$freq)
+
+#hispanicasian
+hispanicasian <- subset(DallasBootstrapUnique, DallasBootstrapUnique$off1 == "Asian")
+hispanicasian <- subset(hispanicasian, hispanicasian$off2 == "Hispanic")
+hispanicasian$freq <- as.numeric(hispanicasian$freq)
+
+#blackhispanic
+blackhispanic <- subset(DallasBootstrapUnique, DallasBootstrapUnique$off1 == "Black")
+blackhispanic <- subset(blackhispanic, blackhispanic$off2 == "Hispanic")
+blackhispanic$freq <- as.numeric(blackhispanic$freq)
+
+#asianwhite
+asianwhite <- subset(DallasBootstrapUnique, DallasBootstrapUnique$off1 == "Asian")
+asianwhite <- subset(asianwhite, asianwhite$off2 == "White")
+asianwhite$freq <- as.numeric(asianwhite$freq)
+
+
+
+
+
 
 #making individual frequency datasets for all of the race combinations
 #whitewhite
@@ -189,14 +241,16 @@ hist(whiteblack$freq)
 
 #This is 20 whitewhite, 11 whitelatinx, 5 whiteblack, 3 blackblack, 2 latinxlatinx, and 1 latinxasian
 
-median(whitewhite$freq) #actual = 20, bootstrap = 15
-median(blackblack$freq) #actual = 3, bootstrap = 1
-median(whiteblack$freq) #actual = 5, bootstrap = 7
-median(hispanicwhite$freq) #actual = 11, bootstrap = 15
-median(hispanichispanic$freq) #actual = 2, bootstrap = 2
-median(hispanicasian$freq) #actual = 1, bootstrap = 0
-median(blackhispanic$freq) #actual = 0, bootstrap = 1
-median(asianwhite$freq) #actual = 0, bootstrap = 1
+median(whitewhite$freq) #actual = 20, bootstrap = 15, bootstrap unique = 15
+median(blackblack$freq) #actual = 3, bootstrap = 1, bootstrap unique = 1
+median(whiteblack$freq) #actual = 5, bootstrap = 7, bootstrap unique = 7
+median(hispanicwhite$freq) #actual = 11, bootstrap = 15, bootstrap unique = 11
+median(hispanichispanic$freq) #actual = 2, bootstrap = 2, bootstrap unique = 2
+median(hispanicasian$freq) #actual = 1, bootstrap = 0, bootstrap unique = 0
+median(blackhispanic$freq) #actual = 0, bootstrap = 1, bootstrap unique = 1
+median(asianwhite$freq) #actual = 0, bootstrap = 1, bootstrap unique = 1
+
+#Using the unique list does not make much of a difference, other than changing hispanicwhite. I'm pretty confused by this and would love to discuss. 
 
 #From this we know that groups of whitewhite people are move involved in shootings then they would be if it was random
 #according to my AP stats level calculations, assuming that this can be considered an approximately normal sampling distribution, 

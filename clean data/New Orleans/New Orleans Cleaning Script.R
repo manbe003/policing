@@ -1,7 +1,8 @@
 #load dependencies and set working directory
-setwd(here())
 source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
 PackageDependency()
+setwd(here())
 
 #loading datasets
 UOF <- read.csv(file='dirty data/New Orleans/NOPD_Use_of_Force_Incidents.csv', stringsAsFactors = FALSE)
@@ -18,19 +19,37 @@ AllMetadata_UOF_NA[AllMetadata_UOF_NA=="Other"]<-NA
 AllMetadata_UOF_NA[AllMetadata_UOF_NA=="Other | Other"]<-NA
 
 #making a column counting number of officers in a group based on a column and its separator
-OfficerBinning <- function (dataframe, dataframecol, separator){
-  dataframe['Number of Officers'] <- NA
-  dataframe['Binning Number of Officers'] <- NA
-  dataframe$`Number of Officers` <- str_count(dataframecol, coll(separator))+1
-  dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="1"]<- "1"
-  dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="2"]<- "2"
-  dataframe$`Binning Number of Officers`[dataframe$`Number of Officers` > "2"]<- "3+"
-  return(dataframe)
-  
-}
-
 UOF_Officers <- AllMetadata_UOF_NA
-UOF_Officers <- OfficerBinning(UOF_Officers, UOF_Officers$`Officer Gender`, "|")
+UOF_Officers['Number of Officers'] <- NA
+UOF_Officers['Binning Number of Officers'] <- NA
+UOF_Officers$`Number of Officers` <- str_count(UOF_Officers$`Officer Gender`, coll("|"))+1
+UOF_Officers$`Binning Number of Officers`[UOF_Officers$`Number of Officers`=="1"]<- "1"
+UOF_Officers$`Binning Number of Officers`[UOF_Officers$`Number of Officers`=="2"]<- "2"
+UOF_Officers$`Binning Number of Officers`[UOF_Officers$`Number of Officers` > "2"]<- "3+"
+
+  
+#Binning Force Type
+UOF_Officers$Force.Type.Binning <- UOF_Officers$`Force Type`
+UOF_Officers <- UOF_Officers %>%
+  mutate(Force.Type.Binning = case_when(
+    str_detect(Force.Type.Binning, "Discharged") ~ "3",
+    str_detect(Force.Type.Binning, "Vehicle as Weapon") ~ "3",
+    str_detect(Force.Type.Binning, "Escort Tech") ~ "2",
+    str_detect(Force.Type.Binning, "CEW") ~ "2",
+    str_detect(Force.Type.Binning, "Canine") ~ "2",
+    str_detect(Force.Type.Binning, "Baton") ~ "2",
+    str_detect(Force.Type.Binning, "NonTrad Impact Weapon") ~ "2",
+    str_detect(Force.Type.Binning, "Pointed") ~ "1",
+    str_detect(Force.Type.Binning, "Exhibited") ~ "1",
+    str_detect(Force.Type.Binning, "Canine (No Bite)") ~ "1",
+    str_detect(Force.Type.Binning, "Hands") ~ "1",
+    str_detect(Force.Type.Binning, "Take Down") ~ "1",
+    str_detect(Force.Type.Binning, "Takedown") ~ "1",
+    str_detect(Force.Type.Binning, "Head Strike") ~ "1",
+    str_detect(Force.Type.Binning, "Force") ~ "1",
+    str_detect(Force.Type.Binning, "Handcuffed Subject") ~ "1",
+    TRUE ~ Force.Type.Binning
+  ))
 
 
 write.csv(UOF_Officers,"clean data/New Orleans/New Orleans UOF.csv",row.names = FALSE)

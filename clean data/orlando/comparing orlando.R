@@ -1,4 +1,3 @@
-#####################
 #load dependencies and set working directory
 source("ProjectPackageManagement.R")
 source("Data Cleaning Functions.R")

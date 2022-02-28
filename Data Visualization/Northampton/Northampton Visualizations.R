@@ -1,6 +1,7 @@
-#libraries
-library(here)
-library(tidyverse)
+#load dependencies and set working directory
+source("ProjectPackageManagement.R")
+PackageDependency()
+setwd(here())
 
 #loading in datasets
 UOF<- read.csv(file=here('clean data/Northampton/Northampton UOF.csv'), stringsAsFactors = FALSE)

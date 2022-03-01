@@ -1,18 +1,17 @@
-# Dallas data cleaning script
+#Dallas data cleaning script
 
-#load dependencies and set working directory
+#load dependencies and set working directory (Zoe's note - I did not write this and not sure how it got here. Leaving as is)
 setwd(here())
 source("ProjectPackageManagement.R")
 PackageDependency()
 
-
-
+#reading in DallasShootings
 DallasShootings <- read.csv(here("dirty data", "Dallas", "DallasPoliceShootings.csv"), stringsAsFactors = FALSE)
 
-# I want to rename the columns
+#renaming the columns
 colnames(DallasShootings) <- c("case", "date", "location", "result_of_shot_in_subject", "subject_weapon", "subject_info", "officer_info", "grand_jury_disposition", "attorney_general_forms", "summary_url", "geolocation")
 
-# individually changing the messed up values, Juniors, and unknowns. 
+#individually changing values so they fit with the pattern of "first name, last name, race/gender" This involves changing Unknowns and fixing a few input related inconsistencies. 
 DallasShootings$subject_info <- replace(as.character(DallasShootings$subject_info), DallasShootings$subject_info == "Unknown L/M", "Unknown, Unknown L/M")
 DallasShootings$subject_info <- replace(as.character(DallasShootings$subject_info), DallasShootings$subject_info == "Unknown B/M", "Unknown, Unknown B/M")
 DallasShootings$subject_info <- replace(as.character(DallasShootings$subject_info), DallasShootings$subject_info == "Unknown", "Unknown, Unknown Unknown/Unknown")
@@ -22,32 +21,33 @@ DallasShootings$subject_info <- replace(as.character(DallasShootings$subject_inf
 DallasShootings$subject_info <- replace(as.character(DallasShootings$subject_info), DallasShootings$subject_info == "Luster, Desmond Dwayne B/M", "Luster, Desmond-Dwayne B/M")
 DallasShootings$subject_info <- replace(as.character(DallasShootings$subject_info), DallasShootings$subject_info == "Folmar Jr., Alton Anthony W/M", "Folmar, Alton-Anthony W/M")
 DallasShootings$subject_info <- replace(as.character(DallasShootings$subject_info), DallasShootings$subject_info == "Dontrell Terrell B/M", "Dontrell, Terrell B/M")
+DallasShootings$officer_info[DallasShootings$officer_info == "Strand, Emmanuel A/M, Guerra, Carlos L/M"] <- "Strand, Emmanuel A/M; Guerra, Carlos L/M"
 
+#getting rid of instances of Jr. because it messed with future code that relied on the precise pattern
 DallasShootings$officer_info <- gsub("Jr. ", "", DallasShootings$officer_info)
 DallasShootings$subject_info <- gsub("Jr. ", "", DallasShootings$subject_info)
 
-#changing values that had special characters
+#changing values that had special characters to remove them - no other changes made. 
 DallasShootings[123, 6] = "Fuller, Antwuanne B/M"
 DallasShootings[147, 7] = "Loeb, Jeffrey W/M"
 
-DallasShootings$officer_info[DallasShootings$officer_info == "Strand, Emmanuel A/M, Guerra, Carlos L/M"] <- "Strand, Emmanuel A/M; Guerra, Carlos L/M"
-
+#making each officer on a different row
 DallasShootings = separate_rows(DallasShootings,"officer_info",sep = "; ")
 
-#seperating subject info and officer info
+#separating subject info and officer info into separate name, race, and gender columns.
+#In a few cases (about 10), there is more than one subject. The second subject gets deleted. I do not know how to avoid this. 
 DallasShootings <-separate(DallasShootings, subject_info, c('last_name', 'first_race_gender'), sep=", ")
 DallasShootings <-separate(DallasShootings, first_race_gender, c('first_name', 'race_gender'), sep=" ")
 DallasShootings <-separate(DallasShootings, race_gender, c('subject_race', 'subject_gender'), sep="/")
 DallasShootings$subject_name <- paste(DallasShootings$first_name, DallasShootings$last_name)
 DallasShootings[ ,c("last_name", "first_name")] <- list(NULL)
-
 DallasShootings <-separate(DallasShootings, officer_info, c('o_last_name', 'o_first_race_gender'), sep=", ")
 DallasShootings <-separate(DallasShootings, o_first_race_gender, c('o_first_name', 'o_race_gender'), sep=" ")
 DallasShootings <-separate(DallasShootings, o_race_gender, c('officer_race', 'officer_gender'), sep="/")
 DallasShootings$officer_name <- paste(DallasShootings$o_first_name, DallasShootings$o_last_name)
 DallasShootings[ ,c("o_last_name", "o_first_name")] <- list(NULL)
 
-#Replace B with Black, W with White, Unknown with NA,blank values with NA, ect
+#Replace B with Black, W with White, Unknown with NA, blank values with NA, ect
 DallasShootings$subject_race[DallasShootings$subject_race == "B"] <- "Black"
 DallasShootings$subject_race[DallasShootings$subject_race == "W"] <- "White"
 DallasShootings$subject_race[DallasShootings$subject_race == "L"] <- "Latinx"
@@ -74,8 +74,8 @@ DallasShootings$officer_name[DallasShootings$officer_name == "Unknown Unknown"] 
 DallasShootings$subject_race[DallasShootings$subject_race == ""] <- NA
 DallasShootings$officer_race[DallasShootings$officer_race == ""] <- NA
 
-#cleaning weapons
-DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Toy Handun"] <- "Toy Handgun"
+#Organizing subject_weapon. Sorting into broader categories and fixing spelling mistakes and inconsistencies. 
+DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Toy Handun"] <- "Toy Gun"
 DallasShootings$subject_weapon[DallasShootings$subject_weapon == "BB Gun"] <- "Toy Gun"
 DallasShootings$subject_weapon[DallasShootings$subject_weapon == "BB Rifle"] <- "Toy Gun"
 DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Toy Handgun"] <- "Toy Gun"
@@ -89,8 +89,7 @@ DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Handgun"] <- "
 DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Shotgun"] <- "Gun"
 DallasShootings$subject_weapon[DallasShootings$subject_weapon == "Rifle"] <- "Gun"
 
-
-#lets clean the the response to resistance dataset. We have to read in all of the R2R ones by year.
+#Starting on the response to resistance dataset. We have to read in each one by year.
 Dallas_R2R_2013 <- read.csv(here("dirty data", "Dallas", "Police_Response_to_Resistance_-_2013.csv"), stringsAsFactors = FALSE)
 Dallas_R2R_2014 <- read.csv(here("dirty data", "Dallas", "Police__2014_Response_to_Resistance.csv"), stringsAsFactors = FALSE)
 Dallas_R2R_2015 <- read.csv(here("dirty data", "Dallas", "Police__2015_Response_to_Resistance.csv"), stringsAsFactors = FALSE)
@@ -99,9 +98,8 @@ Dallas_R2R_2017 <- read.csv(here("dirty data", "Dallas", "Police_Response_to_Res
 Dallas_R2R_2018 <- read.csv(here("dirty data", "Dallas", "Police_Response_to_Resistance_-_2018.csv"), stringsAsFactors = FALSE)
 Dallas_R2R_2019 <- read.csv(here("dirty data", "Dallas", "Police_Response_to_Resistance___2019.csv"), stringsAsFactors = FALSE)
 
-
-#making all of the datasets have the same column names, in the same order --- "RA", "BEAT", "SECTOR", "DIVISION", "DIST_NAME"
-
+#giving all of the datasets have the same column names, in the same order --- "RA", "BEAT", "SECTOR", "DIVISION", "DIST_NAME"
+#This involved cutting some unimportant columns occasionally to make them consistent. 
 Y_Dallas_R2R_2013<-cbind.data.frame(Dallas_R2R_2013[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT", "RA", "BEAT", "SECTOR", "DIVISION")], stringsAsFactors=FALSE)
 Y_Dallas_R2R_2014<-cbind.data.frame(Dallas_R2R_2014[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT", "RA", "BEAT", "SECTOR", "DIVISION")], stringsAsFactors=FALSE)
 Y_Dallas_R2R_2015<-cbind.data.frame(Dallas_R2R_2015[, c("OCCURRED_DT", "CURRENT_BADGE_NO", "OffSex", "OffRace", "HIRE_DT", "OffCondType", "OFF_INJURED", "OFF_HOSPITAL", "SERVICE_TYPE", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURED", "CitCondType", "CIT_ARRESTED", "CIT_INFL_ASSMT", "CitChargeType", "RA", "BEAT", "SECTOR", "DIVISION")], stringsAsFactors=FALSE)
@@ -112,6 +110,7 @@ Y_Dallas_R2R_2018<-cbind.data.frame(Dallas_R2R_2018[, c("OCCURRED_D", "CURRENT_B
 colnames(Y_Dallas_R2R_2018) <- c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT", "RA", "BEAT", "SECTOR", "DIVISION")
 Y_Dallas_R2R_2019<-cbind.data.frame(Dallas_R2R_2019[, c("OCCURRED_D", "CURRENT_BA", "OffSex", "OffRace", "HIRE_DT", "OffCondTyp", "OFF_INJURE", "OFF_HOSPIT", "SERVICE_TY", "ForceType", "UOF_REASON", "CitRace", "CitSex", "CIT_INJURE", "CitCondTyp", "CIT_ARREST", "CIT_INFL_A", "CitChargeT", "RA", "BEAT", "SECTOR", "DIVISION")], stringsAsFactors=FALSE)
 
+#making the numeric columns numeric 
 Y_Dallas_R2R_2018$BEAT <- as.numeric(Y_Dallas_R2R_2018$BEAT)
 Y_Dallas_R2R_2018$RA <- as.numeric(Y_Dallas_R2R_2018$RA)
 Y_Dallas_R2R_2018$SECTOR <- as.numeric(Y_Dallas_R2R_2018$SECTOR)
@@ -120,10 +119,10 @@ Y_Dallas_R2R_2018$SECTOR <- as.numeric(Y_Dallas_R2R_2018$SECTOR)
 Dallas_R2R<- dplyr::bind_rows(Y_Dallas_R2R_2013, Y_Dallas_R2R_2014, Y_Dallas_R2R_2015, Y_Dallas_R2R_2016, Y_Dallas_R2R_2017, Y_Dallas_R2R_2018, Y_Dallas_R2R_2019)
 Dallas_R2R[ ,"CURRENT_BAxx"] <- list(NULL)
 
-#changing the column names
+#changing the column names 
 colnames(Dallas_R2R) <- c("date", "officer_badge_number", "officer_gender", "officer_race", "hire_date", "officer_injury_type", "officer_injury", "officer_hospital", "service_type", "force_type", "force_reason", "subject_race", "subject_gender", "subject_injury", "subject_injury_type", "subject_arrested", "subject_influence_assesment", "subject_charge", "reporting_area", "beat", "sector", "division")
 
-#fixing small issues
+#fixing small issues - unknown values to NA, No to False, updating outdated language
 Dallas_R2R[Dallas_R2R == "NULL"] <- NA
 Dallas_R2R[Dallas_R2R == "No injuries noted or visible"] <- NA
 Dallas_R2R[Dallas_R2R == "Yes"] <- TRUE
@@ -133,13 +132,10 @@ Dallas_R2R$officer_injury[Dallas_R2R$officer_injury == "No"] <- FALSE
 Dallas_R2R$officer_hospital[Dallas_R2R$officer_hospital == "No"] <- FALSE
 Dallas_R2R[Dallas_R2R == "false"] <- FALSE
 Dallas_R2R[Dallas_R2R == "true"] <- TRUE
-
 Dallas_R2R <- Dallas_R2R %>% mutate_all(na_if,"")
 DallasShootings <- DallasShootings %>% mutate_all(na_if,"Unknown")
 DallasShootings <- DallasShootings %>% mutate_all(na_if,"")
 Dallas_R2R <- Dallas_R2R %>% mutate_all(na_if,"Unknown")
-
-
 Dallas_R2R$subject_race[Dallas_R2R$subject_race == "Other"] <- NA
 Dallas_R2R[Dallas_R2R == "American Ind"] <- "Indigenous"
 
@@ -148,11 +144,16 @@ stopwords = c(" 12:00:00 AM")
 Dallas_R2R$hire_date <- gsub(paste0(stopwords, collapse = "|"),"", Dallas_R2R$hire_date)
 Dallas_R2R$date <- gsub(paste0(stopwords, collapse = "|"),"", Dallas_R2R$date)
 
-DallasLinker <- read.csv(here("dirty data", "Dallas", "DallasLink.csv"), stringsAsFactors = FALSE)
 
+#R2R has badge numbers but not officer names, and shootings has officer names but not badge numbers. This made it impossible to compare the officers in each dataset
+#The code below addresses this by merging R2R and shootings with another dataset that has both officer name and badge number
+#reading in DallasLinker, a dataset I created in a separate script that has a list of officer names and badge numbers
+DallasLinker <- read.csv(here("dirty data", "Dallas", "DallasLink.csv"), stringsAsFactors = FALSE)
+#merging both datasets with DallasLinker
 Dallas_R2R_linked <- merge(DallasLinker, Dallas_R2R, by = "officer_badge_number", all.y = TRUE)
 Dallas_shootings_linked <- merge(DallasLinker, DallasShootings, by = "officer_name", all.y = TRUE)
 
+#creating a dataset for DallasShootings that only has one row per officer
 Dallas_shootings_unique<-subset(Dallas_shootings_linked, !duplicated(subject_name))
 
 #export clean datasets into clean data folder

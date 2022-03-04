@@ -184,3 +184,8 @@ median(blackhispanic$freq)#bootstrap = 0, actual = 0
 median(asianwhite$freq)#bootstrap = 0, actual = 0
 
 # I also need to do some sort of analysis to see if this is statistically significant
+View(whitewhite)
+
+sd(whitewhite$freq)
+#Well, according to my (AP statistics level) calculations, getting 11 or more for whitewhite had a 14.69% chance of occuring randomly.
+#However, these calculations may be off. 

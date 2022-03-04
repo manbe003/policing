@@ -33,6 +33,7 @@ View(OrlandoShootings)
 #Especially because white white might look not diverse but actually it is white hispanic so it is? I'm not sure. 
 #I'm just going to move on from Orland for now and then we can decide if I should go back and try again. 
 
+#would have to divide out and then do replacement 
 
 
 

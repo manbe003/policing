@@ -45,7 +45,6 @@ View(SS_group_freqs)
 #8 whitewhite, 2 asianwhite, 1 hispanicwhite, 2 blackwhite
 
 
-
 #Function neccesary for bootstrapping 
 add_zero_row <- function(race1, race2, dataset){
   Var1 <- race1
@@ -60,8 +59,12 @@ add_zero_row <- function(race1, race2, dataset){
   }
 }
 
-#The actual bootstrapping 
-SS_race<-subset(SeattleCitations, select = "Officer.Race")
+
+#The actual bootstrapping
+
+SS_race<-subset(SeattleCitations, select = c("Officer.Race","name"))
+SS_race <- unique(SS_race)
+SS_race<-subset(SS_race, select = "Officer.Race")
 SS_race[SS_race == "N/A"] <- NA
 SS_race[SS_race == "Other"] <- NA
 SS_race <- na.omit(SS_race)
@@ -72,6 +75,7 @@ Var1 <- "stop"
 Var2 <- "stop"
 Freq <- "stop"
 stop <- data.frame(Var1, Var2, Freq)
+
 
 y  <- NULL;
 for (i in 1:1000) {
@@ -116,9 +120,9 @@ for (i in 1:1000) {
   
 }
 colnames(y) <- c("off1", "off2", "freq")
-SeattleBootstrap <- y
+SeattleBootstrapUnique <- y
+SeattleBootstrap <- SeattleBootstrapUnique
 
-View(SeattleBootstrap)
 
 #making individual frequency datasets for all of the race combinations
 #whitewhite
@@ -152,9 +156,11 @@ hispanicasian <- subset(hispanicasian, hispanicasian$off2 == "Hispanic")
 hispanicasian$freq <- as.numeric(hispanicasian$freq)
 
 
-median(whitewhite$freq) #actual = 8, bootstrap = 8
-median(whiteblack$freq) #actual = 2, bootstrap = 5
-median(hispanicwhite$freq) #actual = 1, bootstrap = 0
-median(asianwhite$freq) #actual = 2, bootstrap = 0
-
-hist(asianwhite$freq)
+median(whitewhite$freq) #actual = 8, bootstrap = 8, unique = 7
+median(whiteblack$freq) #actual = 2, bootstrap = 5, unique = 1
+median(hispanicwhite$freq) #actual = 1, bootstrap = 0, unique = 1
+median(asianwhite$freq) #actual = 2, bootstrap = 0, unique = 1
+median(blackblack$freq)
+median(hispanichispanic$freq)
+median(hispanicasian$freq)
+View(SS_race)

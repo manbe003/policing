@@ -66,7 +66,9 @@ add_zero_row <- function(race1, race2, dataset){
 }
 
 #The actual bootstrapping 
-IS_race<-subset(IndianapolisUOF, select = "officerRace")
+IS_race<-subset(IndianapolisUOF, select = c("officerRace","officerIdentifier"))
+IS_race <- unique(IS_race)
+IS_race<-subset(IS_race, select = "officerRace")
 IS_race[IS_race == "N/A"] <- NA
 IS_race[IS_race == "Other"] <- NA
 IS_race <- na.omit(IS_race)
@@ -120,6 +122,8 @@ for (i in 1:1000) {
 }
 colnames(y) <- c("off1", "off2", "freq")
 View(y)
+IndianapolisBootstrap <- y
+IndianapolisBootstrapUnique <- y
 
 #making individual frequency datasets for all of the race combinations
 #whitewhite
@@ -153,12 +157,44 @@ hispanicasian <- subset(hispanicasian, hispanicasian$off2 == "Hispanic")
 hispanicasian$freq <- as.numeric(hispanicasian$freq)
 
 
-median(whitewhite$freq) #actual = 6, bootstrap = 6
-median(blackblack$freq) #actual = 1, bootstrap = 0
-median(blackwhite$freq) #actual = 1, bootstrap = 2
-median(hispanicwhite$freq) #actual = 0, bootstrap = 0
-median(hispanichispanic$freq) #actual = 0, bootstrap = 0
-median(hispanicasian$freq) #actual = 0, bootstrap = 0
+#making individual frequency datasets for all of the race combinations WITH THE UNIQUE DATA!!!
+#whitewhite
+whitewhite <- subset(IndianapolisBootstrapUnique, IndianapolisBootstrapUnique$off1 == "White")
+whitewhite <- subset(whitewhite, whitewhite$off2 == "White")
+whitewhite$freq <- as.numeric(whitewhite$freq)
+
+#whiteblack
+whiteblack <- subset(IndianapolisBootstrapUnique, IndianapolisBootstrapUnique$off1 == "White")
+whiteblack <- subset(whiteblack, whiteblack$off2 == "Black")
+whiteblack$freq <- as.numeric(whiteblack$freq)
+
+#blackblack
+blackblack <- subset(IndianapolisBootstrapUnique, IndianapolisBootstrapUnique$off1 == "Black")
+blackblack <- subset(blackblack, blackblack$off2 == "Black")
+blackblack$freq <- as.numeric(blackblack$freq)
+
+#hispanichispanic
+hispanichispanic <- subset(IndianapolisBootstrapUnique, IndianapolisBootstrapUnique$off1 == "Hispanic")
+hispanichispanic <- subset(hispanichispanic, hispanichispanic$off2 == "Hispanic")
+hispanichispanic$freq <- as.numeric(hispanichispanic$freq)
+
+#hispanicwhite 
+hispanicwhite <- subset(IndianapolisBootstrapUnique, IndianapolisBootstrapUnique$off1 == "White")
+hispanicwhite <- subset(hispanicwhite, hispanicwhite$off2 == "Hispanic")
+hispanicwhite$freq <- as.numeric(hispanicwhite$freq)
+
+#hispanicasian
+hispanicasian <- subset(IndianapolisBootstrapUnique, IndianapolisBootstrapUnique$off1 == "Asian")
+hispanicasian <- subset(hispanicasian, hispanicasian$off2 == "Hispanic")
+hispanicasian$freq <- as.numeric(hispanicasian$freq)
+
+
+median(whitewhite$freq) #actual = 6, bootstrap = 6, unique = 5
+median(blackblack$freq) #actual = 1, bootstrap = 0, unique = 0
+median(blackwhite$freq) #actual = 1, bootstrap = 2, unique = 2
+median(hispanicwhite$freq) #actual = 0, bootstrap = 0, unique = 0
+median(hispanichispanic$freq) #actual = 0, bootstrap = 0, unique = 0
+median(hispanicasian$freq) #actual = 0, bootstrap = 0, unique = 0
 
 
 #This looks very similar. Bodes well for the police department i guess. 

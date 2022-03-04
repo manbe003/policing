@@ -40,7 +40,9 @@ add_zero_row <- function(race1, race2, dataset){
 
 #Bootstrapping - i'm using LouisvilleStops at the moment. Not sure if this is the best choice
 
+
 LS_race<-subset(LouisvilleStops, select = "officer_race")
+#I have no officer identifiable data that would allow me to unique the function
 
 Var1 <- "stop"
 Var2 <- "stop"
@@ -103,7 +105,8 @@ for (i in 1:1000) {
   y <- rbind(y, LS_bootstrap_freqs, stop)
 }
 colnames(y) <- c("off1", "off2", "freq")
-View(y)
+
+LouisvilleBootstrap <- y 
 
 #making individual frequency datasets for all of the race combinations
 #whitewhite

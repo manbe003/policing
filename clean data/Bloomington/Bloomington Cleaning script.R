@@ -1,16 +1,11 @@
-#Bloomington Cleaning Script
-
 #load dependencies and set working directory
-setwd(here())
 source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
 PackageDependency()
+setwd(here())
 
-install.packages("hablar")
-library(hablar)
-install.packages("sqldf")
-library(sqldf)
 
-#load files
+#load files (UOF, done in yearly quarters)
 BloomUOF2016First<-read.csv(file = 'dirty data/Bloomington/2016 First Quarter UOF.csv', stringsAsFactors = FALSE, header= TRUE)
 BloomUOF2016Second<-read.csv(file = 'dirty data/Bloomington/2016 Second Quarter UOF.csv', stringsAsFactors = FALSE, header= TRUE)
 BloomUOF2016Third<-read.csv(file = 'dirty data/Bloomington/2016 Third Quarter UOF.csv', stringsAsFactors = FALSE, header= TRUE)
@@ -36,6 +31,9 @@ BloomUOF2020Second<-read.csv(file = 'dirty data/Bloomington/2020 Second Quarter 
 BloomUOF2020Third<-read.csv(file = 'dirty data/Bloomington/2020 Third Quarter UOF.csv', stringsAsFactors = FALSE, header= TRUE)
 BloomUOF2020Fourth<-read.csv(file = 'dirty data/Bloomington/2020 Fourth Quarter UOF.csv', stringsAsFactors = FALSE, header= TRUE)
 
+
+### UOF Datasets ###
+
 #some have arbitrary columns that are just row numbers, so we're deleting those rows
 FixCol_BloomUOF2016First<- BloomUOF2016First[-c (1) ]
 FixCol_BloomUOF2016Second<- BloomUOF2016Second[-c (1) ]
@@ -56,7 +54,7 @@ FixCol_BloomUOF2020Second<- BloomUOF2020Second[-c (1) ]
 FixCol_BloomUOF2020Third<-BloomUOF2020Third[-c (1) ]
 FixCol_BloomUOF2020Fourth<- BloomUOF2020Fourth[-c (1) ]
 
-#Bloom2018 First Doesn't Have a couple race columns so I'm going to add them as NA's they all merge well
+#Bloom2018 First Doesn't Have a couple race columns so I'm going to add them as NA's so they all merge well
 FixCol_BloomUOF2018First['Suspect.Race.Indian.Alaskan.Native..Hispanic'] <- NA
 FixCol_BloomUOF2018First['Suspect.Race.Asian.Pacific.Islander..Non.Hispanic'] <- NA
 FixCol_BloomUOF2018First['Suspect.Race.Asian.Pacific.Islander..Hispanic'] <- NA
@@ -160,14 +158,14 @@ All_UOF$Foot.Pursuit <- gsub('NO|No', NA, All_UOF$Foot.Pursuit)
 #uniting these into one Force Level Column
 All_UOF_ForceLevel <- All_UOF
 All_UOF_ForceLevel <- unite(All_UOF_ForceLevel, "Force.Level", 7:14, sep = ", ", remove = TRUE, na.rm = TRUE)
-
+All_UOF_ForceLevel$Force.Binning <- All_UOF_ForceLevel$Force.Level
 
 All_UOF_ForceLevel <- All_UOF_ForceLevel %>%
-  mutate(Force.Level = case_when(
-    str_detect(Force.Level, "3") ~ "3",
-    str_detect(Force.Level, "2") ~ "2",
-    str_detect(Force.Level, "1") ~ "1",
-    TRUE ~ Force.Level
+  mutate(Force.Binning = case_when(
+    str_detect(Force.Binning, "3") ~ "3",
+    str_detect(Force.Binning, "2") ~ "2",
+    str_detect(Force.Binning, "1") ~ "1",
+    TRUE ~ Force.Binning
   ))
 
 #Fixing empty columns to NAs
@@ -180,6 +178,7 @@ All_UOF_ForceLevel$Force.Level[All_UOF_ForceLevel$Force.Level==""]<- NA
 All_UOF_ForceLevel$Suspect.Gender.Female[All_UOF_ForceLevel$Suspect.Gender.Female=="1"]<-"Female"
 All_UOF_ForceLevel$Suspect.Gender.Male[All_UOF_ForceLevel$Suspect.Gender.Male=="1"]<-"Male"
 
+#Making it one gender column
 All_UOF_ForceLevel <- unite(All_UOF_ForceLevel, "Suspect.Gender", 14:15, sep = ", ", remove = TRUE, na.rm = T)
 All_UOF_ForceLevel$Suspect.Gender[All_UOF_ForceLevel$Suspect.Gender==""]<-NA
 
@@ -193,7 +192,11 @@ All_UOF_ForceLevel$Suspect.Race.Indian.Alaskan.Native..Hispanic[All_UOF_ForceLev
 All_UOF_ForceLevel$Suspect.Race.Asian.Pacific.Islander..Non.Hispanic[All_UOF_ForceLevel$Suspect.Race.Asian.Pacific.Islander..Non.Hispanic=="1"]<- "Asian/Pacific Islander"
 All_UOF_ForceLevel$Suspect.Race.Asian.Pacific.Islander..Hispanic[All_UOF_ForceLevel$Suspect.Race.Asian.Pacific.Islander..Hispanic=="1"]<- "Asian/Pacific Islander & Hispanic"
 
+#Making it one race column
 All_UOF_FixRace <- All_UOF_ForceLevel
 All_UOF_FixRace <- unite(All_UOF_FixRace, "Suspect.Race", 16:23, sep = ", ", remove = T, na.rm = T)
 
+
+### Saving Cleaned Dataset ###
 write.csv(All_UOF_FixRace,here("clean data","Bloomington","Bloomington_UOF.csv"),row.names = FALSE)
+

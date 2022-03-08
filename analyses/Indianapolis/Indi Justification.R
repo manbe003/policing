@@ -3,12 +3,12 @@ setwd(here())
 source("ProjectPackageManagement.R")
 source("Data Cleaning Functions.R")
 PackageDependency()
-library(sqldf)
+
 
 #loading Libraries
 Indi_UOF<-read.csv(file = 'clean data/Indianapolis/UOF.csv', stringsAsFactors = FALSE)
 
-#Binning indianaoplis UOF type
+#Binning Indianapolis UOF type
 Indi_UOF$officerForceType<- gsub('Physical-Kick|Physical-Hands, Fist, Feet|Physical-Weight Leverage|Physical-Take Down|Physical-Palm Strike|Physical-Elbow Strike|Physical-Handcuffing|Physical-Leg Sweep|Physical-Knee Strike|Physical-Push|Physical-Other|Physical-Joint/Pressure|Physical-Fist Strike','1',Indi_UOF$officerForceType)
 Indi_UOF$officerForceType<- gsub('Less Lethal-Taser|Less Lethal-Personal CS/OC spray|Less Lethal-Baton|Less Lethal-Burning CS|Less Lethal-Flash Bang|Less Lethal-Pepperball|Less Lethal-Bps Gas|Less Lethal-CS Grenade|Less Lethal-Other|Less Lethal-CS/OC|Less Lethal-Clearout OC|Less Lethal-Bean Bag|Less Lethal-CS Fogger|Canine Bite','2',Indi_UOF$officerForceType)
 Indi_UOF$officerForceType<- gsub('Lethal-Handgun|Lethal-Vehicle','3',Indi_UOF$officerForceType)

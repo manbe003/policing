@@ -133,6 +133,8 @@ ChiFunction(Justif1, Chi1, Chisq1)
 ChiFunction(Justif2, Chi2, Chisq2)
 ChiFunction(Justif3, Chi3, Chisq3)
 
+
+#Significance test between Justification level and number of officers
 Chi<-na.omit(table(Indi2$Justification, Indi2$BinningNumberofOfficers))
 print(Chi)
 chisq <- chisq.test(as.numeric(Chi))

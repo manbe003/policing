@@ -5,9 +5,11 @@ PackageDependency()
 setwd(here())
 
 
-#I want to call in my datasets (use of force, shootings).
+#Calling datasets (use of force, shootings).
 UOF <- read.csv(file=here('dirty data/orlando/OPD_Response_To_Resistance.csv'), stringsAsFactors = FALSE)
 shootings <- read.csv(file=here('dirty data/orlando/OPD_Officer-Involved_Shootings.csv'), stringsAsFactors = FALSE)
+
+### UOF Dataset ###
 
 #removing row 5 because its the column names repeated
 UOF<-UOF[-c(5, 2705), ]
@@ -81,6 +83,7 @@ AllMetadata_UOF_FixLevels[AllMetadata_UOF_FixLevels=="No"]<-NA
 
 AllMetadata_UOF_FixLevels<- AllMetadata_UOF_FixLevels %>% unite("UOF.Level", `Electronic Device Used`:`K9 Unit Involved`, sep = ";", na.rm = TRUE, remove = TRUE)
 
+#Binning levels of force according to our paper
 AllMetadata_UOF_FixLevels <- AllMetadata_UOF_FixLevels %>%
   mutate(`UOF.Level` = case_when(
     str_detect(`UOF.Level`, "4") ~ "2",
@@ -95,8 +98,9 @@ UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Officers Involve
 UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Officers Involved`=="2"]<- "2"
 UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Officers Involved` > 2]<- "3+"
 
-#####################
 
+
+### Shootings Dataset ###
 
 #making a table with all relevant metadata for shootings
 AllMetadata_shootings<-cbind.data.frame(shootings$ï..Case..,shootings$Date,shootings$Number.of.Officers.Involved,shootings$Officer.Name,shootings$Officer.Race,shootings$Ethnicity,shootings$Officer.Gender,shootings$Suspect.Race,shootings$Suspect.Gender,shootings$Suspect.Hit,shootings$Fatal, stringsAsFactors=FALSE)
@@ -147,6 +151,6 @@ AllMetadata_shootings_Fix$Fatal <- gsub(' No', 'No', AllMetadata_shootings_Fix$F
 
 
 
-#save as data file/set
+### Saving Cleaned Dataset ###
 write.csv(AllMetadata_shootings_Fix,(file=here('clean data/orlando/shooting (cleaned).csv')), row.names = FALSE)
 write.csv(UOF_ALL_GroupFix,(File=here('clean data/orlando/UOF (cleaned).csv')), row.names = FALSE)

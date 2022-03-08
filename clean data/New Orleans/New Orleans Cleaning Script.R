@@ -4,8 +4,12 @@ source("Data Cleaning Functions.R")
 PackageDependency()
 setwd(here())
 
-#loading datasets
+#loading datasets (UOF)
 UOF <- read.csv(file='dirty data/New Orleans/NOPD_Use_of_Force_Incidents.csv', stringsAsFactors = FALSE)
+
+
+
+### UOF Dataset ###
 
 #making a table with relevant data
 AllMetadata_UOF<- cbind.data.frame(UOF$PIB.File.Number,UOF$Date.Occurred,UOF$Disposition,UOF$Service.Type,UOF$Use.of.Force.Type,UOF$Use.of.Force.Level,UOF$Officer.Race.Ethnicity,UOF$Officer.Gender,UOF$Officer.Age,UOF$Officer.Years.of.Service,UOF$Subject.Gender,UOF$Subject.Ethnicity,UOF$Subject.Age,UOF$Subject.Injured,UOF$Use.of.Force.Reason,UOF$Officer.Injured, stringsAsFactors=FALSE)
@@ -52,4 +56,6 @@ UOF_Officers <- UOF_Officers %>%
   ))
 
 
+
+### Saving Cleaned Dataset ###
 write.csv(UOF_Officers,"clean data/New Orleans/New Orleans UOF.csv",row.names = FALSE)

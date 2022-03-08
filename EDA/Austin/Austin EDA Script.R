@@ -10,7 +10,7 @@ UOF_EDA<-read.csv(file=here('clean data/Austin/UseOfForce_Austin.csv'), stringsA
 Shootings_EDA<-read.csv(file=here('clean data/Austin/Shootings_Austin.csv'), stringsAsFactors = TRUE)
 Citations_EDA<-read.csv(file=here('clean data/Austin/Citations_Austin.csv'), stringsAsFactors = TRUE)
 
-###Descriptive data###
+### All Dataset's Descriptive Data ###
 
 #summaries
 summary(UOF_EDA)
@@ -46,9 +46,9 @@ ggplot(UOF_EDA, aes(sample = officer.Yrs.of.service)) +
   geom_qq_line()
 
 
-##categorical data###
+### Categorical Data ###
 
-###UOF Data
+### UOF Data
 
 #levels
 levels(UOF_EDA$subject.race)
@@ -76,7 +76,7 @@ ggplot(UOF_EDA,
   geom_bar(position = "dodge")
 
 
-###Citations Data
+### Citations Data
 
 #levels
 levels(Citations_EDA$Subject.Race)
@@ -90,7 +90,7 @@ ggplot(Citations_EDA, aes(Subject.gender)) +
   geom_bar()
 
 
-###Shootings Data
+### Shootings Data
 
 #levels
 levels(Shootings_EDA$Officer.Rank)

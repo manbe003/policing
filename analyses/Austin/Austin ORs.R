@@ -8,12 +8,13 @@ setwd(here())
 UOF <- read.csv(file = here("clean data/Austin/UseOfForce_Austin.csv"), stringsAsFactors = FALSE)
 Shootings<- read.csv(file = here("clean data/Austin/Shootings_Austin.csv"), stringsAsFactors = FALSE)
 
-## ORs for UOF ##
+### ORs for UOF ###
+
 #*Austin R2R does not map on directly to our coding of UOF (1- lethal weapon, 2- non lethal weapon,3- no weapon)*
 
 ##This is the equivalent to our Lethal vs Non Lethal odds ratio
 #Key to Austin R2R 1- Lethal, 2- less than lethal, 3- minor force
-#Binning it so lvl 1 is "lethal" and 2 & 3 is "Less than Lethal", and anything other than that to NA
+#Binning it so lvl 1 is "lethal" and 2 & 3 is "Less than Lethal", and anything other than that is NA
 UOF1<-UOF
 UOF1$R2R.Level<- gsub('0|13|14|23|24|34|4',NA,UOF1$R2R.Level)
 UOF1$R2R.Level<- gsub('1',"Lethal" ,UOF1$R2R.Level)
@@ -75,7 +76,8 @@ ggplot(VictimRace_UOFLevel2,
   geom_bar(position = "dodge")
 
 
-## OR for shootings ##
+
+### OR for shootings ###
 
 #Changing variables to Injured/No Injury vs Killed by PD, anything else NA
 Shootings2<- Shootings 

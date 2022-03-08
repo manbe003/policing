@@ -5,11 +5,13 @@ PackageDependency()
 setwd(here())
 
 
-#call files
+#call files (Shootings, UOF)
 Shootings<-read.csv(file=here('clean data/orlando/Shooting (cleaned).csv'), stringsAsFactors = FALSE)
 UOF<-read.csv(file=here('clean data/orlando/UOF (cleaned).csv'), stringsAsFactors = FALSE)
 
-##Categorical data because there is no descriptive data
+### UOF Dataset ###
+
+#Categorical data because there is no descriptive data ###
 
 #deleting rows where number of races and ethnicities dont match up.
 UOF_Offenders<- UOF[-c(3041, 4376, 5295, 1125, 3039, 5293, 4374), ]
@@ -73,7 +75,7 @@ ggplot(UOF_officerGroups, aes(Officer.Race.Groups)) +
   geom_bar()
 
 
-#############################
+### Shootings Dataset ###
 
 #separating rows so there is only one offender per row
 Shootings_Offenders<- Shootings %>% separate_rows(Suspect.Race, Suspect.Gender, Suspect.Hit, Fatal, sep= ",")

@@ -3,7 +3,7 @@ source("ProjectPackageManagement.R")
 PackageDependency()
 setwd(here())
 
-#loading in datasets
+#loading in datasets (UOF)
 UOF14<-read.csv(file='dirty data/Northampton/PDI Use of Force 2014 DONE.csv', stringsAsFactors = FALSE)
 UOF15<-read.csv(file='dirty data/Northampton/PDI Use of Force 2015 DONE.csv', stringsAsFactors = FALSE)
 UOF16<-read.csv(file='dirty data/Northampton/PDI Use of Force 2016.csv', stringsAsFactors = FALSE)
@@ -13,6 +13,7 @@ UOF19<-read.csv(file='dirty data/Northampton/Use of Force 2019 - incident level.
 UOF20<-read.csv(file='dirty data/Northampton/PDI 2020 - Use of Force (1).csv', stringsAsFactors = FALSE)
 
 
+### UOF Dataset ###
 
 #renaming columns in each to what they should be named and removing the first row where the column names were
 UOF14_FixCol<- UOF14
@@ -66,6 +67,8 @@ UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Number of Office
 UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Number of Officers`=="2"]<- "2"
 UOF_ALL_GroupFix$`Binning Number of Officers`[UOF_ALL_GroupFix$`Number of Officers` > 2]<- "3+"
 
+
+#making a new column for binning Force type and binning force types into levels according to paper outline
 UOF_All_FixLevels <- UOF_ALL_GroupFix
 UOF_All_FixLevels$Force.Binning<- UOF_All_FixLevels$`PD Force Type`
 UOF_All_FixLevels <- UOF_All_FixLevels %>%
@@ -132,6 +135,5 @@ UOF_All_FixLevels <- UOF_All_FixLevels %>%
 
 
 
-#Binning force types into levels according to paper outline
-
+### Saving Cleaned Dataset ###
 write.csv(UOF_All_FixLevels,"clean data/Northampton/Northampton UOF.csv",row.names = FALSE)

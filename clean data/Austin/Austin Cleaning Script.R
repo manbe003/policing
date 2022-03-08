@@ -19,7 +19,7 @@ Shooting_Incidents<-read.csv(file=here('dirty data/Austin/Officer_Involved_Shoot
 Shooting_officers<-read.csv(file=here('dirty data/Austin/Officer_Involved_Shootings_2008-17_Officers.csv'), stringsAsFactor = FALSE)
 Shooting_Subjects<-read.csv(file=here('dirty data/Austin/Officer_Involved_Shootings_2008-17_Subjects.csv'), stringsAsFactors = FALSE)
 
-###UOF Data Cleaning
+###UOF Data Cleaning ###
 
 #removing columns other data sets don't have to make them uniform so they merge easily
 UOF14_Fix_Col<-subset(UOF14, select=-c(Subject.Effects))
@@ -96,7 +96,8 @@ AllMetadata_UOF_FixRace$`subject race`[AllMetadata_UOF_FixRace$`subject race`=="
 
 
 
-###Citations Data Cleaning
+### Citations Data Cleaning ###
+
 #fixing column names to match to merge easily
 Citations18<-Citations18%>% rename(OFF.FROM.DATE = OffenseDate,
                                    CITATION.NUMBER = Citation.Number,
@@ -139,7 +140,7 @@ AllMetadata_citations_FixRace$`Subject Race`[AllMetadata_citations_FixRace$`Subj
 
 
 
-###OIS Data Cleaning
+### OIS Data Cleaning ###
 
 #combining shootings into one data set with all info together
 OIS_ALL<-merge(Shooting_officers,Shooting_Subjects)
@@ -165,7 +166,9 @@ AllMetadata_Shootings<-cbind.data.frame(OIS_ALL$Case..,OIS_ALL$Date,OIS_ALL$Time
 colnames(AllMetadata_Shootings)<-(c("Case","Date","Time","Officer Name","Officer Rank","Officer Race","Officer Gender","Officer Age","Officer Prev. OIS","Less than Lethal Forced Used by APD Prior to Shooting","Subject Race","Subject Gender","Subject Injuries","Subject Weapons","Number of Hits" ))
 
 
-###Saving new data sets
+
+### Saving new data sets ###
+
 #saving new shootings data set to clean data file
 write.csv(AllMetadata_Shootings,"C:/Users/katie/Desktop/policing/clean data/Austin\\Shootings_Austin.csv",row.names = FALSE)
 

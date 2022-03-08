@@ -8,7 +8,7 @@ PackageDependency()
 #Call in my datasets (OIS)
 OIS<-read.csv(file= 'clean data/Indianapolis/OIS.csv', stringsAsFactors = TRUE)
 
-## Descriptive data ##
+### Descriptive Data ###
 
 #Summary
 summary(OIS)
@@ -37,7 +37,7 @@ ggplot(OIS, aes(sample = officerYearsOfService)) + geom_qq() + geom_qq_line()
 #Correlations
 cor.test(OIS$officerAge, OIS$residentAge)
 
-## Categorical data analysis ##
+### Categorical data analysis ###
 
 #Levels
 levels(OIS$residentSex)

@@ -1,24 +1,14 @@
 #load dependencies and set working directory
-setwd(here())
 source("ProjectPackageManagement.R")
 source("Data Cleaning Functions.R")
 PackageDependency()
+setwd(here())
 
 #I want to call in my datasets (OIS, UOF)
 OIS<-read.csv(file = 'dirty data/Indianapolis/Indianapolis Officer Involved Shootings.csv', stringsAsFactors = FALSE)
 UOF<-read.csv(file = 'dirty data/Indianapolis/Indianapolis Use of Force Incidents.csv', stringsAsFactors = FALSE)
 
-## OIS Cleaning ##
-
-#Make all null values = N/A for OIS
-OIS = ReplwNull(OIS)
-
-#Match and replace for OIS
-OIS$officerWeaponUsed[OIS$officerWeaponUsed=="IMPD - Duty Handgun"]<-("Duty Handgun")
-OIS$officerWeaponUsed[OIS$officerWeaponUsed=="IMPD - Shotgun"]<-("Shotgun")
-OIS$officerWeaponUsed[OIS$officerWeaponUsed=="IMPD - Patrol Rifle"]<-("Patrol Rifle")
-
-## UOF Cleaning ###
+### UOF Cleaning ###
 
 #Match and replace for UOF resident condition to make it uniform
 UOF$residentCondition[UOF$residentCondition=="abraisons"]<-("Abrasions")
@@ -159,7 +149,7 @@ UOF$residentCondition[UOF$residentCondition=="two braids pulled out"]<-("Two bra
 UOF$residentCondition[UOF$residentCondition=="Where female was grabbed"]<-("Grabbed")
 UOF$residentCondition[UOF$residentCondition=="Where Taser Prong entered"]<-("Puncture wound/Taser probe")
 
-#Find and replace for Officer Condition
+#Find and replace for Officer Condition to make it more uniform
 UOF$officerCondition[UOF$officerCondition=="(kicked) sudden short pain"]<-("Kicked")
 UOF$officerCondition[UOF$officerCondition=="Abrasion to forehead"]<-("Abrasions")
 UOF$officerCondition[UOF$officerCondition=="ABRASION-RIGHT INDEX FINGER"]<-("Abrasions")
@@ -290,6 +280,18 @@ UOF_FixLevels <- UOF_FixLevels %>%
 UOF_FixLevels$ForceBinning[UOF_FixLevels$ForceBinning=="N/A"]<-NA
 
 
-#Save
+### OIS Cleaning ###
+
+#Make all null values = N/A for OIS
+OIS = ReplwNull(OIS)
+
+#Match and replace for OIS
+OIS$officerWeaponUsed[OIS$officerWeaponUsed=="IMPD - Duty Handgun"]<-("Duty Handgun")
+OIS$officerWeaponUsed[OIS$officerWeaponUsed=="IMPD - Shotgun"]<-("Shotgun")
+OIS$officerWeaponUsed[OIS$officerWeaponUsed=="IMPD - Patrol Rifle"]<-("Patrol Rifle")
+
+
+### Saving Cleaned Datasets ###
+
 write.csv(OIS,"clean data/Indianapolis/OIS.csv",row.names = FALSE)
 write.csv(UOF_FixLevels,"clean data/Indianapolis/UOF.csv",row.names = FALSE)

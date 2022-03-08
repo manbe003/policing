@@ -116,6 +116,13 @@ ChiFunction(Justif1, Chi1, Chisq1)
 ChiFunction(Justif2, Chi2, Chisq2)
 ChiFunction(Justif3, Chi3, Chisq3)
 
+#Significance test between Justification level and number of officers
+Chi<-na.omit(table(NewOrl2$Justification, NewOrl2$Binning.Number.of.Officers))
+print(Chi)
+chisq <- chisq.test(as.numeric(Chi))
+print(chisq)
+
+mosaicplot(Chi, shade = TRUE, las=2, main = "Justification")
 
 
 

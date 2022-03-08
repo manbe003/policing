@@ -5,7 +5,6 @@ source("Data Cleaning Functions.R")
 PackageDependency()
 library(sqldf)
 
-
 #loading Libraries
 Indi_UOF<-read.csv(file = 'clean data/Indianapolis/UOF.csv', stringsAsFactors = FALSE)
 
@@ -123,7 +122,7 @@ names(Just3_Prob) <- c("NumberofOfficers","Freq", "Probability")
 
 #Making a function for Chi square significance testing and mosaic plots
 ChiFunction = function(Justif, Chi, Chisq){ 
-  Chi<-na.omit(table(Justif$BinningNumberofOfficers,Justif$officerForceType))
+  Chi<-na.omit(table(Justif$BinningNumberofOfficers,Justif$Justi))
   chisq <- chisq.test(as.numeric(Chi))
   print(chisq)
   
@@ -134,7 +133,12 @@ ChiFunction(Justif1, Chi1, Chisq1)
 ChiFunction(Justif2, Chi2, Chisq2)
 ChiFunction(Justif3, Chi3, Chisq3)
 
+Chi<-na.omit(table(Indi2$Justification, Indi2$BinningNumberofOfficers))
+print(Chi)
+chisq <- chisq.test(as.numeric(Chi))
+print(chisq)
 
+mosaicplot(Chi, shade = TRUE, las=2, main = "Justification")
 
 
 

@@ -119,7 +119,7 @@ Justif3Graph <- ggplot(Justif3,
 
 #easily comparing graphs & tables w/ same y-axis marks
 ##pairs respond the most across all justification levels with 3+ groups a close 2nd, even in lethal force justification encounters
-## not enough data to be solid, justfi1 gives preliminary idea that in justif1 the "appropriate" amount of force is used
+## not enough data to be solid, justf1 gives preliminary idea that in justif1 the "appropriate" amount of force is used
 print(Justif1Graph)
 table(Justif1)
 print(Justif2Graph)
@@ -154,4 +154,11 @@ ChiFunction(Justif1, Chi1, Chisq1)
 ChiFunction(Justif2, Chi2, Chisq2)
 ChiFunction(Justif3, Chi3, Chisq3)
 
+#Significance test between Justification level and number of officers
+Chi<-na.omit(table(Northamp2$Justification, Northamp2$Binning.Number.of.Officers))
+print(Chi)
+chisq <- chisq.test(as.numeric(Chi))
+print(chisq)
+
+mosaicplot(Chi, shade = TRUE, las=2, main = "Justification")
 

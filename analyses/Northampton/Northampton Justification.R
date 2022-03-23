@@ -73,7 +73,7 @@ Northamp <- Northamp %>%
   ))
 
 
-#Binning indianaoplis Justification
+#Binning Northampton Justification
 Northamp2<- Northamp[,c("PD.Force.Type","Binning.Number.of.Officers","Subject.Weapon")]
 names(Northamp2)[names(Northamp2) == 'Subject.Weapon'] <- 'Justification'
 Northamp2$Justification<- gsub('No|No ','1',Northamp2$Justification)
@@ -160,5 +160,6 @@ print(Chi)
 chisq <- chisq.test(as.numeric(Chi))
 print(chisq)
 
-mosaicplot(Chi, shade = TRUE, las=2, main = "Justification")
+mosaicplot(~ Justification + Binning.Number.of.Officers, data = Northamp2,
+           main = "Number of Officers VS Justification", shade = TRUE)
 

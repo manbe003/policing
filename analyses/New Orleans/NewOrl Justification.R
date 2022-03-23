@@ -122,8 +122,8 @@ print(Chi)
 chisq <- chisq.test(as.numeric(Chi))
 print(chisq)
 
-mosaicplot(Chi, shade = TRUE, las=2, main = "Justification")
-
+mosaicplot(~ Justification + Binning.Number.of.Officers, data = NewOrl2,
+           main = "Number of Officers VS Justification", shade = TRUE)
 
 
 

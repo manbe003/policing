@@ -120,9 +120,9 @@ Just3_Prob <- cbind(Just3_Prob, prop.table(Just3_Prob$Freq))
 names(Just3_Prob) <- c("NumberofOfficers","Freq", "Probability")
 
 
-#Making a function for Chi square significance testing and mosaic plots
+#Making a function for Chi square significance testing and mosaic plots of force type vs group size at each justification level
 ChiFunction = function(Justif, Chi, Chisq){ 
-  Chi<-na.omit(table(Justif$BinningNumberofOfficers,Justif$Justi))
+  Chi<-na.omit(table(Justif$BinningNumberofOfficers,Justif$officerForceType))
   chisq <- chisq.test(as.numeric(Chi))
   print(chisq)
   
@@ -140,8 +140,8 @@ print(Chi)
 chisq <- chisq.test(as.numeric(Chi))
 print(chisq)
 
-mosaicplot(Chi, shade = TRUE, las=2, main = "Justification")
-
+mosaicplot(~ Justification + BinningNumberofOfficers, data = Indi2,
+           main = "Number of Officers VS Justification", shade = TRUE)
 
 
 ##More Graphs, little less relevant

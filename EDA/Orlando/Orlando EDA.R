@@ -1,14 +1,17 @@
-#libraries
-library(tidyr)
-library(dplyr)
-library(here)
-library(tidyverse)
-library(stringr)
+#load dependencies and set working directory
+source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
+PackageDependency()
+setwd(here())
 
-##Categorical data because there is no descriptive data
-#call files
+
+#call files (Shootings, UOF)
 Shootings<-read.csv(file=here('clean data/orlando/Shooting (cleaned).csv'), stringsAsFactors = FALSE)
 UOF<-read.csv(file=here('clean data/orlando/UOF (cleaned).csv'), stringsAsFactors = FALSE)
+
+### UOF Dataset ###
+
+#Categorical data because there is no descriptive data ###
 
 #deleting rows where number of races and ethnicities dont match up.
 UOF_Offenders<- UOF[-c(3041, 4376, 5295, 1125, 3039, 5293, 4374), ]
@@ -35,7 +38,7 @@ UOF_officerGroups<- unite(UOF_officerGroups,"Officers Race",`Officer one Race`:`
 UOF_officerGroups<- unite(UOF_officerGroups,"Officers Ethnicity",`Officer one ethnicity`:`Officer two ethnicity`:`Officer three ethnicity`:`Officer four ethnicity`:`Officer five ethnicity`, sep = ";", na.rm = TRUE, remove = FALSE)
 UOF_officerGroups<- UOF_officerGroups[-c(7:11,13:17)]
 UOF_officerGroups$Officer.Race.Groups <-UOF_officerGroups$`Officers Race`
-UOF_officerGroups <-UOF_officerGroups[c(1,2,3,4,5,12,6,7,8,9,10,11)]
+
 
 #function to make it so mixed race groups say mixed and single race groups say that race in the Officer.Race.Groups col
 f <- function(x) ifelse(length(u <- unique(unlist((strsplit(x, ";"))))) > 1, "Mixed", u)
@@ -47,11 +50,14 @@ summary(UOF)
 summary(UOF_Offenders)
 summary(UOF_officerGroups)
 
-#levels
+#levels, and changing variables to factors to see their levels
+UOF_Offenders$Offenders.Race <- as.factor(UOF_Offenders$Offenders.Race)
 levels(UOF_Offenders$Offenders.Race)
+UOF_Offenders$Offenders.Ethnicity <- as.factor(UOF_Offenders$Offenders.Ethnicity)
 levels(UOF_Offenders$Offenders.Ethnicity)
+UOF_Offenders$Offenders.Sex <- as.factor(UOF_Offenders$Offenders.Sex)
 levels(UOF_Offenders$Offenders.Sex)
-levels(UOF_officerGroups$Officers.Involved)
+UOF_officerGroups$Officer.Race.Groups <- as.factor(UOF_officerGroups$Officer.Race.Groups)
 levels(UOF_officerGroups$Officer.Race.Groups)
 
 
@@ -69,7 +75,7 @@ ggplot(UOF_officerGroups, aes(Officer.Race.Groups)) +
   geom_bar()
 
 
-#############################
+### Shootings Dataset ###
 
 #separating rows so there is only one offender per row
 Shootings_Offenders<- Shootings %>% separate_rows(Suspect.Race, Suspect.Gender, Suspect.Hit, Fatal, sep= ",")
@@ -94,9 +100,9 @@ Shootings_OfficerGroups<- within(Shootings_OfficerGroups, `Officer eleven Race`[
 #recombine them into one row to make groups
 Shootings_OfficerGroups<- unite(Shootings_OfficerGroups,"Officers Race",`Officer one Race`:`Officer two Race`:`Officer three Race`:`Officer four Race`:`Officer five Race`:`Officer six Race`:`Officer seven Race`:`Officer eight Race`:`Officer nine Race`:`Officer ten Race`:`Officer eleven Race`, sep = ";", na.rm = TRUE, remove = FALSE)
 Shootings_OfficerGroups<- unite(Shootings_OfficerGroups,"Officers Ethnicity",`Officer one ethnicity`:`Officer two ethnicity`:`Officer three ethnicity`:`Officer four ethnicity`:`Officer five ethnicity`:`Officer six ethnicity`:`Officer seven ethnicity`:`Officer eight ethnicity`:`Officer nine ethnicity`:`Officer ten ethnicity`:`Officer eleven ethnicity`, sep = ";", na.rm = TRUE, remove = FALSE)
-Shootings_OfficerGroups<- Shootings_OfficerGroups[-c(5:15,17:27)]
+Shootings_OfficerGroups<- Shootings_OfficerGroups[-c(6:16,18:28)]
 Shootings_OfficerGroups$Officer.Race.Groups <-Shootings_OfficerGroups$`Officers Race`
-Shootings_OfficerGroups <-Shootings_OfficerGroups[c(1,2,3,4,11,5,6,7,8,9,10)]
+#Shootings_OfficerGroups <-Shootings_OfficerGroups[c(1,2,3,4,11,5,6,7,8,9,10)]
 
 #function to make it so mixed race groups say mixed and single race groups say that race in the Officer.Race.Groups col
 f2 <- function(x) ifelse(length(u <- unique(unlist((strsplit(x, ";"))))) > 1, "Mixed", u)
@@ -108,10 +114,15 @@ summary(Shootings)
 summary(Shootings_Offenders)
 summary(Shootings_OfficerGroups)
 
+Shootings_Offenders$Suspect.Race <- as.factor(Shootings_Offenders$Suspect.Race)
 levels(Shootings_Offenders$Suspect.Race)
+Shootings_Offenders$Suspect.Gender <- as.factor(Shootings_Offenders$Suspect.Gender)
 levels(Shootings_Offenders$Suspect.Gender)
+Shootings_Offenders$Suspect.Hit <- as.factor(Shootings_Offenders$Suspect.Hit)
 levels(Shootings_Offenders$Suspect.Hit)
+Shootings_Offenders$Fatal <- as.factor(Shootings_Offenders$Fatal)
 levels(Shootings_Offenders$Fatal)
+Shootings_OfficerGroups$Officer.Race.Groups <- as.factor(Shootings_OfficerGroups$Officer.Race.Groups)
 levels(Shootings_OfficerGroups$Officer.Race.Groups)
 
 #graphs

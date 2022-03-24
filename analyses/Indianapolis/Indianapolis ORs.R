@@ -1,69 +1,81 @@
-#libraries
-library(here)
-library(tidyverse)
-library(epitools)
-library(tidyr)
-library(dplyr)
+#load dependencies and set working directory
+setwd(here())
+source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
+PackageDependency()
 
 #loading in datasets
 UOF<- read.csv(file = here("clean data/Indianapolis/UOF.csv"), stringsAsFactors = FALSE)
 Shootings<- read.csv(file = here("clean data/Indianapolis/OIS.csv"), stringsAsFactors = FALSE)
 
 
-UOF_levels<- UOF
-UOF_levels$officerForceType<- gsub('Physical-Kick|Physical-Hands, Fist, Feet|Physical-Weight Leverage|Physical-Take Down|Physical-Palm Strike|Physical-Elbow Strike|Physical-Handcuffing|Physical-Leg Sweep|Physical-Knee Strike|Physical-Push|Physical-Other|Physical-Joint/Pressure|Physical-Fist Strike','Physical',UOF_levels$officerForceType)
-UOF_levels$officerForceType<- gsub('Less Lethal-Taser|Less Lethal-Personal CS/OC spray|Less Lethal-Baton|Less Lethal-Burning CS|Less Lethal-Flash Bang|Less Lethal-Pepperball|Less Lethal-Bps Gas|Less Lethal-CS Grenade|Less Lethal-Other|Less Lethal-CS/OC|Less Lethal-Clearout OC|Less Lethal-Bean Bag|Less Lethal-CS Fogger|Canine Bite','Less Than Lethal',UOF_levels$officerForceType)
-UOF_levels$officerForceType<- gsub('Lethal-Handgun|Lethal-Vehicle','Lethal',UOF_levels$officerForceType)
-UOF_levels$officerForceType<- gsub('N/A',NA,UOF_levels$officerForceType)
 
-#to compare Lethal vs less than lethal I have to make these races NA bc they have 0s in the lethal column
-UOF_levels2<- UOF_levels
-UOF_levels2$residentRace<- gsub('N/A|Asian|Hispanic|Native American|Polynesian', NA, UOF_levels2$residentRace)
-UOF_levels2$officerForceType<- gsub('Physical|Less Than Lethal','Less Than Lethal',UOF_levels2$officerForceType)
+UOF_Function<- UOF
+#function to prep dataset for the OR
+OR_Prep = function(dataset,column){
+  #making a column binning level of force as lethal vs non lethal
+  dataset['Lethal.vs.Non-lethal.Weapon'] <- column
+  dataset$`Lethal.vs.Non-lethal.Weapon`<- gsub('1|2', 'Non-Lethal', dataset$`Lethal.vs.Non-lethal.Weapon`)
+  dataset$`Lethal.vs.Non-lethal.Weapon`<- gsub('3', 'Lethal', dataset$`Lethal.vs.Non-lethal.Weapon`)
+  
+  #making a column binning level of force as Weapon vs No Weapon
+  dataset['Weapon.vs.No Weapon'] <- column
+  dataset$`Weapon.vs.No Weapon`<- gsub('2|3', 'Weapon', dataset$`Weapon.vs.No Weapon`)
+  dataset$`Weapon.vs.No Weapon`<- gsub('1', 'No Weapon', dataset$`Weapon.vs.No Weapon`)
+  return(dataset)
+}
 
+UOF_Function<- OR_Prep(UOF_Function, UOF_Function$ForceBinning)
 
-#taking out Polynesian has a 0 in Lethal and less than lethal column and combing less than lethal and lethal as worse outcome
-UOF_levels$residentRace<- gsub('N/A|Polynesian', NA, UOF_levels$residentRace)
-UOF_levels$officerForceType<- gsub('Lethal|Less Than Lethal','Less Than Lethal/Lethal',UOF_levels$officerForceType)
+#splitting them into their own dataframes to compute lethal vs non lethal and weapon vs no weapon seperatly
+UOF_Lethal<- UOF_Function
+UOF_Weapon<- UOF_Function
 
+##Weapon vs No weapon OR##
 
-##First comparing Physical vs. Less than Lethal/Lethal
-Race_ForceType<- as.data.frame(na.omit(cbind(as.character(UOF_levels$officerForceType), as.character(UOF_levels$residentRace))))
+#removing races with 0's from UOF_weapon to compute OR
+UOF_Weapon$residentRace<- gsub('N/A|Polynesian', NA, UOF_Weapon$residentRace)
 
-#table
-Level.Race<-table(Race_ForceType$V2, Race_ForceType$V1)
-Level.Race <- Level.Race[c(6,1:5),]
-print(Level.Race)
+#making a table of Weapon vs No Weapon used with each race
+OR_Table<-table(UOF_Weapon$residentRace, UOF_Weapon$`Weapon.vs.No Weapon`)
+OR_Table <- OR_Table[c(6,1:5),]
+OR_Table<- OR_Table[,c(2,1)]
+print(OR_Table)
 
-#OR
-Race_OR<-oddsratio(Level.Race)
+###Odds Ratio
+OR<-oddsratio(OR_Table)
 #printing the outcome so its easier to read
-print(Race_OR$measure)
-print(Race_OR$p.value)
+print(OR$measure)
+print(OR$p.value) 
 
-ggplot(Race_ForceType,
-       aes(x = V1,
-           fill = V2))+
+#graph
+ggplot(UOF_Weapon,
+       aes(x = residentRace,
+           fill = `Weapon.vs.No Weapon`))+
   geom_bar(position = "dodge")
 
+## Lethal vs non Lethal OR ##
+#taking out races with 0's to compute OR
+UOF_Lethal$residentRace<- gsub('Asian|Hispanic|Native American|Polynesian', NA, UOF_Lethal$residentRace)
 
-##comparing Lethal vs Less than lethal
-Race_ForceType2<- as.data.frame(na.omit(cbind(as.character(UOF_levels2$officerForceType), as.character(UOF_levels2$residentRace))))
 
+#making a table of Lethal vs Non Lethal with each race
+OR_Table2<-table(UOF_Lethal$residentRace, UOF_Lethal$`Lethal.vs.Non-lethal.Weapon`)
+OR_Table2 <- OR_Table2[c(3,1:2),]
+print(OR_Table2)
 
-Level.Race2<-table(Race_ForceType2$V2, Race_ForceType2$V1)
-Level.Race2 <- Level.Race[c(3,1:2),]
-print(Level.Race2)
+###Odds Ratio
+OR2<-oddsratio(OR_Table2)
+#printing the outcome so its easier to read
+print(OR2$measure)
+print(OR2$p.value) 
 
-#OR
-Race_OR2<-oddsratio(Level.Race2)
-print(Race_OR2$measure)
-print(Race_OR2$p.value)
-
-ggplot(Race_ForceType2,
-       aes(x = V1,
-           fill = V2))+
+#graph
+ggplot(UOF_Lethal,
+       aes(x = residentRace,
+           fill = `Lethal.vs.Non-lethal.Weapon`))+
   geom_bar(position = "dodge")
+
 
 
 ###Shootings OR

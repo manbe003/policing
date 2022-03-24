@@ -1,32 +1,16 @@
 #load dependencies and set working directory
-source("ProjectPackageManagement.R")
-PackageDependency()
 setwd(here())
+source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
+PackageDependency()
 
 #Load in dataset
 UOF<- read.csv(file = 'clean data/Indianapolis/UOF.csv', stringsAsFactors = FALSE)
 
-#Making a Force Binning column and binning the force type used
-UOF$ForceBinning = UOF$officerForceType
-
-UOF_FixLevels <- UOF
-UOF_FixLevels <- UOF_FixLevels %>%
-  mutate(ForceBinning = case_when(
-    str_detect(ForceBinning, "Lethal-Vehicle") ~ "3",
-    str_detect(ForceBinning, "Lethal-Handgun") ~ "3",
-    str_detect(ForceBinning, "Less Lethal") ~ "2",
-    str_detect(ForceBinning, "Canine") ~ "2",
-    str_detect(ForceBinning, "Physical") ~ "1",
-    TRUE ~ ForceBinning
-  ))
-
-#making N/As in the column regular NAs
-UOF_FixLevels$ForceBinning[UOF_FixLevels$ForceBinning=="N/A"]<-NA
-
-#Counting the numbe of officers by counting the number of distinct Officer IDs with the same case ID and making a DF
+#Counting the number of officers by counting the number of distinct Officer IDs with the same case ID and making a DF
 UOF_OfficerCount <- sqldf("SELECT 
       id, COUNT(DISTINCT officerIdentifier), officerRace
-      FROM UOF_FixLevels
+      FROM UOF
       GROUP BY id")
 colnames(UOF_OfficerCount)[2]<- "NumberofOfficers"
 
@@ -34,7 +18,7 @@ colnames(UOF_OfficerCount)[2]<- "NumberofOfficers"
 #Finding the Max force used in each case and making a DF
 UOF_MaxForce<- sqldf("SELECT
       id, MAX(ForceBinning)
-      FROM UOF_FixLevels
+      FROM UOF
       GROUP BY id")
 colnames(UOF_MaxForce)[2]<- "MaxForce"
 

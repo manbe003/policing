@@ -1,6 +1,8 @@
-#load libraries
-library(here)
-library(tidyverse)
+#load dependencies and set working directory
+source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
+PackageDependency()
+setwd(here())
 
 #load datasets
 Shootings<-read.csv(file=here('clean data/orlando/Shooting (cleaned).csv'), stringsAsFactors = FALSE)

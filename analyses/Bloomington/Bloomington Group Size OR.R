@@ -1,16 +1,10 @@
-#Bloomington OR Script
-
 #load dependencies and set working directory
-setwd(here())
 source("ProjectPackageManagement.R")
 PackageDependency()
+setwd(here())
 
-install.packages("sqldf")
-library(sqldf)
-library(epitools)
-library(ggplot2)
 
-#loading dataset
+#loading dataset (UOF)
 UOF<- read.csv(file = 'clean data/Bloomington/UOF.csv', stringsAsFactors = FALSE)
 
 
@@ -29,7 +23,7 @@ UOF_OfficerCount <- sqldf("SELECT
 colnames(UOF_OfficerCount)[9]<- "Number_of_Officers"
 colnames(UOF_OfficerCount)[8]<- "Max_Force_Level"
 
-#making a seperate dataframe with the columns needed to merge Officercount dataframe back into this
+#making a separate dataframe with the columns needed to merge Officercount dataframe back into this
 UOF2<- UOF[, c("Event", "Suspect_Condition", "Suspect_Age", "Suspect_Gender", "Suspect_Race", "Suspect_Armed", "Suspect_Injured", "Force_Level")]
 UOF2<- UOF2[!(UOF2$Event %in% UOF_OfficerCount$Event),]
 

@@ -1,14 +1,18 @@
-#Austin EDA
+#load dependencies and set working directory
+source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
+PackageDependency()
+setwd(here())
 
-#load library
-library(tidyverse)
-library(here)
 
-#Descriptive data
+#Loading data sets
 UOF_EDA<-read.csv(file=here('clean data/Austin/UseOfForce_Austin.csv'), stringsAsFactors = TRUE)
 Shootings_EDA<-read.csv(file=here('clean data/Austin/Shootings_Austin.csv'), stringsAsFactors = TRUE)
 Citations_EDA<-read.csv(file=here('clean data/Austin/Citations_Austin.csv'), stringsAsFactors = TRUE)
 
+### All Dataset's Descriptive Data ###
+
+#summaries
 summary(UOF_EDA)
 summary(Shootings_EDA)
 summary(Citations_EDA)
@@ -23,18 +27,16 @@ sd(UOF_EDA$officer.Yrs.of.service, na.rm=TRUE)
 var(Shootings_EDA$Officer.Age)
 var(UOF_EDA$officer.Yrs.of.service, na.rm=TRUE)
 
-##graphs
+#graphs
 hist(as.numeric(Shootings_EDA$Officer.Age), breaks = 50)
 hist(as.numeric(UOF_EDA$officer.Yrs.of.service), breaks = 50)
 
-#outliers
-
+#looking for outliers
 boxplot(Shootings_EDA$Officer.Age)
 boxplot(UOF_EDA$officer.Yrs.of.service)
 
 
 #normality
-
 ggplot(Shootings_EDA, aes(sample = Officer.Age)) +
   geom_qq() +
   geom_qq_line()
@@ -44,9 +46,10 @@ ggplot(UOF_EDA, aes(sample = officer.Yrs.of.service)) +
   geom_qq_line()
 
 
-##categorical data
+### Categorical Data ###
 
-##UOF
+### UOF Data
+
 #levels
 levels(UOF_EDA$subject.race)
 levels(UOF_EDA$subject.sex) 
@@ -54,7 +57,6 @@ levels(UOF_EDA$Subject.Ethnicity)
 levels(UOF_EDA$Area.Command)    
 
 #graphs
-
 ggplot(UOF_EDA, aes(subject.race)) +
   geom_bar()
 
@@ -74,20 +76,21 @@ ggplot(UOF_EDA,
   geom_bar(position = "dodge")
 
 
-##citations
+### Citations Data
+
 #levels
 levels(Citations_EDA$Subject.Race)
 levels(Citations_EDA$Subject.gender)
 
 #graphs
-
 ggplot(Citations_EDA, aes(Subject.Race)) +
   geom_bar()
 
 ggplot(Citations_EDA, aes(Subject.gender)) +
   geom_bar()
 
-##shootings
+
+### Shootings Data
 
 #levels
 levels(Shootings_EDA$Officer.Rank)
@@ -101,7 +104,6 @@ levels(Shootings_EDA$Subject.Injuries)
 levels(Shootings_EDA$Subject.Weapons)
 
 #graphs
-
 ggplot(Shootings_EDA, aes(Officer.Rank)) +
   geom_bar()
 

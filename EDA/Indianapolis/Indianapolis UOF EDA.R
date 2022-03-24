@@ -1,15 +1,15 @@
-#First I want to call libraries
-library(dplyr)
-library(tidyr)
-library(tidyverse)
+#load dependencies and set working directory
+setwd(here())
+source("ProjectPackageManagement.R")
+source("Data Cleaning Functions.R")
+PackageDependency()
 
-#Set working directory
-setwd("~/Desktop/GitAndR/Policing/clean data/Indianapolis")
-      
+   
 #Call in my datasets (UOF)
-UOF<-read.csv(file='UOF.csv', stringsAsFactors = TRUE)
+UOF<-read.csv(file='clean data/Indianapolis/UOF.csv', stringsAsFactors = TRUE)
 
-##Descriptive data
+### Descriptive data ###
+
 #Summary
 summary(UOF)
 
@@ -37,7 +37,8 @@ ggplot(UOF, aes(sample = officerYearsOfService)) + geom_qq() + geom_qq_line()
 #Correlations
 cor.test(UOF$officerAge, UOF$residentAge)
 
-##Categorical data analysis
+### Categorical data analysis ###
+
 #Levels
 levels(UOF$residentSex)
 levels(UOF$residentRace)
@@ -47,18 +48,29 @@ levels(UOF$useOfForceReason)
 levels(UOF$division)
 
 #Graphs
-ggplot(UOF, aes(residentSex)) + geom_bar()
-ggplot(UOF, aes(residentRace)) + geom_bar()
-ggplot(UOF, aes(officerSex)) + geom_bar()
-ggplot(UOF, aes(officerRace)) + geom_bar()
-ggplot(UOF, aes(useOfForceReason)) + geom_bar()
-ggplot(UOF, aes(division)) + geom_bar()
+ggplot(UOF, aes(residentSex)) + 
+  geom_bar()
+ggplot(UOF, aes(residentRace)) +
+  geom_bar()
+ggplot(UOF, aes(officerSex)) + 
+  geom_bar()
+ggplot(UOF, aes(officerRace)) + 
+  geom_bar()
+ggplot(UOF, aes(useOfForceReason)) + 
+  geom_bar()
+ggplot(UOF, aes(division)) + 
+  geom_bar()
 
 #Comparison
-ggplot(UOF, aes(x = residentRace, fill = useOfForceReason)) + geom_bar(position = "dodge")
-ggplot(UOF, aes(x = residentRace, fill = officerRace)) + geom_bar(position = "dodge")
-ggplot(UOF, aes(x = residentRace, fill = division)) + geom_bar(position = "dodge")
-ggplot(UOF, aes(x = residentRace, fill = officerSex)) + geom_bar(position = "dodge")
-ggplot(UOF, aes(x = residentRace, fill = residentSex)) + geom_bar(position = "dodge")
+ggplot(UOF, aes(x = residentRace, fill = useOfForceReason)) + 
+  geom_bar(position = "dodge")
+ggplot(UOF, aes(x = residentRace, fill = officerRace)) + 
+  geom_bar(position = "dodge")
+ggplot(UOF, aes(x = residentRace, fill = division)) + 
+  geom_bar(position = "dodge")
+ggplot(UOF, aes(x = residentRace, fill = officerSex)) + 
+  geom_bar(position = "dodge")
+ggplot(UOF, aes(x = residentRace, fill = residentSex)) + 
+  geom_bar(position = "dodge")
 
 

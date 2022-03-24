@@ -1,9 +1,8 @@
-#loading libraries
-library(here)
-library(epitools)
-library(tidyverse)
-library(dplyr)
-library(tidyr)
+#load dependencies and set working directory
+source("ProjectPackageManagement.R")
+PackageDependency()
+setwd(here())
+
 
 #loading in datasets
 UOF<- read.csv(file=here('clean data/seattle/UseOfForce_Seattle.csv'), stringsAsFactors = FALSE)
@@ -12,20 +11,20 @@ UOF<- read.csv(file=here('clean data/seattle/UseOfForce_Seattle.csv'), stringsAs
 UOF2<- UOF
 UOF2$DateTime <- paste(UOF2$date, " ", UOF2$time)
 
-#collapsing the Officer ID row so it puts each officer ID with the same incident DateTime in the same row seperated by commas
+#collapsing the Officer ID row so it puts each officer ID with the same incident DateTime in the same row separated by commas
 UOF3 <- UOF2 %>%
   dplyr::group_by(DateTime) %>%
   summarise(Officer_ID = paste(Officer_ID, collapse=",  "))
 
-#collapsing the Force Type row so it puts each officer ID with the same incident DateTime in the same row seperated by commas
+#collapsing the Force Type row so it puts each officer ID with the same incident DateTime in the same row separated by commas
 UOF4<- UOF2 %>%
   dplyr::group_by(DateTime) %>%
   summarise(Incident_Type= paste(Incident_Type, collapse=",  "))
 
-#combing them so all the needed data is in one dataframe
+#combing them so all the needed data is in one data frame
 UOF3$IncidentType <- paste(UOF4$Incident_Type)  
 
-#Binning Force Type (1- no weapon, 2- non lethal weapon, 3- lethal force)
+#Binning Force Type
 UOF_All_FixLevels <- UOF3
 UOF_All_FixLevels <- UOF_All_FixLevels %>%
   mutate(`IncidentType` = case_when(
@@ -39,22 +38,19 @@ UOF_All_FixLevels <- UOF_All_FixLevels %>%
 
 
 #binning number of officers into 1,2, or 3+
-OfficerBinning <- function (dataframe, dataframecol, separator){
-  dataframe['Number of Officers'] <- NA
-  dataframe['Binning Number of Officers'] <- NA
-  dataframe$`Number of Officers` <- str_count(dataframecol, coll(separator))+1
-  dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="1"]<- "1"
-  dataframe$`Binning Number of Officers`[dataframe$`Number of Officers`=="2"]<- "2"
-  dataframe$`Binning Number of Officers`[dataframe$`Number of Officers` > "2"]<- "3+"
-  return(dataframe)
-  
-}
+UOF_All_FixLevels['Number of Officers'] <- NA
+UOF_All_FixLevels['Binning Number of Officers'] <- NA
+UOF_All_FixLevels$`Number of Officers` <- str_count(UOF_All_FixLevels$Officer_ID, coll(",  "))+1
+UOF_All_FixLevels$`Binning Number of Officers`[UOF_All_FixLevels$`Number of Officers`=="1"]<- "1"
+UOF_All_FixLevels$`Binning Number of Officers`[UOF_All_FixLevels$`Number of Officers`=="2"]<- "2"
+UOF_All_FixLevels$`Binning Number of Officers`[UOF_All_FixLevels$`Number of Officers` > "2"]<- "3+"
+
 
 UOF_All_FixLevels<- OfficerBinning(UOF_All_FixLevels,UOF_All_FixLevels$Officer_ID, ",  ")
 
 
 
-
+#function to prep dataset for the OR by splitting force into lethal vs non lethal and weapon vs no weapon
 OR_Prep = function(dataset,column){
   #making a column binning level of force as lethal vs non lethal
   dataset['Lethal.vs.Non-lethal.Weapon'] <- column
